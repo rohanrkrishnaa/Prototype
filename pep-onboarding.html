@@ -220,7 +220,7 @@ html,body{height:100%;background:#EDEDED;font-family:var(--font);-webkit-font-sm
       <div style="font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.5px;margin-bottom:8px;line-height:1.2">Welcome to PEP</div>
       <div style="font-size:15px;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:20px">Your personal growth companion. Track, improve, and celebrate who you're becoming.</div>
       <button class="btn-cta" onclick="go(2)">Get started</button>
-      <button class="btn-sec" onclick="go(2)">Sign in to existing account</button>
+      <button class="btn-sec" onclick="go(9)">Sign in to existing account</button>
     </div>
   </div>
 
@@ -481,6 +481,67 @@ html,body{height:100%;background:#EDEDED;font-family:var(--font);-webkit-font-sm
       <div style="flex:1;min-height:8px"></div>
       <button class="white-cta" onclick="launchDashboard()" style="margin-bottom:12px">Open my dashboard</button>
       <div style="text-align:center;font-size:12px;color:var(--g400)">Update preferences anytime in Settings</div>
+    </div>
+  </div>
+
+
+  <!-- ══ S9: SIGN IN (existing account) ══════════════════════ -->
+  <div class="screen" id="s9">
+    <div style="flex:1;background:#fff;display:flex;flex-direction:column">
+      <!-- Header -->
+      <div style="padding:16px 20px 16px;display:flex;align-items:center;border-bottom:1px solid #EDEFF2;gap:12px">
+        <button class="back" onclick="go(1)" aria-label="Back" style="position:relative;top:auto;left:auto;margin:0"><span class="ms">arrow_back</span></button>
+        <div style="font-size:18px;font-weight:700;color:#2E3751">Sign in</div>
+      </div>
+      <!-- Body -->
+      <div style="flex:1;padding:28px 24px;overflow-y:auto">
+        <div style="font-size:24px;font-weight:800;color:#2E3751;letter-spacing:-0.4px;margin-bottom:6px">Welcome back</div>
+        <div style="font-size:14px;color:#8B96AA;margin-bottom:28px">Sign in to your JAGSoM PEP account</div>
+
+        <!-- Registration ID -->
+        <div style="margin-bottom:16px">
+          <label style="font-size:11px;font-weight:700;color:#667085;display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em">Registration ID</label>
+          <div style="display:flex;align-items:center;gap:10px;background:#F5F6F7;border:1.5px solid #E2E4E8;border-radius:12px;padding:12px 14px">
+            <span class="ms" style="font-size:20px;color:#8B96AA;font-variation-settings:'FILL' 0">person</span>
+            <input type="text" placeholder="e.g. 2025JULJPGG0008" style="flex:1;border:none;background:none;font-size:14px;color:#2E3751;font-family:inherit;outline:none"/>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div style="margin-bottom:24px">
+          <label style="font-size:11px;font-weight:700;color:#667085;display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em">Password</label>
+          <div style="display:flex;align-items:center;gap:10px;background:#F5F6F7;border:1.5px solid #E2E4E8;border-radius:12px;padding:12px 14px">
+            <span class="ms" style="font-size:20px;color:#8B96AA;font-variation-settings:'FILL' 0">lock</span>
+            <input type="password" placeholder="Enter your password" style="flex:1;border:none;background:none;font-size:14px;color:#2E3751;font-family:inherit;outline:none"/>
+          </div>
+        </div>
+
+        <!-- Login button -->
+        <button onclick="launchDashboard()" style="width:100%;padding:15px;background:#6832BA;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-bottom:20px">Login</button>
+
+        <!-- Divider -->
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+          <div style="flex:1;height:1px;background:#EDEFF2"></div>
+          <span style="font-size:11px;font-weight:600;color:#8B96AA;letter-spacing:0.05em;white-space:nowrap">OR CONTINUE WITH</span>
+          <div style="flex:1;height:1px;background:#EDEFF2"></div>
+        </div>
+
+        <!-- Microsoft SSO -->
+        <button onclick="launchDashboard()" style="width:100%;padding:14px;background:#fff;color:#2E3751;border:1.5px solid #E2E4E8;border-radius:12px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="8.5" height="8.5" fill="#F25022"/>
+            <rect x="10.5" y="1" width="8.5" height="8.5" fill="#7FBA00"/>
+            <rect x="1" y="10.5" width="8.5" height="8.5" fill="#00A4EF"/>
+            <rect x="10.5" y="10.5" width="8.5" height="8.5" fill="#FFB900"/>
+          </svg>
+          Sign in with Microsoft
+        </button>
+
+        <!-- Forgot password -->
+        <div style="text-align:center;margin-top:20px">
+          <button style="background:none;border:none;font-size:13px;font-weight:600;color:#6832BA;cursor:pointer;font-family:inherit">Forgot password?</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1128,14 +1189,14 @@ const PILLARS = [{
 const MISSIONS = [{
   id: 1,
   pillarId: "persona",
-  title: "Improve Persona Attendance",
-  description: "Improve your attendance in Persona activities to meet the minimum 80% requirement.",
+  title: "Own the Room",
+  description: "Present a 3-min case summary to your section. No notes, no slides. Faculty observes.",
   points: 25,
   verify: "Teacher",
-  why: "Your Persona attendance is below the 80% threshold. Missing workshops directly reduces your Internal score. Attending consistently is the fastest way to recover your score.",
+  why: "Public speaking under pressure is your weakest verbal competency. This is the fastest way to move the needle — no preparation crutches, just you and the room.",
   primary: {
     name: "C1 - Verbal Communication",
-    current: 0,
+    current: 2,
     max: 5
   },
   secondary: [{
@@ -1150,33 +1211,33 @@ const MISSIONS = [{
 }, {
   id: 2,
   pillarId: "discipline",
-  title: "Improve Discipline Attendance",
-  description: "Improve your attendance in Discipline activities to meet the minimum 80% requirement.",
+  title: "Zero Miss Week",
+  description: "Full attendance across every session for 7 consecutive days. No exceptions.",
   points: 20,
   verify: "Teacher",
-  why: "Discipline attendance directly feeds your Regularity and Preparedness scores.",
+  why: "Your attendance pattern is inconsistent. One clean week resets the habit and directly improves your Regularity score — the easiest points on the board.",
   primary: {
     name: "Regularity - Lifestyle",
-    current: 3,
+    current: 2,
     max: 5
   },
   secondary: [{
     name: "Preparedness - Lifeskill",
-    current: 4,
+    current: 3,
     max: 5
   }, {
     name: "Attendance - Overall Subjects",
-    current: 3,
+    current: 2,
     max: 5
   }]
 }, {
   id: 3,
   pillarId: "wellness",
-  title: "Improve 3km Run Time",
-  description: "Your endurance score is below batch average. Shaving 30 seconds off improves your Wellness score significantly.",
+  title: "Break the 3K",
+  description: "Shave 30 seconds off your last run time. Coach times you at the next fitness slot.",
   points: 50,
   verify: "Teacher",
-  why: "Cardiovascular endurance is your lowest Wellness microcompetency.",
+  why: "Cardiovascular endurance is your lowest Wellness score. 30 seconds is achievable with 3 focused sessions. The points jump is worth it.",
   primary: {
     name: "3KM Run Test",
     current: 2,
@@ -1188,28 +1249,77 @@ const MISSIONS = [{
     max: 5
   }, {
     name: "Body Composition Analysis",
-    current: 4,
+    current: 3,
     max: 5
   }]
 }, {
   id: 4,
-  pillarId: "persona",
-  title: "Submit Empathy Reflection",
-  description: "Write a reflection on your last Empathy workshop session to reinforce learning.",
-  points: 10,
-  verify: "Self",
-  why: "Active reflection after workshops improves competency retention.",
+  pillarId: "behaviour",
+  title: "Call It Out",
+  description: "Give structured feedback to a peer in front of the group. Faculty observes the exchange.",
+  points: 15,
+  verify: "Teacher",
+  why: "Constructive feedback is a skill most students avoid. Doing it publicly, with structure, builds your Interpersonal score faster than any workshop.",
   primary: {
-    name: "E1 - Active Listening",
+    name: "B1 - Interpersonal Skills",
     current: 1,
     max: 5
   },
   secondary: [{
     name: "C2 - Written Communication",
-    current: 0,
+    current: 2,
+    max: 5
+  }, {
+    name: "E1 - Active Listening",
+    current: 2,
     max: 5
   }]
 }];
+const MISSIONS_COMPLETED = [{
+  id: 5,
+  pillarId: "persona",
+  title: "Cold Read",
+  description: "Introduce a classmate you have never spoken to. Faculty observes the interaction.",
+  points: 15,
+  completedDate: "May 12, 2026",
+  acceptedBy: "Dr. Priya Sharma",
+  rating: 4
+}, {
+  id: 6,
+  pillarId: "wellness",
+  title: "7 Days Straight",
+  description: "Hit 8,000 steps every day for a week. Coach verifies via fitness tracker.",
+  points: 20,
+  completedDate: "May 10, 2026",
+  acceptedBy: "Coach Rajan Mehta",
+  rating: 5
+}, {
+  id: 7,
+  pillarId: "discipline",
+  title: "First In",
+  description: "Be in your seat before faculty for 5 consecutive classes.",
+  points: 10,
+  completedDate: "May 8, 2026",
+  acceptedBy: "Prof. Anil Verma",
+  rating: 3
+}];
+
+const MISSIONS_OVERDUE = [{
+  id: 8,
+  pillarId: "behaviour",
+  title: "Team Feedback Form",
+  description: "Complete the peer feedback form for your project group members.",
+  points: 15,
+  dueDate: "May 14, 2026"
+}, {
+  id: 9,
+  pillarId: "persona",
+  title: "Leadership Reading",
+  description: "Read the assigned chapter on situational leadership and submit a summary.",
+  points: 10,
+  dueDate: "May 16, 2026"
+}];
+
 const INTERVENTIONS_UPCOMING = [{
   id: 1,
   title: "Communication Workshop",
@@ -1684,278 +1794,207 @@ function BottomNav({
 
 // ─── MISSION DETAIL SHEET ────────────────────────────────────────────────────
 
-function MissionSheet({
-  mission,
-  onClose,
-  onComplete,
-  completed
-}) {
+function MissionSheet({ mission, onClose, onComplete, completed }) {
   if (!mission) return null;
-  const pillar = getPillar(mission.pillarId);
-  const isDone = completed.includes(mission.id);
-  return /*#__PURE__*/React.createElement("div", {
+  var pillar = getPillar(mission.pillarId);
+  var isDone = completed.includes(mission.id);
+  var _u = React.useState(null); var uploadedFile = _u[0], setUploadedFile = _u[1];
+  var _drag = React.useState(false); var dragging = _drag[0], setDragging = _drag[1];
+
+  function handleFileInput(e) {
+    var f = e.target.files && e.target.files[0];
+    if (f) setUploadedFile(f.name);
+  }
+
+  var canComplete = uploadedFile !== null;
+
+  return React.createElement("div", {
     onClick: onClose,
-    style: {
-      position: "absolute",
-      inset: 0,
-      zIndex: 200,
-      background: "rgba(0,0,0,0.5)",
-      display: "flex",
-      alignItems: "flex-end",
-      justifyContent: "center"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    onClick: e => e.stopPropagation(),
-    style: {
-      width: "100%",
-      background: "#fff",
-      borderRadius: "20px 20px 0 0",
-      maxHeight: "88vh",
-      overflowY: "auto"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      padding: "12px 16px 4px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      flex: 1,
-      display: "flex",
-      justifyContent: "center"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 36,
-      height: 4,
-      borderRadius: 2,
-      background: "#E2E4E8"
-    }
-  })), /*#__PURE__*/React.createElement(IconClose, { onPress: onClose })), /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: "20px 20px 16px",
-      borderBottom: "1px solid #EDEFF2"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 8,
-      marginBottom: 10
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: pillar.lightBg,
-      border: `1px solid ${pillar.borderColor}`,
-      borderRadius: 8,
-      padding: "3px 10px",
-      fontSize: 11,
-      fontWeight: 700,
-      color: pillar.color
-    }
-  }, pillar.name), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginLeft: "auto",
-      display: "flex",
-      alignItems: "center",
-      gap: 5,
-      background: "#FFFBEB",
-      border: "1px solid #FDE68A",
-      borderRadius: 8,
-      padding: "3px 10px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 6,
-      height: 6,
-      borderRadius: "50%",
-      background: "#F59E0B"
-    }
-  }), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 12,
-      fontWeight: 700,
-      color: "#D97706"
-    }
-  }, "+", mission.points, " PEP pts"))), /*#__PURE__*/React.createElement("h3", {
-    style: {
-      fontSize: 17,
-      fontWeight: 700,
-      color: "#2E3751",
-      lineHeight: 1.3,
-      margin: 0
-    }
-  }, mission.title)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: "20px 20px 0"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 10,
-      fontWeight: 700,
-      color: "#8B96AA",
-      textTransform: "uppercase",
-      letterSpacing: "0.1em",
-      marginBottom: 8
-    }
-  }, "Why this matters"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 13,
-      color: "#667085",
-      lineHeight: 1.6,
-      margin: 0
-    }
-  }, mission.why)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: "20px 20px 0"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 10,
-      fontWeight: 700,
-      color: "#8B96AA",
-      textTransform: "uppercase",
-      letterSpacing: "0.1em",
-      marginBottom: 10
-    }
-  }, "Primary improvement"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#FFFBEB",
-      border: "1px solid #FDE68A",
-      borderRadius: 14,
-      padding: "14px 16px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: 10
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 13,
-      fontWeight: 700,
-      color: "#2E3751"
-    }
-  }, mission.primary.name), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 11,
-      color: "#8B96AA"
-    }
-  }, mission.primary.current, "/", mission.primary.max)), /*#__PURE__*/React.createElement(ScoreDots, {
-    current: mission.primary.current,
-    max: mission.primary.max
-  }), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 11,
-      color: "#D97706",
-      margin: "8px 0 0"
-    }
-  }, "This mission directly improves this microcompetency"))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: "20px 20px 0"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 10,
-      fontWeight: 700,
-      color: "#8B96AA",
-      textTransform: "uppercase",
-      letterSpacing: "0.1em",
-      marginBottom: 10
-    }
-  }, "Also improves"), mission.secondary.map((s, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: {
-      background: "#F5F6F7",
-      border: "1px solid #E2E4E8",
-      borderRadius: 12,
-      padding: "12px 14px",
-      marginBottom: 8,
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center"
-    }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 12,
-      fontWeight: 600,
-      color: "#3C4458",
-      marginBottom: 6
-    }
-  }, s.name), /*#__PURE__*/React.createElement(ScoreDots, {
-    current: s.current,
-    max: s.max,
-    color: pillar.color
-  })), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 11,
-      color: "#8B96AA"
-    }
-  }, s.current, "/", s.max)))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: "20px 20px 0"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: mission.verify === "Teacher" ? "#F5F0FC" : "#ECFDF3",
-      border: `1px solid ${mission.verify === "Teacher" ? "#DDCEF2" : "#A9EFC5"}`,
-      borderRadius: 12,
-      padding: "12px 14px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 12,
-      fontWeight: 700,
-      color: mission.verify === "Teacher" ? "#6832BA" : "#12B76A",
-      marginBottom: 4
-    }
-  }, mission.verify === "Teacher" ? "Teacher verified" : "Self verified"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 11,
-      color: "#667085",
-      margin: 0,
-      lineHeight: 1.5
-    }
-  }, mission.verify === "Teacher" ? "Your teacher confirms completion. Points awarded once they verify." : "Mark as complete yourself. Points awarded immediately."))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: "24px 20px 32px"
-    }
-  }, isDone ? /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: "100%",
-      padding: 16,
-      background: "#ECFDF3",
-      border: "1px solid #A9EFC5",
-      borderRadius: 14,
-      textAlign: "center",
-      fontSize: 14,
-      fontWeight: 700,
-      color: "#12B76A",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: 8
-    }
-  }, /*#__PURE__*/React.createElement("span", { className:"ms", style:{ fontSize:18, color:"#12B76A" } }, "check_circle"),
-     "Completed — sheet closes automatically"
-  ) : /*#__PURE__*/React.createElement("button", {
-    onClick: () => { onComplete(mission.id); setTimeout(onClose, 1200); },
-    style: {
-      width: "100%",
-      padding: 16,
-      background: "#6832BA",
-      border: "none",
-      borderRadius: 14,
-      fontSize: 15,
-      fontWeight: 700,
-      color: "#fff",
-      cursor: "pointer"
-    }
-  }, "Mark as Complete \u2014 +", mission.points, " pts"))));
+    style: { position:"absolute", inset:0, zIndex:200, background:"rgba(0,0,0,0.5)",
+             display:"flex", alignItems:"flex-end", justifyContent:"center" }
+  },
+  React.createElement("div", {
+    onClick: function(e){ e.stopPropagation(); },
+    style: { width:"100%", background:"#fff", borderRadius:"20px 20px 0 0",
+             maxHeight:"88vh", overflowY:"auto" }
+  },
+
+  // ── drag handle + close
+  React.createElement("div", {
+    style:{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"12px 16px 4px" }
+  },
+    React.createElement("div", { style:{ flex:1, display:"flex", justifyContent:"center" } },
+      React.createElement("div", { style:{ width:36, height:4, borderRadius:2, background:"#E2E4E8" } })
+    ),
+    React.createElement(IconClose, { onPress: onClose })
+  ),
+
+  // ── header: pillar + pts + title
+  React.createElement("div", {
+    style:{ padding:"16px 20px", borderBottom:"1px solid #EDEFF2" }
+  },
+    React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:8, marginBottom:10 } },
+      React.createElement("div", {
+        style:{ background:pillar.lightBg, border:"1px solid "+pillar.borderColor,
+                borderRadius:8, padding:"3px 10px", fontSize:11, fontWeight:700, color:pillar.color }
+      }, pillar.name),
+      React.createElement("div", {
+        style:{ marginLeft:"auto", display:"flex", alignItems:"center", gap:5,
+                background:"#FFFBEB", border:"1px solid #FDE68A", borderRadius:8, padding:"3px 10px" }
+      },
+        React.createElement("div", { style:{ width:6, height:6, borderRadius:"50%", background:"#F59E0B" } }),
+        React.createElement("span", { style:{ fontSize:12, fontWeight:700, color:"#D97706" } }, "+", mission.points, " PEP pts")
+      )
+    ),
+    React.createElement("h3", {
+      style:{ fontSize:17, fontWeight:700, color:"#2E3751", lineHeight:1.3, margin:0 }
+    }, mission.title)
+  ),
+
+  // ── why this matters
+  React.createElement("div", { style:{ padding:"16px 20px 0" } },
+    React.createElement("div", {
+      style:{ fontSize:10, fontWeight:700, color:"#8B96AA", textTransform:"uppercase",
+              letterSpacing:"0.1em", marginBottom:8 }
+    }, "Why this matters"),
+    React.createElement("p", {
+      style:{ fontSize:13, color:"#667085", lineHeight:1.6, margin:0 }
+    }, mission.why)
+  ),
+
+  // ── primary improvement
+  React.createElement("div", { style:{ padding:"16px 20px 0" } },
+    React.createElement("div", {
+      style:{ fontSize:10, fontWeight:700, color:"#8B96AA", textTransform:"uppercase",
+              letterSpacing:"0.1em", marginBottom:10 }
+    }, "Primary improvement"),
+    React.createElement("div", {
+      style:{ background:"#FFFBEB", border:"1px solid #FDE68A", borderRadius:14, padding:"14px 16px" }
+    },
+      React.createElement("div", {
+        style:{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }
+      },
+        React.createElement("span", { style:{ fontSize:13, fontWeight:700, color:"#2E3751" } }, mission.primary.name),
+        React.createElement("span", { style:{ fontSize:11, color:"#8B96AA" } }, mission.primary.current, "/", mission.primary.max)
+      ),
+      React.createElement(ScoreDots, { current:mission.primary.current, max:mission.primary.max }),
+      React.createElement("p", { style:{ fontSize:11, color:"#D97706", margin:"8px 0 0" } },
+        "This mission directly improves this microcompetency")
+    )
+  ),
+
+  // ── also improves
+  React.createElement("div", { style:{ padding:"16px 20px 0" } },
+    React.createElement("div", {
+      style:{ fontSize:10, fontWeight:700, color:"#8B96AA", textTransform:"uppercase",
+              letterSpacing:"0.1em", marginBottom:10 }
+    }, "Also improves"),
+    mission.secondary.map(function(s, i) {
+      return React.createElement("div", {
+        key:i,
+        style:{ background:"#F5F6F7", border:"1px solid #E2E4E8", borderRadius:12,
+                padding:"12px 14px", marginBottom:8, display:"flex",
+                justifyContent:"space-between", alignItems:"center" }
+      },
+        React.createElement("div", null,
+          React.createElement("div", { style:{ fontSize:12, fontWeight:600, color:"#3C4458", marginBottom:6 } }, s.name),
+          React.createElement(ScoreDots, { current:s.current, max:s.max, color:pillar.color })
+        ),
+        React.createElement("span", { style:{ fontSize:11, color:"#8B96AA" } }, s.current, "/", s.max)
+      );
+    })
+  ),
+
+  // ── verification badge
+  React.createElement("div", { style:{ padding:"16px 20px 0" } },
+    React.createElement("div", {
+      style:{ background:"#F5F0FC", border:"1px solid #DDCEF2",
+              borderRadius:12, padding:"12px 14px" }
+    },
+      React.createElement("div", { style:{ fontSize:12, fontWeight:700, color:"#6832BA", marginBottom:4 } },
+        "Faculty verified"),
+      React.createElement("p", { style:{ fontSize:11, color:"#667085", margin:0, lineHeight:1.5 } },
+        "Upload your evidence below. Your faculty reviews and awards points once verified.")
+    )
+  ),
+
+  // ── upload area
+  isDone ? null : React.createElement("div", { style:{ padding:"16px 20px 0" } },
+    React.createElement("div", {
+      style:{ fontSize:10, fontWeight:700, color:"#8B96AA", textTransform:"uppercase",
+              letterSpacing:"0.1em", marginBottom:10 }
+    }, "Upload evidence"),
+    uploadedFile
+      ? React.createElement("div", {
+          style:{ background:"#ECFDF3", border:"1px solid #A9EFC5", borderRadius:12,
+                  padding:"12px 14px", display:"flex", alignItems:"center", gap:10 }
+        },
+          React.createElement("span", { className:"ms", style:{ fontSize:22, color:"#12B76A" } }, "check_circle"),
+          React.createElement("div", { style:{ flex:1 } },
+            React.createElement("div", { style:{ fontSize:12, fontWeight:700, color:"#12B76A" } }, "File uploaded"),
+            React.createElement("div", { style:{ fontSize:11, color:"#667085" } }, uploadedFile)
+          ),
+          React.createElement("button", {
+            onClick: function(){ setUploadedFile(null); },
+            style:{ background:"none", border:"none", cursor:"pointer", padding:4 }
+          },
+            React.createElement("span", { className:"ms", style:{ fontSize:18, color:"#8B96AA" } }, "close")
+          )
+        )
+      : React.createElement("label", {
+          style:{ display:"block", cursor:"pointer" }
+        },
+          React.createElement("div", {
+            style:{ border:"2px dashed " + (dragging ? "#6832BA" : "#DDCEF2"),
+                    borderRadius:12, padding:"20px 16px", textAlign:"center",
+                    background: dragging ? "#F5F0FC" : "#FAFAFA",
+                    transition:"all 0.15s" }
+          },
+            React.createElement("span", { className:"ms",
+              style:{ fontSize:28, color:"#8B96AA", display:"block", marginBottom:6 } }, "upload_file"),
+            React.createElement("div", { style:{ fontSize:13, fontWeight:600, color:"#3C4458", marginBottom:4 } },
+              "Tap to upload"),
+            React.createElement("div", { style:{ fontSize:11, color:"#8B96AA" } },
+              "Photo, PDF or document")
+          ),
+          React.createElement("input", {
+            type:"file",
+            accept:"image/*,.pdf,.doc,.docx",
+            onChange: handleFileInput,
+            style:{ display:"none" }
+          })
+        )
+  ),
+
+  // ── complete button
+  React.createElement("div", { style:{ padding:"20px 20px 36px" } },
+    isDone
+      ? React.createElement("div", {
+          style:{ width:"100%", padding:16, background:"#ECFDF3", border:"1px solid #A9EFC5",
+                  borderRadius:14, textAlign:"center", fontSize:14, fontWeight:700,
+                  color:"#12B76A", display:"flex", alignItems:"center", justifyContent:"center", gap:8 }
+        },
+          React.createElement("span", { className:"ms", style:{ fontSize:18, color:"#12B76A" } }, "check_circle"),
+          "Submitted for review"
+        )
+      : React.createElement("button", {
+          onClick: canComplete ? function(){ onComplete(mission.id); setTimeout(onClose, 1200); } : null,
+          style:{
+            width:"100%", padding:16, borderRadius:14, fontSize:15, fontWeight:700,
+            border:"none", cursor: canComplete ? "pointer" : "not-allowed",
+            background: canComplete ? "#6832BA" : "#E2E4E8",
+            color: canComplete ? "#fff" : "#8B96AA",
+            transition:"all 0.2s"
+          }
+        },
+          canComplete
+            ? React.createElement(React.Fragment, null,
+                "Submit for review — +", mission.points, " pts")
+            : "Upload evidence to continue"
+        )
+  )
+
+  ));
 }
 
 // ─── COMPETENCY SHEET ────────────────────────────────────────────────────────
@@ -2566,6 +2605,7 @@ function HomeScreen({
   studentName,
   onViewScore,
   onStartMission,
+  onSeeAllMissions,
   completedMissions,
   pepPoints,
   darkMode
@@ -2575,7 +2615,7 @@ function HomeScreen({
     style: {
       flex: 1,
       overflowY: "auto",
-      background: dm ? "#111318" : "#F5F6F7",
+      background: dm ? "#111318" : "#fff",
       transition: "background 0.3s"
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -2680,7 +2720,7 @@ function HomeScreen({
     style: { fontSize: 10, color: "#92400E", fontWeight: 600, marginTop: 2 }
   }, "PEP Points")))), /*#__PURE__*/React.createElement("div", {
     style: {
-      padding: "16px 16px 0"
+      padding: "16px 0 0"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2799,7 +2839,7 @@ function HomeScreen({
     strokeLinejoin: "round"
   }))))), /*#__PURE__*/React.createElement("div", {
     style: {
-      padding: "20px 16px 24px"
+      padding: "20px 0 24px"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2815,13 +2855,22 @@ function HomeScreen({
       color: "#2E3751",
       margin: 0
     }
-  }, "Missions"), /*#__PURE__*/React.createElement("span", {
+  }, "Missions"), /*#__PURE__*/React.createElement("button", {
+    onClick: onSeeAllMissions,
     style: {
       fontSize: 12,
       color: "#6832BA",
-      fontWeight: 600
+      fontWeight: 600,
+      background:"none",
+      border:"none",
+      cursor:"pointer",
+      padding:0,
+      display:"flex",
+      alignItems:"center",
+      gap:4
     }
-  }, MISSIONS.filter(m => !completedMissions.includes(m.id)).length, " active")), MISSIONS.length === 0 || MISSIONS.every(m => completedMissions.includes(m.id)) ? /*#__PURE__*/React.createElement("div", {
+  }, MISSIONS.filter(m => !completedMissions.includes(m.id)).length, " active",
+  React.createElement("span", { className:"ms", style:{ fontSize:14, color:"#6832BA" } }, "chevron_right"))), MISSIONS.length === 0 || MISSIONS.every(m => completedMissions.includes(m.id)) ? /*#__PURE__*/React.createElement("div", {
     style: {
       background: "#fff",
       borderRadius: 14,
@@ -2858,14 +2907,17 @@ function HomeScreen({
     const done = completedMissions.includes(m.id);
     return /*#__PURE__*/React.createElement("div", {
       key: m.id,
+      onClick: done ? null : () => onStartMission(m.id),
       style: {
         background: "#fff",
         borderRadius: 14,
         border: `1px solid ${done ? "#E2E4E8" : pillar.borderColor}`,
         padding: "14px 16px",
+        marginBottom: 12,
         opacity: done ? 0.6 : 1,
         position: "relative",
-        overflow: "hidden"
+        overflow: "hidden",
+        cursor: done ? "default" : "pointer"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -2951,18 +3003,10 @@ function HomeScreen({
         color: "#fff",
         cursor: "pointer"
       }
-    }, "Start Mission", /*#__PURE__*/React.createElement("svg", {
-      width: "14",
-      height: "14",
-      viewBox: "0 0 14 14",
-      fill: "none"
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M2 7h10M8 4l3 3-3 3",
-      stroke: "#fff",
-      strokeWidth: "1.5",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    })))));
+    }, "Start", /*#__PURE__*/React.createElement("span", {
+      className: "ms",
+      style: { fontSize: 14, color: "#fff" }
+    }, "arrow_forward"))));
   })))));
 }
 
@@ -3733,6 +3777,212 @@ function LeaderboardScreen({ onBack, darkMode }) {
   ));
 }
 
+
+function MissionsScreen({ onBack, onStartMission, completedMissions, darkMode }) {
+  var dm = darkMode;
+  var _t = React.useState("todo");
+  var activeTab = _t[0], setActiveTab = _t[1];
+
+  var todoMissions = MISSIONS.filter(function(m){ return !completedMissions.includes(m.id); });
+  var doneMissions = MISSIONS_COMPLETED;
+
+  var tabs = [
+    { id:"todo",      label:"To Do",     count: todoMissions.length },
+    { id:"completed", label:"Completed", count: doneMissions.length },
+  ];
+
+  // ── TO DO card — identical to dashboard card ──
+  function TodoCard(props) {
+    var m = props.mission;
+    var pillar = getPillar(m.pillarId);
+    return React.createElement("div", {
+      key: m.id,
+      onClick: function(){ onStartMission(m.id); },
+      style: {
+        background: dm ? "#1C1F26" : "#fff",
+        borderRadius: 14,
+        border: "1px solid " + (dm ? "#2A2D35" : pillar.borderColor),
+        padding: "14px 16px",
+        position: "relative",
+        overflow: "hidden",
+        cursor: "pointer"
+      }
+    },
+      // left accent bar
+      React.createElement("div", {
+        style: { position:"absolute", top:0, left:0, bottom:0, width:3, background: pillar.color }
+      }),
+      React.createElement("div", { style:{ paddingLeft:10 } },
+        // top row: pillar tag + points
+        React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:6, marginBottom:6 } },
+          React.createElement("div", {
+            style:{ fontSize:10, fontWeight:700, color:pillar.color,
+                    background:pillar.lightBg, borderRadius:6, padding:"2px 8px" }
+          }, pillar.name),
+          React.createElement("div", { style:{ marginLeft:"auto", display:"flex", alignItems:"center", gap:4 } },
+            React.createElement("div", { style:{ width:5, height:5, borderRadius:"50%", background:"#F59E0B" } }),
+            React.createElement("span", { style:{ fontSize:11, fontWeight:700, color:"#D97706" } }, "+", m.points, " pts")
+          )
+        ),
+        // title
+        React.createElement("div", {
+          style:{ fontSize:14, fontWeight:700, color: dm ? "#F0F2F5" : "#2E3751", marginBottom:4 }
+        }, m.title),
+        // description
+        React.createElement("p", {
+          style:{ fontSize:12, color: dm ? "#9CA3AF" : "#667085", margin:"0 0 12px", lineHeight:1.5 }
+        }, m.description),
+        // Tap anywhere indicator
+        React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:4 } },
+          React.createElement("span", { style:{ fontSize:11, fontWeight:600, color:"#6832BA" } }, "Tap to start"),
+          React.createElement("span", { className:"ms", style:{ fontSize:14, color:"#6832BA" } }, "arrow_forward")
+        )
+      )
+    );
+  }
+
+  // ── COMPLETED card — with acceptedBy + rating ──
+  function CompletedCard(props) {
+    var m = props.mission;
+    var pillar = getPillar(m.pillarId);
+    // render rating stars
+    var stars = [];
+    for (var i = 1; i <= 5; i++) {
+      stars.push(React.createElement("span", {
+        key: i,
+        className: "ms",
+        style:{ fontSize:16, color: i <= m.rating ? "#FCBC28" : "#E2E4E8",
+                fontVariationSettings: i <= m.rating ? "'FILL' 1" : "'FILL' 0" }
+      }, "star"));
+    }
+    return React.createElement("div", {
+      style:{
+        background: dm ? "#1C1F26" : "#fff",
+        borderRadius:14,
+        border: "1px solid " + (dm ? "#2A2D35" : "#A9EFC5"),
+        padding:"14px 16px",
+        position:"relative",
+        overflow:"hidden"
+      }
+    },
+      // green left accent
+      React.createElement("div", {
+        style:{ position:"absolute", top:0, left:0, bottom:0, width:3, background:"#12B76A" }
+      }),
+      React.createElement("div", { style:{ paddingLeft:10 } },
+        // top row: pillar tag + pts earned
+        React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:6, marginBottom:6 } },
+          React.createElement("div", {
+            style:{ fontSize:10, fontWeight:700, color:pillar.color,
+                    background:pillar.lightBg, borderRadius:6, padding:"2px 8px" }
+          }, pillar.name),
+          React.createElement("div", { style:{ marginLeft:"auto", display:"flex", alignItems:"center", gap:4 } },
+            React.createElement("span", { className:"ms", style:{ fontSize:14, color:"#12B76A" } }, "check_circle"),
+            React.createElement("span", { style:{ fontSize:11, fontWeight:700, color:"#12B76A" } }, "+", m.points, " pts earned")
+          )
+        ),
+        // title
+        React.createElement("div", {
+          style:{ fontSize:14, fontWeight:700, color: dm ? "#F0F2F5" : "#2E3751", marginBottom:4 }
+        }, m.title),
+        // description
+        React.createElement("p", {
+          style:{ fontSize:12, color: dm ? "#9CA3AF" : "#667085", margin:"0 0 12px", lineHeight:1.5 }
+        }, m.description),
+        // divider
+        React.createElement("div", { style:{ height:1, background: dm ? "#2A2D35" : "#F5F6F7", margin:"0 0 10px" } }),
+        // accepted by + rating row
+        React.createElement("div", { style:{ display:"flex", alignItems:"center", justifyContent:"space-between" } },
+          React.createElement("div", null,
+            React.createElement("div", { style:{ fontSize:10, fontWeight:700, color:"#8B96AA", marginBottom:2 } }, "Accepted by"),
+            React.createElement("div", { style:{ fontSize:12, fontWeight:600, color: dm ? "#E5E7EB" : "#2E3751" } }, m.acceptedBy)
+          ),
+          React.createElement("div", { style:{ display:"flex", flexDirection:"column", alignItems:"flex-end", gap:2 } },
+            React.createElement("div", { style:{ fontSize:10, fontWeight:700, color:"#8B96AA" } }, "Rating"),
+            React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:1 } }, stars),
+            React.createElement("div", { style:{ fontSize:10, color:"#8B96AA" } }, m.rating + " / 5")
+          )
+        )
+      )
+    );
+  }
+
+  var currentList = activeTab === "todo" ? todoMissions : doneMissions;
+
+  return React.createElement("div", {
+    style:{ flex:1, display:"flex", flexDirection:"column",
+            background: dm ? "#111318" : "#F5F6F7", overflow:"hidden" }
+  },
+    // Header
+    React.createElement("div", {
+      style:{ background: dm ? "#1C1F26" : "#fff",
+              borderBottom: dm ? "1px solid #2A2D35" : "1px solid #EDEFF2",
+              padding:"16px 20px 0", flexShrink:0 }
+    },
+      React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:12, marginBottom:12 } },
+        React.createElement(IconBack, { onPress: onBack }),
+        React.createElement("div", null,
+          React.createElement("h2", {
+            style:{ fontSize:18, fontWeight:700, color: dm ? "#F0F2F5" : "#2E3751", margin:0 }
+          }, "Missions"),
+          React.createElement("p", {
+            style:{ fontSize:11, color:"#8B96AA", margin:0 }
+          }, todoMissions.length + " pending · " + doneMissions.length + " completed")
+        )
+      ),
+      // Tabs
+      React.createElement("div", { style:{ display:"flex" } },
+        tabs.map(function(tab) {
+          var active = activeTab === tab.id;
+          return React.createElement("button", {
+            key: tab.id,
+            onClick: function(){ setActiveTab(tab.id); },
+            style:{ flex:1, padding:"10px 0", background:"none", border:"none", cursor:"pointer",
+                    borderBottom: active ? "2px solid #6832BA" : "2px solid transparent",
+                    fontSize:13, fontWeight: active ? 700 : 500,
+                    color: active ? "#6832BA" : "#8B96AA", transition:"all 0.15s" }
+          },
+            tab.label,
+            tab.count > 0 && React.createElement("span", {
+              style:{ marginLeft:5, background: active ? "#6832BA" : "#E2E4E8",
+                      color: active ? "#fff" : "#8B96AA",
+                      borderRadius:10, padding:"1px 6px", fontSize:10, fontWeight:700 }
+            }, tab.count)
+          );
+        })
+      )
+    ),
+    // List
+    React.createElement("div", {
+      style:{ flex:1, overflowY:"auto", padding:"16px 20px 24px",
+              display:"flex", flexDirection:"column", gap:10 }
+    },
+      currentList.length === 0
+        ? React.createElement("div", {
+            style:{ background: dm ? "#1C1F26" : "#fff", borderRadius:14,
+                    border: dm ? "1px solid #2A2D35" : "1px solid #EDEFF2",
+                    padding:"32px 20px", textAlign:"center" }
+          },
+            React.createElement("span", { className:"ms",
+              style:{ fontSize:40, color: activeTab==="todo" ? "#6832BA" : "#12B76A",
+                      display:"block", marginBottom:8 } },
+              activeTab==="todo" ? "task_alt" : "check_circle"),
+            React.createElement("div", {
+              style:{ fontSize:14, fontWeight:700, color: dm ? "#F0F2F5" : "#2E3751", marginBottom:4 }
+            }, activeTab==="todo" ? "No pending missions!" : "No completed missions yet"),
+            React.createElement("p", { style:{ fontSize:12, color:"#8B96AA", margin:0 } },
+              activeTab==="todo" ? "Check back soon for new missions." : "Start a mission to see it here.")
+          )
+        : currentList.map(function(m) {
+            return activeTab === "todo"
+              ? React.createElement(TodoCard, { key: m.id, mission: m })
+              : React.createElement(CompletedCard, { key: m.id, mission: m });
+          })
+    )
+  );
+}
+
+
 // ─── MENU SCREEN ─────────────────────────────────────────────────────────────
 
 function LogoutButton() {
@@ -3772,6 +4022,7 @@ function MenuScreen({ onNavigate, onBack, darkMode }) {
   var dm = darkMode;
   var menuItems = [
     { id:"home",         ms:"home",        label:"Dashboard",     sub:"Your HPS overview" },
+    { id:"missions",     ms:"flag",         label:"Missions",      sub:"Your tasks & to-dos" },
     { id:"interventions",ms:"assignment",  label:"Interventions", sub:"Tasks & activities" },
     { id:"leaderboard",  ms:"leaderboard", label:"Leaderboard",   sub:"Batch rankings" },
     { id:"eligibility",  ms:"verified",    label:"Eligibility",   sub:"Grading & criteria" },
@@ -4259,6 +4510,7 @@ function PEPApp() {
     studentName: studentName,
     onViewScore: () => setScreen("pillarScores"),
     onStartMission: id => setActiveMissionId(id),
+    onSeeAllMissions: () => handleNavigate("missions"),
     completedMissions: completed,
     pepPoints: pepPoints,
     darkMode: dm
@@ -4276,6 +4528,11 @@ function PEPApp() {
     onFeedbackGiven: handleFeedbackGiven
   }), screen === "leaderboard" && /*#__PURE__*/React.createElement(LeaderboardScreen, {
     onBack: () => handleNavigate("home"),
+    darkMode: dm
+  }), screen === "missions" && /*#__PURE__*/React.createElement(MissionsScreen, {
+    onBack: () => handleNavigate("home"),
+    onStartMission: id => setActiveMissionId(id),
+    completedMissions: completed,
     darkMode: dm
   }), screen === "menu" && /*#__PURE__*/React.createElement(MenuScreen, {
     onNavigate: handleNavigate,
