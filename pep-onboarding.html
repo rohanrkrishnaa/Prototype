@@ -3012,294 +3012,406 @@ function HomeScreen({
 
 // ─── SCREEN: PILLAR SCORES ────────────────────────────────────────────────────
 
-function PillarScoresScreen({
-  onBack,
-  onOpenCompetency,
-  darkMode
-}) {
-  const pdm = darkMode;
-  const [activeTab, setActiveTab] = useState("persona");
-  const pillar = getPillar(activeTab);
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      flex: 1,
-      display: "flex",
-      flexDirection: "column",
-      background: pdm ? "#111318" : "#F5F6F7",
-      overflow: "hidden",
-      transition: "background 0.3s"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: pdm ? "#1C1F26" : "#fff",
-      borderBottom: pdm ? "1px solid #2A2D35" : "1px solid #EDEFF2",
-      padding: "16px 20px 0",
-      flexShrink: 0,
-      transition: "background 0.3s"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 12,
-      marginBottom: 16
-    }
-  }, /*#__PURE__*/React.createElement(IconBack, {
-    onPress: onBack
-  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", {
-    style: {
-      fontSize: 18,
-      fontWeight: 700,
-      color: "#2E3751",
-      margin: 0
-    }
-  }, "Pillar Scores"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 12,
-      color: "#8B96AA",
-      margin: 0
-    }
-  }, "4.8 / 5 HPS"))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex"
-    }
-  }, PILLARS.map(p => /*#__PURE__*/React.createElement("button", {
-    key: p.id,
-    onClick: () => setActiveTab(p.id),
-    style: {
-      flex: 1,
-      padding: "10px 4px",
-      background: "none",
-      border: "none",
-      cursor: "pointer",
-      borderBottom: activeTab === p.id ? `2px solid ${p.color}` : "2px solid transparent",
-      fontSize: 11,
-      fontWeight: activeTab === p.id ? 700 : 500,
-      color: activeTab === p.id ? p.color : "#8B96AA",
-      transition: "all 0.15s"
-    }
-  }, p.name)))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      flex: 1,
-      overflowY: "auto",
-      padding: 16
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: pillar.color,
-      borderRadius: 16,
-      padding: "18px 20px",
-      marginBottom: 12
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "flex-start"
-    }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
-    style: {
-      fontSize: 20,
-      fontWeight: 800,
-      color: "#fff",
-      margin: "0 0 4px"
-    }
-  }, pillar.name), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 12,
-      color: "rgba(255,255,255,0.7)",
-      margin: 0
-    }
-  }, "Weightage: ", pillar.weight, "%")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "rgba(255,255,255,0.2)",
-      borderRadius: 8,
-      padding: "4px 10px"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 12,
-      fontWeight: 700,
-      color: "#fff"
-    }
-  }, pillar.status))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: 16
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      justifyContent: "space-between",
-      marginBottom: 6
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 13,
-      color: "rgba(255,255,255,0.8)"
-    }
-  }, "Your Score"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 16,
-      fontWeight: 800,
-      color: "#fff"
-    }
-  }, pillar.score, " / ", pillar.max)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      height: 6,
-      background: "rgba(255,255,255,0.2)",
-      borderRadius: 3,
-      overflow: "hidden"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      height: "100%",
-      width: `${pillar.score}%`,
-      background: "#fff",
-      borderRadius: 3
-    }
-  })))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#fff",
-      borderRadius: 14,
-      border: "1px solid #EDEFF2",
-      padding: "14px 16px",
-      marginBottom: 12
-    }
-  }, /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 11,
-      fontWeight: 700,
-      color: "#8B96AA",
-      textTransform: "uppercase",
-      letterSpacing: "0.1em",
-      margin: "0 0 10px"
-    }
-  }, "Sub-categories"), pillar.subcategories.map((s, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: {
-      display: "flex",
-      justifyContent: "space-between",
-      padding: "8px 0",
-      borderTop: i > 0 ? "1px solid #F5F6F7" : "none"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 13,
-      color: "#3C4458"
-    }
-  }, s.name), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 13,
-      fontWeight: 700,
-      color: "#2E3751"
-    }
-  }, s.score, " / ", s.max)))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#fff",
-      borderRadius: 14,
-      border: "1px solid #EDEFF2",
-      padding: "14px 16px",
-      marginBottom: 16,
-      display: "grid",
-      gridTemplateColumns: "1fr 1fr",
-      gap: 12
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      textAlign: "center"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 10,
-      color: "#8B96AA",
-      marginBottom: 4
-    }
-  }, "Batch Average"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 18,
-      fontWeight: 800,
-      color: "#2E3751"
-    }
-  }, pillar.batchAvg, "/100")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      textAlign: "center",
-      borderLeft: "1px solid #EDEFF2"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 10,
-      color: "#8B96AA",
-      marginBottom: 4
-    }
-  }, "Batch Best"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 18,
-      fontWeight: 800,
-      color: "#6832BA"
-    }
-  }, pillar.batchBest, "/100"))), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 11,
-      fontWeight: 700,
-      color: "#8B96AA",
-      textTransform: "uppercase",
-      letterSpacing: "0.1em",
-      margin: "0 0 10px"
-    }
-  }, "Competencies"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 8
-    }
-  }, pillar.competencies.map((c, i) => /*#__PURE__*/React.createElement("button", {
-    key: i,
-    onClick: () => onOpenCompetency(c, pillar),
-    style: {
-      background: "#fff",
-      borderRadius: 12,
-      border: "1px solid #EDEFF2",
-      padding: "14px 16px",
-      cursor: "pointer",
-      textAlign: "left",
-      width: "100%",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      flex: 1
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 13,
-      fontWeight: 600,
-      color: "#2E3751",
-      marginBottom: 8
-    }
-  }, c.name), /*#__PURE__*/React.createElement(ProgressBar, {
-    value: c.score,
-    max: c.max,
-    color: pillar.color,
-    height: 5
-  })), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginLeft: 16,
-      display: "flex",
-      alignItems: "center",
-      gap: 6
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 13,
-      fontWeight: 700,
-      color: "#2E3751"
-    }
-  }, c.score, "/", c.max), /*#__PURE__*/React.createElement(IconChevronRight, null)))))));
-}
+const PILLAR_DATA = {
+  persona: {
+    internalWeight: 40, capstoneWeight: 60,
+    internalScore: 30.4, capstoneScore: 42.6,
+    competencies: [
+      { name:"Communication", weight:25, micros:[
+          { name:"C1 - Verbal Communication", weight:35, interventions:[
+              { name:"Leadership Workshop", type:"Internal", score:3.8, date:"May 10" },
+              { name:"Group Debate",         type:"Internal", score:4.0, date:"May 3"  },
+              { name:"Semester Capstone",    type:"Capstone", score:4.2, date:"May 15" },
+          ]},
+          { name:"C2 - Written Communication", weight:30, interventions:[
+              { name:"Case Study Submission", type:"Internal", score:3.5, date:"Apr 28" },
+              { name:"Semester Capstone",     type:"Capstone", score:3.9, date:"May 15" },
+          ]},
+          { name:"C3 - Presentation Skills", weight:20, interventions:[
+              { name:"Own the Room",       type:"Internal", score:3.2, date:"May 12" },
+              { name:"Semester Capstone",  type:"Capstone", score:4.0, date:"May 15" },
+          ]},
+          { name:"C4 - Active Listening", weight:15, interventions:[
+              { name:"Empathy Lab", type:"Internal", score:4.1, date:"Apr 20" },
+          ]},
+      ]},
+      { name:"Problem Solving", weight:20, micros:[
+          { name:"P1 - Problem Identification", weight:50, interventions:[
+              { name:"Case Analysis",      type:"Internal", score:3.9, date:"May 5"  },
+              { name:"Semester Capstone",  type:"Capstone", score:4.1, date:"May 15" },
+          ]},
+          { name:"P2 - Solution Generation", weight:50, interventions:[
+              { name:"Case Analysis",      type:"Internal", score:3.7, date:"May 5"  },
+              { name:"Semester Capstone",  type:"Capstone", score:3.8, date:"May 15" },
+          ]},
+      ]},
+      { name:"Leadership", weight:20, micros:[
+          { name:"L1 - Decision Making", weight:50, interventions:[
+              { name:"Leadership Workshop", type:"Internal", score:3.5, date:"May 10" },
+          ]},
+          { name:"L2 - Influence", weight:50, interventions:[
+              { name:"Leadership Workshop", type:"Internal", score:3.8, date:"May 10" },
+              { name:"Semester Capstone",   type:"Capstone", score:4.0, date:"May 15" },
+          ]},
+      ]},
+      { name:"Teamwork", weight:20, micros:[
+          { name:"T1 - Collaboration", weight:60, interventions:[
+              { name:"Group Project Review", type:"Internal", score:4.2, date:"May 8" },
+          ]},
+          { name:"T2 - Conflict Resolution", weight:40, interventions:[
+              { name:"Group Project Review", type:"Internal", score:3.6, date:"May 8"  },
+              { name:"Semester Capstone",    type:"Capstone", score:3.9, date:"May 15" },
+          ]},
+      ]},
+      { name:"Empathy", weight:15, micros:[
+          { name:"E1 - Active Listening", weight:50, interventions:[
+              { name:"Empathy Lab", type:"Internal", score:4.0, date:"Apr 20" },
+          ]},
+          { name:"E2 - Perspective Taking", weight:50, interventions:[
+              { name:"Empathy Lab",        type:"Internal", score:3.8, date:"Apr 20" },
+              { name:"Semester Capstone",  type:"Capstone", score:4.1, date:"May 15" },
+          ]},
+      ]},
+    ]
+  },
+  wellness: {
+    internalWeight: 100, capstoneWeight: 0,
+    internalScore: 56.7, capstoneScore: 0,
+    competencies: [
+      { name:"Endurance", weight:20, micros:[
+          { name:"3KM Run Test", weight:100, interventions:[
+              { name:"Fitness Test - Semester 1", score:3.5, date:"Mar 10" },
+              { name:"Fitness Test - Semester 2", score:4.0, date:"May 5"  },
+          ]},
+      ]},
+      { name:"Agility", weight:20, micros:[
+          { name:"Beep Test", weight:100, interventions:[
+              { name:"Fitness Test - Semester 1", score:3.8, date:"Mar 10" },
+              { name:"Fitness Test - Semester 2", score:4.2, date:"May 5"  },
+          ]},
+      ]},
+      { name:"Flexibility", weight:15, micros:[
+          { name:"Sit & Reach Test", weight:100, interventions:[
+              { name:"Fitness Test - Semester 1", score:3.2, date:"Mar 10" },
+              { name:"Fitness Test - Semester 2", score:3.8, date:"May 5"  },
+          ]},
+      ]},
+      { name:"Muscle Endurance - Upper", weight:15, micros:[
+          { name:"Push Up Test", weight:100, interventions:[
+              { name:"Fitness Test - Semester 1", score:4.1, date:"Mar 10" },
+              { name:"Fitness Test - Semester 2", score:4.5, date:"May 5"  },
+          ]},
+      ]},
+      { name:"Muscle Endurance - Core", weight:15, micros:[
+          { name:"Sit Ups Test", weight:100, interventions:[
+              { name:"Fitness Test - Semester 1", score:3.9, date:"Mar 10" },
+              { name:"Fitness Test - Semester 2", score:4.1, date:"May 5"  },
+          ]},
+      ]},
+      { name:"Body Composition", weight:15, micros:[
+          { name:"Body Composition Analysis", weight:100, interventions:[
+              { name:"Fitness Test - Semester 1", score:4.5, date:"Mar 10" },
+              { name:"Fitness Test - Semester 2", score:4.8, date:"May 5"  },
+          ]},
+      ]},
+    ]
+  },
+  behaviour: {
+    internalWeight: 100, capstoneWeight: 0,
+    internalScore: 98.8, capstoneScore: 0,
+    competencies: [
+      { name:"Behaviour Rating", weight:50, micros:[
+          { name:"Behaviour Rating Tool", weight:50, interventions:[
+              { name:"Term Assessment Q1", score:4.0, date:"Feb 28" },
+              { name:"Term Assessment Q2", score:4.2, date:"Apr 30" },
+          ]},
+          { name:"Attitude Rating Tool", weight:50, interventions:[
+              { name:"Term Assessment Q1", score:3.8, date:"Feb 28" },
+              { name:"Term Assessment Q2", score:4.0, date:"Apr 30" },
+          ]},
+      ]},
+      { name:"Workplace Behaviour", weight:50, micros:[
+          { name:"Work Place Behaviour", weight:50, interventions:[
+              { name:"Term Assessment Q1", score:5.0, date:"Feb 28" },
+              { name:"Term Assessment Q2", score:4.8, date:"Apr 30" },
+          ]},
+          { name:"Proactive Behaviour", weight:50, interventions:[
+              { name:"Term Assessment Q1", score:4.5, date:"Feb 28" },
+              { name:"Term Assessment Q2", score:4.7, date:"Apr 30" },
+          ]},
+      ]},
+    ]
+  },
+  discipline: {
+    internalWeight: 100, capstoneWeight: 0,
+    internalScore: 78.0, capstoneScore: 0,
+    competencies: [
+      { name:"Regularity", weight:50, micros:[
+          { name:"Lifestyle Regularity", weight:60, interventions:[
+              { name:"Attendance Review - Term 1", score:3.5, date:"Mar 31" },
+              { name:"Attendance Review - Term 2", score:3.8, date:"May 15" },
+          ]},
+          { name:"Preparedness", weight:40, interventions:[
+              { name:"Attendance Review - Term 1", score:4.0, date:"Mar 31" },
+              { name:"Attendance Review - Term 2", score:4.2, date:"May 15" },
+          ]},
+      ]},
+      { name:"Attendance", weight:50, micros:[
+          { name:"Overall Subject Attendance", weight:100, interventions:[
+              { name:"Attendance Review - Term 1", score:3.8, date:"Mar 31" },
+              { name:"Attendance Review - Term 2", score:4.0, date:"May 15" },
+          ]},
+      ]},
+    ]
+  }
+};
 
-// ─── SCREEN: INTERVENTIONS ────────────────────────────────────────────────────
+function PillarScoresScreen({ onBack, darkMode }) {
+  var pdm = darkMode;
+  var _t = React.useState("persona"); var activeTab = _t[0], setActiveTab = _t[1];
+  var _ec = React.useState(null); var expandedComp = _ec[0], setExpandedComp = _ec[1];
+  var _em = React.useState(null); var expandedMicro = _em[0], setExpandedMicro = _em[1];
+
+  var pillar = getPillar(activeTab);
+  var pdata  = PILLAR_DATA[activeTab];
+  var hasCapstone = pdata.capstoneWeight > 0;
+
+  var bg   = pdm ? "#111318" : "#F5F6F7";
+  var surf = pdm ? "#1C1F26" : "#fff";
+  var bdr  = pdm ? "#2A2D35" : "#EDEFF2";
+  var txt1 = pdm ? "#F0F2F5" : "#2E3751";
+  var txt2 = pdm ? "#9CA3AF" : "#8B96AA";
+
+  function toggleComp(idx) {
+    setExpandedComp(expandedComp === idx ? null : idx);
+    setExpandedMicro(null);
+  }
+  function toggleMicro(key) {
+    setExpandedMicro(expandedMicro === key ? null : key);
+  }
+
+  return React.createElement("div", {
+    style:{ flex:1, display:"flex", flexDirection:"column", background:bg, overflow:"hidden", transition:"background 0.3s" }
+  },
+
+  // ── Header ──
+  React.createElement("div", {
+    style:{ background:surf, borderBottom:"1px solid "+bdr, padding:"16px 20px 0", flexShrink:0, transition:"background 0.3s" }
+  },
+    React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:12, marginBottom:16 } },
+      React.createElement(IconBack, { onPress: onBack }),
+      React.createElement("div", null,
+        React.createElement("h2", { style:{ fontSize:18, fontWeight:700, color:txt1, margin:0 } }, "Pillar Scores"),
+        React.createElement("p",  { style:{ fontSize:12, color:txt2, margin:0 } }, "4.8 / 5 HPS")
+      )
+    ),
+    React.createElement("div", { style:{ display:"flex" } },
+      PILLARS.map(function(p) {
+        return React.createElement("button", {
+          key: p.id,
+          onClick: function(){ setActiveTab(p.id); setExpandedComp(null); setExpandedMicro(null); },
+          style:{ flex:1, padding:"10px 4px", background:"none", border:"none", cursor:"pointer",
+                  borderBottom: activeTab===p.id ? "2px solid "+p.color : "2px solid transparent",
+                  fontSize:11, fontWeight: activeTab===p.id ? 700 : 500,
+                  color: activeTab===p.id ? p.color : txt2, transition:"all 0.15s" }
+        }, p.name);
+      })
+    )
+  ),
+
+  // ── Body ──
+  React.createElement("div", { style:{ flex:1, overflowY:"auto", padding:"16px 16px 24px" } },
+
+    // ── Pillar hero card ──
+    React.createElement("div", {
+      style:{ background:pillar.color, borderRadius:16, padding:"18px 20px", marginBottom:12 }
+    },
+      React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:14 } },
+        React.createElement("div", null,
+          React.createElement("h3", { style:{ fontSize:20, fontWeight:800, color:"#fff", margin:"0 0 2px" } }, pillar.name),
+          React.createElement("p",  { style:{ fontSize:12, color:"rgba(255,255,255,0.7)", margin:0 } }, "Pillar weightage: "+pillar.weight+"%")
+        ),
+        React.createElement("div", { style:{ background:"rgba(255,255,255,0.2)", borderRadius:8, padding:"4px 10px" } },
+          React.createElement("span", { style:{ fontSize:12, fontWeight:700, color:"#fff" } }, pillar.status)
+        )
+      ),
+      // Persona only: Internal + Capstone score boxes
+      hasCapstone && React.createElement("div", { style:{ display:"flex", gap:8, marginBottom:14 } },
+        React.createElement("div", { style:{ flex:1, background:"rgba(255,255,255,0.15)", borderRadius:10, padding:"10px 12px" } },
+          React.createElement("div", { style:{ fontSize:10, fontWeight:700, color:"rgba(255,255,255,0.65)", marginBottom:4, textTransform:"uppercase", letterSpacing:"0.06em" } }, "Internal"),
+          React.createElement("div", { style:{ fontSize:18, fontWeight:800, color:"#fff" } }, pdata.internalScore.toFixed(1)),
+          React.createElement("div", { style:{ fontSize:10, color:"rgba(255,255,255,0.55)", marginTop:2 } }, pdata.internalWeight+"% weight")
+        ),
+        React.createElement("div", { style:{ flex:1, background:"rgba(255,255,255,0.15)", borderRadius:10, padding:"10px 12px" } },
+          React.createElement("div", { style:{ fontSize:10, fontWeight:700, color:"rgba(255,255,255,0.65)", marginBottom:4, textTransform:"uppercase", letterSpacing:"0.06em" } }, "Capstone"),
+          React.createElement("div", { style:{ fontSize:18, fontWeight:800, color:"#fff" } }, pdata.capstoneScore.toFixed(1)),
+          React.createElement("div", { style:{ fontSize:10, color:"rgba(255,255,255,0.55)", marginTop:2 } }, pdata.capstoneWeight+"% weight")
+        )
+      ),
+      // Overall score bar
+      React.createElement("div", null,
+        React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", marginBottom:6 } },
+          React.createElement("span", { style:{ fontSize:12, color:"rgba(255,255,255,0.8)" } }, "Overall Score"),
+          React.createElement("span", { style:{ fontSize:15, fontWeight:800, color:"#fff" } }, pillar.score+" / "+pillar.max)
+        ),
+        React.createElement("div", { style:{ height:6, background:"rgba(255,255,255,0.2)", borderRadius:3, overflow:"hidden" } },
+          React.createElement("div", { style:{ height:"100%", width:pillar.score+"%", background:"#fff", borderRadius:3 } })
+        )
+      )
+    ),
+
+    // ── Competencies heading ──
+    React.createElement("div", { style:{ display:"flex", alignItems:"center", justifyContent:"space-between", margin:"4px 0 10px" } },
+      React.createElement("div", { style:{ fontSize:10, fontWeight:700, color:txt2, textTransform:"uppercase", letterSpacing:"0.08em" } }, "Competencies")
+    ),
+
+    // ── Grading breakdown (Persona only) — right below heading ──
+    hasCapstone && React.createElement("div", {
+      style:{ background:surf, borderRadius:12, border:"1px solid "+bdr, padding:"12px 14px", marginBottom:10 }
+    },
+      React.createElement("div", { style:{ fontSize:11, fontWeight:700, color:txt1, marginBottom:8 } }, "How your score is calculated"),
+      React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"6px 0", borderBottom:"1px solid "+bdr } },
+        React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:8 } },
+          React.createElement("div", { style:{ width:8, height:8, borderRadius:"50%", background:"#6832BA" } }),
+          React.createElement("span", { style:{ fontSize:12, color:txt1 } }, "Internal assessments")
+        ),
+        React.createElement("span", { style:{ fontSize:12, fontWeight:700, color:"#6832BA" } }, pdata.internalWeight+"%")
+      ),
+      React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"6px 0" } },
+        React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:8 } },
+          React.createElement("div", { style:{ width:8, height:8, borderRadius:"50%", background:"#D97706" } }),
+          React.createElement("span", { style:{ fontSize:12, color:txt1 } }, "Capstone assessment")
+        ),
+        React.createElement("span", { style:{ fontSize:12, fontWeight:700, color:"#D97706" } }, pdata.capstoneWeight+"%")
+      )
+    ),
+
+    // ── Competency accordion ──
+    pdata.competencies.map(function(comp, ci) {
+      var isCompOpen = expandedComp === ci;
+      return React.createElement("div", {
+        key: ci,
+        style:{ background:surf, borderRadius:14, border:"1px solid "+bdr, marginBottom:8, overflow:"hidden", transition:"background 0.3s" }
+      },
+        // Competency row
+        React.createElement("div", {
+          onClick: function(){ toggleComp(ci); },
+          style:{ padding:"14px 16px", display:"flex", alignItems:"center", gap:10, cursor:"pointer" }
+        },
+          React.createElement("div", { style:{ flex:1 } },
+            React.createElement("div", { style:{ fontSize:13, fontWeight:700, color:txt1, marginBottom:2 } }, comp.name),
+            React.createElement("div", { style:{ fontSize:11, color:txt2 } }, "Weight: "+comp.weight+"% of pillar")
+          ),
+          React.createElement("span", { className:"ms",
+            style:{ fontSize:18, color:txt2, transition:"transform 0.2s", transform: isCompOpen ? "rotate(180deg)" : "rotate(0deg)" }
+          }, "expand_more")
+        ),
+
+        // Microcompetencies
+        isCompOpen && React.createElement("div", { style:{ borderTop:"1px solid "+bdr } },
+          comp.micros.map(function(micro, mi) {
+            var microKey = ci+"-"+mi;
+            var isMicroOpen = expandedMicro === microKey;
+            var avg = micro.interventions.length > 0
+              ? (micro.interventions.reduce(function(s,iv){ return s+iv.score; },0) / micro.interventions.length).toFixed(1)
+              : "—";
+
+            // For Persona: split Internal/Capstone
+            var internalIvs = hasCapstone ? micro.interventions.filter(function(iv){ return iv.type==="Internal"; }) : [];
+            var capstoneIvs = hasCapstone ? micro.interventions.filter(function(iv){ return iv.type==="Capstone"; }) : [];
+            var internalAvg = internalIvs.length > 0 ? (internalIvs.reduce(function(s,iv){ return s+iv.score;},0)/internalIvs.length).toFixed(1) : null;
+            var capstoneAvg = capstoneIvs.length > 0 ? (capstoneIvs.reduce(function(s,iv){ return s+iv.score;},0)/capstoneIvs.length).toFixed(1) : null;
+
+            return React.createElement("div", {
+              key: microKey,
+              style:{ borderBottom: mi < comp.micros.length-1 ? "1px solid "+bdr : "none" }
+            },
+              // Micro row
+              React.createElement("div", {
+                onClick: function(){ toggleMicro(microKey); },
+                style:{ padding:"11px 16px 11px 20px", display:"flex", alignItems:"center", gap:8, cursor:"pointer",
+                        background: isMicroOpen ? (pdm ? "#1A1D24" : "#FAFAFA") : "transparent" }
+              },
+                React.createElement("div", { style:{ flex:1 } },
+                  React.createElement("div", { style:{ fontSize:12, fontWeight:600, color:txt1, marginBottom:1 } }, micro.name),
+                  React.createElement("div", { style:{ fontSize:10, color:txt2 } }, "Weight: "+micro.weight+"% · Avg: "+avg+"/5")
+                ),
+                // Score badges
+                React.createElement("div", { style:{ display:"flex", gap:4, alignItems:"center" } },
+                  hasCapstone && internalAvg && React.createElement("div", {
+                    style:{ fontSize:9, fontWeight:700, color:"#6832BA", background:"#F5F0FC", borderRadius:6, padding:"2px 6px" }
+                  }, "I: "+internalAvg),
+                  hasCapstone && capstoneAvg && React.createElement("div", {
+                    style:{ fontSize:9, fontWeight:700, color:"#D97706", background:"#FFFBEB", borderRadius:6, padding:"2px 6px" }
+                  }, "C: "+capstoneAvg),
+                  !hasCapstone && React.createElement("div", {
+                    style:{ fontSize:9, fontWeight:700, color:pillar.color, background:pillar.lightBg, borderRadius:6, padding:"2px 6px" }
+                  }, avg+"/5"),
+                  React.createElement("span", { className:"ms",
+                    style:{ fontSize:16, color:txt2, transition:"transform 0.2s", transform: isMicroOpen ? "rotate(90deg)" : "rotate(0deg)" }
+                  }, "chevron_right")
+                )
+              ),
+
+              // Intervention scores
+              isMicroOpen && React.createElement("div", { style:{ padding:"4px 16px 12px 20px" } },
+                hasCapstone
+                  ? React.createElement("div", null,
+                      // Internal interventions
+                      internalIvs.length > 0 && React.createElement("div", { style:{ marginBottom: capstoneIvs.length > 0 ? 8 : 0 } },
+                        React.createElement("div", { style:{ fontSize:9, fontWeight:700, color:"#6832BA", textTransform:"uppercase", letterSpacing:"0.06em", margin:"6px 0 6px" } }, "Internal"),
+                        internalIvs.map(function(iv, ii) {
+                          return React.createElement("div", { key:ii,
+                            style:{ display:"flex", alignItems:"center", justifyContent:"space-between",
+                                    padding:"7px 10px", background:"#F5F0FC", borderRadius:8, marginBottom:4 }
+                          },
+                            React.createElement("div", null,
+                              React.createElement("div", { style:{ fontSize:11, fontWeight:600, color:txt1 } }, iv.name),
+                              React.createElement("div", { style:{ fontSize:10, color:txt2 } }, iv.date)
+                            ),
+                            React.createElement("div", { style:{ fontSize:13, fontWeight:800, color:"#6832BA" } }, iv.score+"/5")
+                          );
+                        })
+                      ),
+                      // Capstone interventions
+                      capstoneIvs.length > 0 && React.createElement("div", null,
+                        React.createElement("div", { style:{ fontSize:9, fontWeight:700, color:"#D97706", textTransform:"uppercase", letterSpacing:"0.06em", margin:"6px 0 6px" } }, "Capstone"),
+                        capstoneIvs.map(function(iv, ii) {
+                          return React.createElement("div", { key:ii,
+                            style:{ display:"flex", alignItems:"center", justifyContent:"space-between",
+                                    padding:"7px 10px", background:"#FFFBEB", borderRadius:8, marginBottom:4 }
+                          },
+                            React.createElement("div", null,
+                              React.createElement("div", { style:{ fontSize:11, fontWeight:600, color:txt1 } }, iv.name),
+                              React.createElement("div", { style:{ fontSize:10, color:txt2 } }, iv.date)
+                            ),
+                            React.createElement("div", { style:{ fontSize:13, fontWeight:800, color:"#D97706" } }, iv.score+"/5")
+                          );
+                        })
+                      )
+                    )
+                  // Non-Persona: plain intervention list, no type label
+                  : micro.interventions.map(function(iv, ii) {
+                      return React.createElement("div", { key:ii,
+                        style:{ display:"flex", alignItems:"center", justifyContent:"space-between",
+                                padding:"7px 10px", background:pillar.lightBg, borderRadius:8, marginBottom:4,
+                                border:"1px solid "+pillar.borderColor }
+                      },
+                        React.createElement("div", null,
+                          React.createElement("div", { style:{ fontSize:11, fontWeight:600, color:txt1 } }, iv.name),
+                          React.createElement("div", { style:{ fontSize:10, color:txt2 } }, iv.date)
+                        ),
+                        React.createElement("div", { style:{ fontSize:13, fontWeight:800, color:pillar.color } }, iv.score+"/5")
+                      );
+                    })
+              )
+            );
+          })
+        )
+      );
+    })
+  ));
+}
 
 function InterventionsScreen({
   onBack,
@@ -4516,11 +4628,7 @@ function PEPApp() {
     darkMode: dm
   }), screen === "pillarScores" && /*#__PURE__*/React.createElement(PillarScoresScreen, {
     onBack: () => setScreen("home"),
-    darkMode: dm,
-    onOpenCompetency: (c, p) => {
-      setActiveCompetency(c);
-      setActivePillar(p);
-    }
+    darkMode: dm
   }), screen === "interventions" && /*#__PURE__*/React.createElement(InterventionsScreen, {
     onBack: () => handleNavigate("home"),
     darkMode: dm,
