@@ -149,39 +149,45 @@ section{padding:110px 0}
 /* ─── JOURNEY ─── */
 #journey{background:#fff;padding:110px 0}
 .jrn-head{text-align:center;max-width:660px;margin:0 auto 72px}
-.jrn-layout{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:16px;overflow:hidden;box-shadow:0 24px 80px rgba(71,42,90,.12)}
 
-/* Phase headers */
-.jph-india{background:linear-gradient(135deg,var(--pd),var(--p));padding:20px 28px;display:flex;align-items:center;gap:12px}
-.jph-intl{background:linear-gradient(135deg,#0a2040,#1a3a6b);padding:20px 28px;display:flex;align-items:center;gap:12px}
-
-/* India timeline */
-.jcol-india{background:rgba(71,42,90,.025);border-right:1px solid rgba(71,42,90,.08)}
-.jcol-intl{background:#fff}
-
-/* Term rows */
-.trow{display:flex;gap:0;border-bottom:1px solid rgba(71,42,90,.07);cursor:default;transition:background .2s;position:relative}
-.trow:last-child{border-bottom:none}
-.trow:hover{background:rgba(71,42,90,.03)}
-.trow-accent{width:4px;min-width:4px;flex-shrink:0;border-radius:0}
-.trow-num{width:52px;min-width:52px;display:flex;align-items:flex-start;justify-content:center;padding-top:20px;flex-shrink:0}
-.tn{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-weight:700;font-size:11px}
-.trow-body{padding:18px 20px 18px 0;flex:1}
-.tw-title{font-family:var(--fh);font-weight:700;font-size:14px;color:var(--p);margin-bottom:2px}
-.tw-sub{font-size:10px;font-family:var(--fh);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;color:rgba(71,42,90,.45)}
-.tw-detail{font-size:12px;color:rgba(71,42,90,.62);line-height:1.55;margin-bottom:8px}
-.tw-cxo{font-size:11px;color:rgba(71,42,90,.5);margin-bottom:8px;font-style:italic}
-.cap-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;background:rgba(239,60,95,.07);border:1px solid rgba(239,60,95,.18);border-radius:4px;font-size:10px;font-family:var(--fh);font-weight:600;color:var(--r);letter-spacing:.04em}
-
-/* Fork moment */
-.fork-moment{padding:24px 28px;background:linear-gradient(135deg,rgba(13,34,64,.05),rgba(100,198,242,.05));border-bottom:1px solid rgba(71,42,90,.07)}
-.fork-title{font-family:var(--fh);font-weight:800;font-size:16px;color:var(--nv);margin-bottom:6px;display:flex;align-items:center;gap:8px}
-.dest-chips-jrn{display:flex;flex-direction:column;gap:6px;margin-top:12px}
-.dc-jrn{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;border:1.5px solid rgba(71,42,90,.09);background:#fff;text-decoration:none;transition:all .18s;cursor:pointer}
-.dc-jrn:hover{border-color:var(--r);background:rgba(239,60,95,.04);transform:translateX(5px);box-shadow:0 4px 16px rgba(239,60,95,.1)}
-.dc-jrn-flag{font-size:18px;width:28px;text-align:center;flex-shrink:0}
-.dc-jrn-name{font-family:var(--fh);font-weight:600;font-size:12px;color:var(--nv);flex:1}
-.dc-jrn-city{font-size:10px;color:rgba(71,42,90,.45)}
+/* Journey widget */
+.jw{border:1px solid rgba(71,42,90,.12);border-radius:16px;overflow:hidden;box-shadow:0 24px 80px rgba(71,42,90,.12)}
+.jw-header{background:#2E1A3A;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.jw-header-title{font-size:13px;font-weight:600;color:#fff;letter-spacing:.04em}
+.jw-header-sub{font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.jw-runway{background:#472A5A;position:relative;height:52px;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.08)}
+.jw-runway-dashes{position:absolute;top:50%;left:0;right:0;height:1px;transform:translateY(-50%);background:repeating-linear-gradient(90deg,rgba(255,255,255,.18) 0,rgba(255,255,255,.18) 16px,transparent 16px,transparent 30px)}
+.jw-plane{position:absolute;transition:all .85s cubic-bezier(.22,.68,0,1.2);z-index:3}
+.jw-tabs{display:flex;background:#472A5A;border-bottom:1px solid rgba(255,255,255,.1)}
+.jw-tab{flex:1;padding:12px 8px;text-align:center;cursor:pointer;border:none;background:transparent;transition:all .2s;border-right:1px solid rgba(255,255,255,.08);position:relative}
+.jw-tab:last-child{border-right:none}
+.jw-tab:hover:not(.jw-tab-active){background:rgba(239,60,95,.25)}
+.jw-tab:hover:not(.jw-tab-active) .jw-tab-num{color:#FF686E}
+.jw-tab:hover:not(.jw-tab-active) .jw-tab-word{color:rgba(255,104,110,.8)}
+.jw-tab-active{background:#5C3A75}
+.jw-tab-active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:#EF3C5F}
+.jw-tab-num{display:block;font-size:13px;font-weight:800;color:rgba(255,255,255,.45);margin-bottom:2px;transition:color .2s}
+.jw-tab-active .jw-tab-num{color:#fff}
+.jw-tab-word{display:block;font-size:8px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.3);transition:color .2s}
+.jw-tab-active .jw-tab-word{color:rgba(255,255,255,.75)}
+.jw-body{display:grid;grid-template-columns:200px 1fr;min-height:290px}
+.jw-left{border-right:1px solid rgba(71,42,90,.1);padding:20px 18px;background:#F5F0E8}
+.jw-left-phase{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.jw-left-title{font-size:22px;font-weight:800;color:#2E1A3A;margin-bottom:4px;line-height:1.1}
+.jw-left-sub{font-size:10px;color:#5C3A75;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;opacity:.7}
+.jw-left-meta{display:flex;flex-direction:column;gap:7px}
+.jw-meta-row{font-size:11.5px;color:#472A5A;display:flex;align-items:flex-start;gap:7px;line-height:1.45;opacity:.75}
+.jw-meta-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.jw-right{padding:20px 22px;display:flex;flex-direction:column;gap:14px;background:#fff}
+.jw-slabel{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#472A5A;opacity:.4;margin-bottom:8px}
+.jw-subjects{display:flex;flex-direction:column;gap:3px}
+.jw-subject{font-size:12.5px;color:#2E1A3A;display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(71,42,90,.07)}
+.jw-subject:last-child{border-bottom:none}
+.jw-sdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.jw-exp-row{font-size:12px;color:#472A5A;display:flex;align-items:flex-start;gap:8px;line-height:1.55;opacity:.75}
+.jw-exp-lbl{font-weight:700;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:4px;flex-shrink:0;margin-top:1px}
+.jw-feeling{padding:10px 14px;border-left:3px solid var(--r);font-size:12px;font-style:italic;color:#472A5A;line-height:1.6;background:rgba(239,60,95,.05);border-radius:0 6px 6px 0}
+.jw-cap{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;background:rgba(239,60,95,.08);border:1px solid rgba(239,60,95,.3);border-radius:4px;font-size:10px;font-weight:700;color:var(--r);letter-spacing:.05em}
 .ctag{font-size:8.5px;font-family:var(--fh);font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:100px}
 .ctag-fr{background:rgba(0,85,164,.1);color:#0055a4}
 .ctag-us{background:rgba(60,59,110,.1);color:#3c3b6e}
@@ -522,14 +528,19 @@ footer{background:#080412;padding:40px 0 28px}
           <a href="https://application-form.keeplearning.live/" class="btn btn-r btn-lg">Apply Now →</a>
           <a href="#" class="btn btn-ol btn-lg">Download Brochure</a>
         </div>
-        <div class="hero-stats rv">
-          <div class="hst"><div class="hst-n">6</div><div class="hst-l">Partner Universities</div></div>
-          <div class="hst"><div class="hst-n">3</div><div class="hst-l">Countries</div></div>
-          <div class="hst"><div class="hst-n" id="cntFee">₹6L</div><div class="hst-l">Per Year India</div></div>
-          <div class="hst"><div class="hst-n">4yr</div><div class="hst-l">International Degree</div></div>
-        </div>
       </div>
       <div class="rv-r">
+        <div style="border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:pointer" onmouseover="this.querySelector('.play-btn').style.transform='scale(1.08)'" onmouseout="this.querySelector('.play-btn').style.transform='scale(1)'">
+          <div class="play-btn" style="width:64px;height:64px;border-radius:50%;background:var(--r);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(239,60,95,.45);transition:transform .2s">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:var(--fh);font-weight:700;font-size:14px;color:#fff;margin-bottom:4px">Watch: Life at KL Global Learning Hub</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.4);font-family:var(--fh);letter-spacing:.06em;text-transform:uppercase">[Video Placeholder]</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:none">
         <div class="hero-panel">
           <div class="panel-img-ph">
             <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=700&q=80&auto=format" alt="Campus" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45">
@@ -571,8 +582,7 @@ footer{background:#080412;padding:40px 0 28px}
               <div><div class="panel-grad-tx">International Bachelor's Degree</div><div class="panel-grad-sub">Awarded by your chosen partner university</div></div>
             </div>
           </div>
-        </div>
-      </div>
+        </div></div>
     </div>
   </div>
   <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--r),var(--lv),var(--sk))"></div>
@@ -650,66 +660,98 @@ footer{background:#080412;padding:40px 0 28px}
     <h2 class="dlg" style="color:var(--p);margin-bottom:14px">From Day 1 in Mumbai to graduation anywhere in the world.</h2>
     <p class="bmd" style="color:rgba(71,42,90,.62)">Six terms build your foundation. Then the world opens up. Watch your entire journey unfold.</p>
   </div>
-  <div class="jrn-layout rv-s">
-    <!-- Left: India phase -->
-    <div>
-      <div class="jph-india">
+  <div class="jw rv-s">
+    <!-- Header -->
+    <div class="jw-header">
+      <div style="display:flex;align-items:center;gap:9px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#BEA7E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         <div>
-          <div class="lbl" style="color:var(--lv);margin-bottom:3px">Years 1–2 · Foundation Phase</div>
-          <div style="font-family:var(--fh);font-weight:700;font-size:14px;color:#fff">🇮🇳 KL Global Learning Hub, Mumbai</div>
+          <div class="jw-header-title">KL Global Learning Hub</div>
+          <div class="jw-header-sub">Mumbai · Years 1 & 2 · Foundation Phase</div>
         </div>
-        <span style="margin-left:auto;font-size:10px;padding:4px 10px;background:rgba(255,255,255,.12);border-radius:100px;color:rgba(255,255,255,.8);font-family:var(--fh);font-weight:600;white-space:nowrap">All students</span>
       </div>
-      <div class="jcol-india">
-        <div class="trow"><div class="trow-accent" style="background:var(--r)"></div><div class="trow-num"><div class="tn" style="background:var(--r);color:#fff">T1</div></div><div class="trow-body"><div class="tw-title">Observe</div><div class="tw-sub">Understand Organisations</div><div class="tw-detail">Principles of Management · Accounting · Marketing · Behavioural Science · Business Tools</div><div class="tw-cxo">CXO: COO Zepto · Taj Hotels · Tata Motors</div><span class="cap-pill">Capstone: Business System Review</span></div></div>
-        <div class="trow"><div class="trow-accent" style="background:rgba(71,42,90,.2)"></div><div class="trow-num"><div class="tn" style="background:rgba(71,42,90,.12);color:var(--p)">T2</div></div><div class="trow-body"><div class="tw-title">Explore</div><div class="tw-sub">Markets & Customers</div><div class="tw-detail">Consumer Behaviour · Brand Management · Marketing Analytics · Quantitative Methods · Design Thinking</div><div class="tw-cxo">CXO: Coca-Cola · Growth Lead Nykaa · Asian Paints</div><span class="cap-pill">Capstone: Market & Distribution Mapping</span></div></div>
-        <div class="trow"><div class="trow-accent" style="background:rgba(100,198,242,.5)"></div><div class="trow-num"><div class="tn" style="background:rgba(100,198,242,.15);color:#0a6080">T3</div></div><div class="trow-body"><div class="tw-title">Analyse</div><div class="tw-sub">Industries & Competition</div><div class="tw-detail">Financial Analysis · Operations · Cross-Cultural Mgmt · Strategy · Data & Info Systems</div><div class="tw-cxo">CXO: BCG Partner · McKinsey · Goldman Sachs GCC</div><span class="cap-pill">Capstone: Consulting Project</span></div></div>
-        <div class="trow"><div class="trow-accent" style="background:var(--ye)"></div><div class="trow-num"><div class="tn" style="background:rgba(255,209,102,.2);color:#7a5800">T4</div></div><div class="trow-body"><div class="tw-title">Execute</div><div class="tw-sub">Drive Business Outcomes</div><div class="tw-detail">Digital Marketing · E-Commerce · HR Analytics · Supply Chain · Business Forecasting</div><div class="tw-cxo">CXO: Zomato · HUL Sales Director · Unacademy GTM</div><span class="cap-pill">Capstone: Market Execution Challenge</span></div></div>
-        <div class="trow"><div class="trow-accent" style="background:var(--co)"></div><div class="trow-num"><div class="tn" style="background:rgba(255,104,110,.15);color:#8a1820">T5</div></div><div class="trow-body"><div class="tw-title">Operate</div><div class="tw-sub">Run Systems in Real Teams</div><div class="tw-detail">Project Management · Entrepreneurship · Innovation · Business Simulation · Foreign Language</div><div class="tw-cxo">CXO: COO BookMyShow · Sunburn · Delhivery</div><span class="cap-pill">Capstone: Live Event Operations</span></div></div>
-        <div class="trow" style="border-bottom:none"><div class="trow-accent" style="background:var(--r)"></div><div class="trow-num"><div class="tn" style="background:var(--r);color:#fff">T6</div></div><div class="trow-body"><div class="tw-title">Synthesis</div><div class="tw-sub">Transition to Global</div><div class="tw-detail">Leadership under ambiguity · Cross-cultural readiness · Professional identity · Outbound Leadership Retreat</div><div style="margin-top:10px;padding:8px 12px;background:rgba(239,60,95,.07);border-radius:6px;border:1px solid rgba(239,60,95,.18)"><span style="font-size:11px;color:var(--r);font-family:var(--fh);font-weight:700">→ Ready for international transition</span></div></div></div>
+      <div style="display:flex;align-items:center;gap:7px">
+        <span style="font-size:9px;color:rgba(255,255,255,.38);letter-spacing:.08em;text-transform:uppercase;font-family:var(--fh)">Year 3–4</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
       </div>
     </div>
-    <!-- Right: International phase -->
-    <div>
-      <div class="jph-intl">
-        <div>
-          <div class="lbl" style="color:rgba(100,198,242,.7);margin-bottom:3px">Years 3–4 · International Phase</div>
-          <div style="font-family:var(--fh);font-weight:700;font-size:14px;color:#fff">🌍 Choose your destination</div>
-        </div>
-        <div style="display:flex;gap:5px;margin-left:auto">
-          <span style="font-size:12px;padding:3px 8px;background:rgba(255,255,255,.1);border-radius:4px;color:rgba(255,255,255,.7)">🇫🇷</span>
-          <span style="font-size:12px;padding:3px 8px;background:rgba(255,255,255,.1);border-radius:4px;color:rgba(255,255,255,.7)">🇺🇸</span>
-          <span style="font-size:12px;padding:3px 8px;background:rgba(255,255,255,.1);border-radius:4px;color:rgba(255,255,255,.7)">🇨🇭</span>
-        </div>
+    <!-- Runway -->
+    <div class="jw-runway" id="jw-runway">
+      <div class="jw-runway-dashes"></div>
+      <div class="jw-plane" id="jw-plane" style="left:32px;top:10px">
+        <svg width="30" height="17" viewBox="0 0 30 17" fill="none">
+          <path d="M2 8.5L19 2L25 8.5L19 15Z" fill="#EF3C5F"/>
+          <path d="M19 5.5L27 8.5L19 11.5Z" fill="#BEA7E5"/>
+          <path d="M8 8.5L14 5.5L14 11.5Z" fill="rgba(255,255,255,.35)"/>
+        </svg>
       </div>
-      <div class="jcol-intl">
-        <div class="fork-moment">
-          <div class="fork-title">🌍 At the end of Year 2, choose your world</div>
-          <p style="font-size:13px;color:rgba(71,42,90,.65);line-height:1.65">After building your complete business foundation in India, you choose where your journey continues. Six world-class partners. Three countries. One life-changing decision.</p>
-          <div class="dest-chips-jrn">
-            <a href="#destinations" class="dc-jrn" onclick="showVar('B');filterP('fr')"><span class="dc-jrn-flag">🇫🇷</span><div><div class="dc-jrn-name">KEDGE Business School</div><div class="dc-jrn-city">Marseille / Bordeaux</div></div><span class="ctag ctag-fr">France</span><span style="color:var(--r);font-size:14px;opacity:0;transition:opacity .2s" class="arr">→</span></a>
-            <a href="#destinations" class="dc-jrn" onclick="showVar('B');filterP('fr')"><span class="dc-jrn-flag">🇫🇷</span><div><div class="dc-jrn-name">ESDES Business School</div><div class="dc-jrn-city">Lyon</div></div><span class="ctag ctag-fr">France</span><span style="color:var(--r);font-size:14px;opacity:0;transition:opacity .2s" class="arr">→</span></a>
-            <a href="#destinations" class="dc-jrn" onclick="showVar('B');filterP('us')"><span class="dc-jrn-flag">🇺🇸</span><div><div class="dc-jrn-name">State University of New York</div><div class="dc-jrn-city">Albany, New York</div></div><span class="ctag ctag-us">USA</span><span style="color:var(--r);font-size:14px;opacity:0;transition:opacity .2s" class="arr">→</span></a>
-            <a href="#destinations" class="dc-jrn" onclick="showVar('B');filterP('us')"><span class="dc-jrn-flag">🇺🇸</span><div><div class="dc-jrn-name">Georgia State University</div><div class="dc-jrn-city">Atlanta, Georgia</div></div><span class="ctag ctag-us">USA</span><span style="color:var(--r);font-size:14px;opacity:0;transition:opacity .2s" class="arr">→</span></a>
-            <a href="#destinations" class="dc-jrn" onclick="showVar('B');filterP('us')"><span class="dc-jrn-flag">🇺🇸</span><div><div class="dc-jrn-name">University of Texas, Arlington</div><div class="dc-jrn-city">Arlington, Texas</div></div><span class="ctag ctag-us">USA</span><span style="color:var(--r);font-size:14px;opacity:0;transition:opacity .2s" class="arr">→</span></a>
-            <a href="#destinations" class="dc-jrn" onclick="showVar('B');filterP('ch')"><span class="dc-jrn-flag">🇨🇭</span><div><div class="dc-jrn-name">HSLU</div><div class="dc-jrn-city">Lucerne / Zug</div></div><span class="ctag ctag-ch">Switzerland</span><span style="color:var(--r);font-size:14px;opacity:0;transition:opacity .2s" class="arr">→</span></a>
-          </div>
+    </div>
+    <!-- Tabs -->
+    <div class="jw-tabs" role="tablist">
+      <button class="jw-tab jw-tab-active" role="tab" aria-selected="true" onclick="selectJTerm(0)"><span class="jw-tab-num">T1</span><span class="jw-tab-word">Observe</span></button>
+      <button class="jw-tab" role="tab" aria-selected="false" onclick="selectJTerm(1)"><span class="jw-tab-num">T2</span><span class="jw-tab-word">Explore</span></button>
+      <button class="jw-tab" role="tab" aria-selected="false" onclick="selectJTerm(2)"><span class="jw-tab-num">T3</span><span class="jw-tab-word">Analyse</span></button>
+      <button class="jw-tab" role="tab" aria-selected="false" onclick="selectJTerm(3)"><span class="jw-tab-num">T4</span><span class="jw-tab-word">Execute</span></button>
+      <button class="jw-tab" role="tab" aria-selected="false" onclick="selectJTerm(4)"><span class="jw-tab-num">T5</span><span class="jw-tab-word">Operate</span></button>
+      <button class="jw-tab" role="tab" aria-selected="false" onclick="selectJTerm(5)"><span class="jw-tab-num">T6</span><span class="jw-tab-word">Synthesis</span></button>
+    </div>
+    <!-- Content -->
+    <div class="jw-body">
+      <div class="jw-left">
+        <div class="jw-left-phase" id="jl-phase" style="color:#EF3C5F">Term 1 · Year 1</div>
+        <div class="jw-left-title" id="jl-title">Observe</div>
+        <div class="jw-left-sub" id="jl-sub">Understand Organisations</div>
+        <div class="jw-left-meta" id="jl-meta"></div>
+      </div>
+      <div class="jw-right">
+        <div>
+          <div class="jw-slabel">Students Learn</div>
+          <div class="jw-subjects" id="jr-subjects"></div>
         </div>
-        <div class="yr34-info">
-          <div class="y34-item">International specialisation + advanced curriculum at chosen university</div>
-          <div class="y34-item">9-month IIP (Industry Immersion Project) with global exposure</div>
-          <div class="y34-item">20 hrs/week part-time work eligibility</div>
-          <div class="y34-item">Bachelor's thesis / research project</div>
-          <div class="y34-item">Cultural immersion + European or US career access</div>
+        <div>
+          <div class="jw-slabel">Experiences</div>
+          <div id="jr-exp" style="display:flex;flex-direction:column;gap:8px"></div>
         </div>
-        <div class="grad-row">
-          <span style="font-size:28px">🎓</span>
-          <div><div style="font-family:var(--fh);font-weight:700;font-size:14px;color:#fff">International Bachelor's Degree</div><div style="font-size:11.5px;color:rgba(255,255,255,.75);margin-top:2px">Awarded by your chosen partner university · Globally recognised</div></div>
-        </div>
+        <div id="jr-feeling"></div>
+        <div id="jr-cap"></div>
       </div>
     </div>
   </div>
 </div>
+<script>
+const JT=[
+  {phase:"Term 1 · Year 1",ac:"#EF3C5F",db:"#EF3C5F",elb:"rgba(239,60,95,.1)",elc:"#c42d4e",title:"Observe",sub:"Understand Organisations",meta:["Principles of Management","Accounting for Managers","Marketing Fundamentals"],subjects:["Business Tools & Systems","Behavioural Science","Quantitative Methods","Design Thinking Intro"],cxo:"COO Zepto · Taj Hotels · Plant Head Tata Motors",visits:"Amazon Fulfilment · Taj Operations · Tata Manufacturing",feeling:"You stop seeing organisations as buildings and start seeing them as systems.",cap:"Business System Review"},
+  {phase:"Term 2 · Year 1",ac:"#5C3A75",db:"#BEA7E5",elb:"rgba(190,167,229,.18)",elc:"#472A5A",title:"Explore",sub:"Markets & Customers",meta:["Consumer Behaviour","Brand Management","Marketing Analytics"],subjects:["CRM & B2B Marketing","Quantitative Methods","Design Thinking","Market Research"],cxo:"Coca-Cola · Growth Lead Nykaa · Asian Paints CMO",visits:"Coca-Cola Distribution · Reliance Retail · Nykaa Operations",feeling:"You start seeing customers as real people with real problems — not just demographics.",cap:"Market & Distribution Mapping"},
+  {phase:"Term 3 · Year 1–2",ac:"#0a6080",db:"#64C6F2",elb:"rgba(100,198,242,.15)",elc:"#0a6080",title:"Analyse",sub:"Industries & Competition",meta:["Financial Analysis","Operations Management","Strategy Fundamentals"],subjects:["Cross-Cultural Management","Data & Info Systems","Corporate Finance","Industry Dynamics"],cxo:"BCG Partner · McKinsey · Goldman Sachs GCC",visits:"Goldman Sachs GCC · Infosys Campus · Startup Incubators",feeling:"You have your first proper strategy conversation — and it doesn't feel foreign.",cap:"Consulting Project"},
+  {phase:"Term 4 · Year 2",ac:"#7a5800",db:"#B8860B",elb:"rgba(184,134,11,.12)",elc:"#7a5800",title:"Execute",sub:"Drive Business Outcomes",meta:["Digital Marketing","E-Commerce","HR Analytics"],subjects:["Supply Chain Management","Business Forecasting","Entrepreneurial Finance","Revenue Operations"],cxo:"Revenue Head Zomato · HUL Sales Director · Unacademy GTM",visits:"HUL Distribution · Retail Chains · Franchise Operations",feeling:"You understand that execution — not ideas — is what separates businesses.",cap:"Market Execution Challenge"},
+  {phase:"Term 5 · Year 2",ac:"#8a1820",db:"#FF686E",elb:"rgba(255,104,110,.12)",elc:"#8a1820",title:"Operate",sub:"Run Systems in Real Teams",meta:["Project Management","Entrepreneurship & Innovation","Business Simulation"],subjects:["Operations Under Pressure","Team Leadership","Foreign Language","Technology in Business"],cxo:"COO BookMyShow · Event Director Sunburn · Delhivery Hub",visits:"Stadium Operations · Delhivery Fulfilment · Event Infrastructure",feeling:"You realise you can run a real business operation — and not fall apart under pressure.",cap:"Live Event Operations"},
+  {phase:"Term 6 · Year 2",ac:"#EF3C5F",db:"#EF3C5F",elb:"rgba(239,60,95,.1)",elc:"#c42d4e",title:"Synthesis",sub:"Transition to Global",meta:["Leadership under ambiguity","Cross-cultural readiness","Outbound Leadership Retreat"],subjects:["Professional Identity","Global Business Context","Reflective Capstone","Transition Preparation"],cxo:"International mentors · Transition guidance sessions",visits:"Outbound Leadership Retreat — resilience, bonding, global readiness",feeling:"You're not a student anymore. You're ready to take on the world.",cap:"Outbound Leadership Lab"}
+];
+function selectJTerm(i){
+  const t=JT[i];
+  document.querySelectorAll('.jw-tab').forEach((b,j)=>{
+    b.classList.toggle('jw-tab-active',j===i);
+    b.setAttribute('aria-selected',String(j===i));
+  });
+  document.getElementById('jl-phase').textContent=t.phase;
+  document.getElementById('jl-phase').style.color=t.ac;
+  document.getElementById('jl-title').textContent=t.title;
+  document.getElementById('jl-sub').textContent=t.sub;
+  document.getElementById('jl-meta').innerHTML=t.meta.map(m=>`<div class="jw-meta-row"><div class="jw-meta-dot" style="background:${t.db}"></div>${m}</div>`).join('');
+  document.getElementById('jr-subjects').innerHTML=t.subjects.map(s=>`<div class="jw-subject"><div class="jw-sdot" style="background:${t.db}"></div>${s}</div>`).join('');
+  document.getElementById('jr-exp').innerHTML=`<div class="jw-exp-row"><span class="jw-exp-lbl" style="background:${t.elb};color:${t.elc}">CXO</span><span>${t.cxo}</span></div><div class="jw-exp-row"><span class="jw-exp-lbl" style="background:rgba(71,42,90,.07);color:#472A5A">Visit</span><span>${t.visits}</span></div>`;
+  document.getElementById('jr-feeling').innerHTML=`<div class="jw-feeling" style="border-left-color:${t.ac}">"${t.feeling}"</div>`;
+  document.getElementById('jr-cap').innerHTML=`<span class="jw-cap" style="color:${t.ac};border-color:${t.db}55">${t.cap}</span>`;
+  const plane=document.getElementById('jw-plane');
+  const rw=document.getElementById('jw-runway').offsetWidth||900;
+  const pcts=[.04,.16,.30,.46,.60,.78];
+  const isLast=i===5;
+  plane.style.left=(rw*pcts[i])+'px';
+  plane.style.top=isLast?'4px':'10px';
+  plane.style.transform=isLast?'rotate(-22deg) scale(1.15)':'rotate(0deg) scale(1)';
+}
+selectJTerm(0);
+</script>
 </section>
 
 <!-- DESTINATIONS -->
@@ -735,51 +777,84 @@ footer{background:#080412;padding:40px 0 28px}
           <defs>
             <filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           </defs>
-          <!-- Ocean -->
-          <rect width="900" height="380" fill="rgba(13,34,64,.3)" rx="8"/>
-          <!-- Grid lines -->
-          <line x1="0" y1="190" x2="900" y2="190" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
-          <!-- North America -->
-          <path d="M55,55 L155,48 L195,68 L210,95 L215,140 L200,170 L185,192 L165,210 L140,225 L110,218 L85,195 L65,168 L48,135 L43,100 Z" fill="rgba(190,167,229,.1)" stroke="rgba(190,167,229,.2)" stroke-width=".8"/>
-          <!-- South America -->
-          <path d="M130,238 L168,232 L185,248 L192,295 L184,345 L165,368 L143,360 L125,332 L118,295 L120,262 Z" fill="rgba(190,167,229,.08)" stroke="rgba(190,167,229,.15)" stroke-width=".8"/>
-          <!-- Europe (highlighted) -->
-          <path d="M365,48 L430,42 L460,58 L470,85 L462,115 L445,130 L420,142 L395,138 L372,122 L358,98 L360,72 Z" fill="rgba(0,85,164,.18)" stroke="rgba(0,85,164,.4)" stroke-width="1.2"/>
-          <!-- Africa -->
-          <path d="M372,148 L432,142 L462,162 L468,222 L455,275 L430,308 L400,302 L374,272 L362,218 L366,168 Z" fill="rgba(190,167,229,.07)" stroke="rgba(190,167,229,.12)" stroke-width=".8"/>
-          <!-- Asia -->
-          <path d="M465,38 L608,32 L662,48 L690,78 L698,122 L680,155 L650,168 L614,175 L580,168 L548,155 L515,142 L485,125 L462,105 L458,75 Z" fill="rgba(190,167,229,.09)" stroke="rgba(190,167,229,.15)" stroke-width=".8"/>
-          <!-- India highlighted -->
-          <path d="M565,138 L594,132 L618,148 L625,182 L614,215 L592,238 L572,232 L558,210 L552,182 L558,152 Z" fill="rgba(71,42,90,.55)" stroke="rgba(190,167,229,.7)" stroke-width="1.5" filter="url(#glow)"/>
-          <!-- Australia -->
-          <path d="M655,245 L728,238 L758,252 L764,308 L750,342 L718,355 L688,345 L668,318 L658,285 Z" fill="rgba(190,167,229,.07)" stroke="rgba(190,167,229,.12)" stroke-width=".8"/>
-          <!-- USA highlighted -->
-          <path d="M55,55 L155,48 L195,68 L210,95 L215,140 L200,170 L165,172 L130,162 L90,150 L55,130 L42,100 Z" fill="rgba(60,59,110,.18)" stroke="rgba(60,59,110,.4)" stroke-width="1.2"/>
+          <rect width="900" height="380" fill="rgba(13,34,64,.25)" rx="8"/>
 
-          <!-- Connection lines from India -->
-          <line x1="583" y1="185" x2="415" y2="92" stroke="rgba(239,60,95,.25)" stroke-width="1" stroke-dasharray="4,4"/>
-          <line x1="583" y1="185" x2="130" y2="115" stroke="rgba(239,60,95,.2)" stroke-width="1" stroke-dasharray="4,4"/>
+          <!-- NORTH AMERICA - accurate silhouette -->
+          <path d="M90,42 L115,38 L140,40 L158,50 L172,58 L185,72 L192,88 L198,106 L200,122 L196,138 L188,152 L178,162 L168,174 L158,182 L150,192 L142,200 L136,210 L130,220 L125,232 L120,240 L116,248 L118,258 L122,266 L126,272 L122,278 L116,276 L110,268 L106,258 L104,248 L100,238 L96,228 L90,218 L84,208 L80,196 L76,184 L72,172 L68,160 L64,148 L62,136 L60,124 L60,112 L62,100 L66,88 L72,76 L80,62 L90,52 Z" fill="rgba(190,167,229,.1)" stroke="rgba(190,167,229,.18)" stroke-width="1"/>
+          <!-- Alaska bump -->
+          <path d="M62,60 L70,52 L82,48 L88,54 L82,62 L70,66 Z" fill="rgba(190,167,229,.1)" stroke="rgba(190,167,229,.15)" stroke-width=".8"/>
+          <!-- Central America -->
+          <path d="M116,248 L120,254 L124,262 L120,268 L114,264 L112,256 Z" fill="rgba(190,167,229,.09)" stroke="rgba(190,167,229,.14)" stroke-width=".8"/>
 
-          <!-- India pin -->
-          <circle cx="583" cy="185" r="10" fill="var(--p)" stroke="rgba(190,167,229,.8)" stroke-width="2" filter="url(#glow)"/>
-          <circle cx="583" cy="185" r="5" fill="var(--lv)"/>
-          <text x="583" y="210" text-anchor="middle" font-family="Space Grotesk" font-size="9" font-weight="700" fill="rgba(255,255,255,.9)">🇮🇳 Mumbai</text>
+          <!-- SOUTH AMERICA -->
+          <path d="M150,258 L164,252 L178,256 L190,264 L198,278 L204,294 L206,312 L204,330 L198,346 L190,360 L180,368 L170,370 L160,364 L150,352 L142,338 L136,322 L134,306 L136,290 L140,274 L146,264 Z" fill="rgba(190,167,229,.09)" stroke="rgba(190,167,229,.15)" stroke-width=".8"/>
 
-          <!-- France pins -->
-          <circle cx="415" cy="85" r="8" fill="#0055a4" stroke="rgba(255,255,255,.6)" stroke-width="1.5" filter="url(#glow)" style="cursor:pointer" onclick="showVar('B');filterP('fr')"/>
-          <text x="415" y="76" text-anchor="middle" font-family="Space Grotesk" font-size="8" font-weight="700" fill="#fff">🇫🇷 KEDGE</text>
-          <circle cx="405" cy="100" r="6" fill="#0055a4" stroke="rgba(255,255,255,.5)" stroke-width="1.2" style="cursor:pointer" onclick="showVar('B');filterP('fr')"/>
-          <text x="405" y="118" text-anchor="middle" font-family="Space Grotesk" font-size="7.5" font-weight="600" fill="rgba(255,255,255,.8)">ESDES</text>
+          <!-- EUROPE - highlighted (destination) -->
+          <path d="M390,52 L402,48 L416,46 L428,50 L438,56 L446,64 L450,74 L448,84 L444,92 L438,98 L430,104 L420,108 L410,110 L400,108 L390,102 L382,94 L378,84 L380,72 L386,62 Z" fill="rgba(0,85,164,.2)" stroke="rgba(0,85,164,.5)" stroke-width="1"/>
+          <!-- Iberian peninsula -->
+          <path d="M378,84 L372,90 L368,100 L372,110 L380,114 L388,110 L392,100 L390,90 Z" fill="rgba(0,85,164,.15)" stroke="rgba(0,85,164,.4)" stroke-width=".8"/>
+          <!-- UK -->
+          <path d="M382,56 L388,52 L392,58 L388,66 L382,64 Z" fill="rgba(0,85,164,.15)" stroke="rgba(0,85,164,.35)" stroke-width=".8"/>
+          <!-- Scandinavia -->
+          <path d="M410,42 L420,36 L432,34 L440,42 L436,52 L426,56 L416,54 L408,48 Z" fill="rgba(190,167,229,.09)" stroke="rgba(190,167,229,.15)" stroke-width=".8"/>
 
-          <!-- USA pins -->
-          <circle cx="128" cy="112" r="8" fill="#3c3b6e" stroke="rgba(255,255,255,.6)" stroke-width="1.5" filter="url(#glow)" style="cursor:pointer" onclick="showVar('B');filterP('us')"/>
-          <text x="128" y="103" text-anchor="middle" font-family="Space Grotesk" font-size="7.5" font-weight="700" fill="#fff">🇺🇸 SUNY</text>
-          <circle cx="148" cy="130" r="6" fill="#3c3b6e" stroke="rgba(255,255,255,.5)" stroke-width="1.2" style="cursor:pointer" onclick="showVar('B');filterP('us')"/>
-          <text x="170" y="146" text-anchor="middle" font-family="Space Grotesk" font-size="7" font-weight="600" fill="rgba(255,255,255,.8)">GSU+UTA</text>
+          <!-- AFRICA -->
+          <path d="M388,116 L406,110 L424,112 L438,120 L448,134 L452,152 L452,172 L448,192 L440,210 L428,226 L414,240 L400,250 L386,252 L374,246 L364,232 L358,216 L358,198 L360,180 L364,162 L370,146 L376,132 L382,120 Z" fill="rgba(190,167,229,.08)" stroke="rgba(190,167,229,.13)" stroke-width=".8"/>
 
-          <!-- Switzerland pin -->
-          <circle cx="430" cy="92" r="7" fill="#c60000" stroke="rgba(255,255,255,.6)" stroke-width="1.5" filter="url(#glow)" style="cursor:pointer" onclick="showVar('B');filterP('ch')"/>
-          <text x="455" y="90" text-anchor="middle" font-family="Space Grotesk" font-size="7.5" font-weight="700" fill="#fff">🇨🇭 HSLU</text>
+          <!-- ASIA (excl India) -->
+          <path d="M450,50 L480,44 L514,40 L548,38 L580,40 L610,44 L636,50 L656,58 L672,68 L682,80 L686,94 L682,108 L672,118 L658,126 L642,132 L624,136 L606,138 L590,138 L574,136 L562,132 L552,126 L544,118 L538,108 L534,98 L530,88 L522,78 L510,70 L496,64 L480,58 L464,54 Z" fill="rgba(190,167,229,.09)" stroke="rgba(190,167,229,.14)" stroke-width=".8"/>
+          <!-- Middle East -->
+          <path d="M480,118 L498,114 L514,116 L526,124 L530,134 L524,144 L512,148 L498,146 L486,138 L478,128 Z" fill="rgba(190,167,229,.07)" stroke="rgba(190,167,229,.12)" stroke-width=".8"/>
+          <!-- Japan -->
+          <path d="M712,86 L718,82 L724,88 L720,96 L714,94 Z" fill="rgba(190,167,229,.1)" stroke="rgba(190,167,229,.2)" stroke-width=".8"/>
+          <!-- Southeast Asia -->
+          <path d="M634,138 L648,142 L658,152 L660,164 L652,172 L640,170 L630,162 L628,150 Z" fill="rgba(190,167,229,.08)" stroke="rgba(190,167,229,.13)" stroke-width=".8"/>
+
+          <!-- INDIA - highlighted, accurate shape -->
+          <path d="M558,132 L572,126 L586,124 L600,128 L612,136 L620,148 L624,162 L622,178 L616,194 L606,208 L594,220 L582,228 L572,224 L562,214 L554,200 L550,184 L550,168 L552,152 L556,140 Z" fill="rgba(71,42,90,.6)" stroke="rgba(190,167,229,.85)" stroke-width="1.5" filter="url(#glow)"/>
+          <!-- Sri Lanka -->
+          <path d="M588,232 L592,228 L596,234 L592,240 Z" fill="rgba(71,42,90,.4)" stroke="rgba(190,167,229,.5)" stroke-width=".8"/>
+
+          <!-- AUSTRALIA -->
+          <path d="M694,252 L720,246 L748,248 L768,258 L778,272 L778,290 L770,306 L756,318 L738,326 L718,326 L700,318 L686,306 L680,290 L680,272 L686,260 Z" fill="rgba(190,167,229,.08)" stroke="rgba(190,167,229,.13)" stroke-width=".8"/>
+          <!-- New Zealand -->
+          <path d="M800,302 L806,296 L810,304 L806,312 Z" fill="rgba(190,167,229,.07)" stroke="rgba(190,167,229,.12)" stroke-width=".8"/>
+
+          <!-- Greenland -->
+          <path d="M210,22 L236,16 L258,20 L268,32 L262,46 L244,52 L224,48 L212,36 Z" fill="rgba(190,167,229,.07)" stroke="rgba(190,167,229,.12)" stroke-width=".8"/>
+
+          <!-- CONNECTION LINES from Mumbai -->
+          <!-- To France -->
+          <line x1="586" y1="176" x2="424" y2="82" stroke="rgba(239,60,95,.3)" stroke-width="1" stroke-dasharray="5,4"/>
+          <!-- To USA -->
+          <line x1="586" y1="176" x2="148" y2="118" stroke="rgba(239,60,95,.22)" stroke-width="1" stroke-dasharray="5,4"/>
+          <!-- To Switzerland -->
+          <line x1="586" y1="176" x2="438" y2="78" stroke="rgba(239,60,95,.2)" stroke-width="1" stroke-dasharray="5,4"/>
+
+          <!-- MUMBAI PIN -->
+          <circle cx="586" cy="176" r="10" fill="#472A5A" stroke="rgba(190,167,229,.9)" stroke-width="2.5" filter="url(#glow)"/>
+          <circle cx="586" cy="176" r="5" fill="#BEA7E5"/>
+          <text x="586" y="200" text-anchor="middle" font-family="Space Grotesk" font-size="9" font-weight="700" fill="rgba(255,255,255,.9)">Mumbai</text>
+
+          <!-- FRANCE PINS (lon≈2.3, lat≈46.2 → x=411, y=88) (Lyon lon=4.8, lat=45.7 → x=424, y=90) -->
+          <circle cx="416" cy="84" r="9" fill="#0055a4" stroke="rgba(255,255,255,.7)" stroke-width="1.5" filter="url(#glow)" style="cursor:pointer" onclick="showVar('B');filterP('fr')"/>
+          <text x="416" y="75" text-anchor="middle" font-family="Space Grotesk" font-size="8.5" font-weight="700" fill="#fff">KEDGE</text>
+          <circle cx="428" cy="90" r="7" fill="#1a6fc4" stroke="rgba(255,255,255,.6)" stroke-width="1.2" style="cursor:pointer" onclick="showVar('B');filterP('fr')"/>
+          <text x="428" y="108" text-anchor="middle" font-family="Space Grotesk" font-size="8" font-weight="600" fill="rgba(255,255,255,.85)">ESDES</text>
+
+          <!-- SWITZERLAND PIN (lon≈8.2, lat≈46.8 → x=441, y=86) -->
+          <circle cx="442" cy="84" r="8" fill="#c60000" stroke="rgba(255,255,255,.7)" stroke-width="1.5" filter="url(#glow)" style="cursor:pointer" onclick="showVar('B');filterP('ch')"/>
+          <text x="464" y="82" text-anchor="middle" font-family="Space Grotesk" font-size="8" font-weight="700" fill="#fff">HSLU</text>
+
+          <!-- USA PINS -->
+          <!-- SUNY Albany lon≈-73.8, lat≈42.7 → x=144, y=101 -->
+          <circle cx="144" cy="100" r="9" fill="#3c3b6e" stroke="rgba(255,255,255,.7)" stroke-width="1.5" filter="url(#glow)" style="cursor:pointer" onclick="showVar('B');filterP('us')"/>
+          <text x="144" y="91" text-anchor="middle" font-family="Space Grotesk" font-size="8.5" font-weight="700" fill="#fff">SUNY</text>
+          <!-- GSU Atlanta lon≈-84.4, lat≈33.7 → x=133, y=124 -->
+          <circle cx="133" cy="124" r="7" fill="#3c3b6e" stroke="rgba(255,255,255,.6)" stroke-width="1.2" style="cursor:pointer" onclick="showVar('B');filterP('us')"/>
+          <!-- UTA Arlington lon≈-97.1, lat≈32.7 → x=120, y=126 -->
+          <circle cx="120" cy="128" r="7" fill="#3c3b6e" stroke="rgba(255,255,255,.6)" stroke-width="1.2" style="cursor:pointer" onclick="showVar('B');filterP('us')"/>
+          <text x="126" y="144" text-anchor="middle" font-family="Space Grotesk" font-size="7.5" font-weight="600" fill="rgba(255,255,255,.85)">GSU · UTA</text>
         </svg>
       </div>
       <div class="map-dest-cards">
