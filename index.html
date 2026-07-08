@@ -182,6 +182,35 @@ textarea.inp{resize:vertical;min-height:72px}
 .ch-chip.active{background:#ECE3FA;color:#532399;border-color:#DDCEF2}
 .lead-score-circle{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;flex-shrink:0}
 .upcoming-fu{background:#FAF9FC;border:1px solid #DDCEF2;border-radius:7px;padding:7px 12px;display:flex;align-items:center;gap:7px;font-size:11px;color:#532399}
+
+/* ── P2+P7: AI PRIORITY BANNER ── */
+.ai-banner{background:linear-gradient(135deg,#FAF5FF 0%,#F0E8FF 100%);border:1px solid #DDCEF2;border-radius:10px;padding:14px 16px;margin-bottom:18px;display:flex;align-items:flex-start;gap:12px}
+.ai-banner-ic{width:28px;height:28px;background:#6832BA;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ai-why{font-size:10px;color:#6832BA;cursor:pointer;text-decoration:underline;text-decoration-style:dotted;margin-top:5px;display:inline-block;background:none;border:none;font-family:inherit;padding:0}
+.ai-why-body{font-size:11px;color:#532399;background:#fff;border:1px solid #DDCEF2;border-radius:6px;padding:9px 11px;margin-top:8px;line-height:1.6;display:none}
+/* P3: PERCEIVED CONTROL */
+.ai-dismiss{font-size:10px;color:#8B96AA;cursor:pointer;padding:3px 9px;border-radius:5px;border:1px solid #E2E4E8;background:#fff;font-family:inherit;transition:all .12s}
+.ai-dismiss:hover{border-color:#D92D20;color:#D92D20;background:#FFFBFA}
+/* P4: AI THINKING DOTS */
+.ai-dots{display:flex;gap:4px;align-items:center;padding:2px 0}
+.ai-dot{width:5px;height:5px;border-radius:50%;background:#DDCEF2;animation:dp 1.4s ease-in-out infinite}
+.ai-dot:nth-child(2){animation-delay:.2s}.ai-dot:nth-child(3){animation-delay:.4s}
+@keyframes dp{0%,80%,100%{transform:scale(.8);opacity:.5}40%{transform:scale(1.1);opacity:1}}
+/* P2: AI SOURCE CITATION */
+.ai-cite{font-size:10px;color:#8B96AA;margin-top:6px;padding-top:6px;border-top:1px solid #EDEFF2;display:flex;align-items:center;gap:4px}
+/* P2: CALL SCORE CONFIDENCE STRIP */
+.ai-conf{display:flex;align-items:center;gap:6px;font-size:10px;color:#8B96AA;margin-bottom:12px;padding:6px 10px;background:#F9FAFB;border-radius:6px;border:1px solid #EDEFF2}
+.ai-conf-dot{width:5px;height:5px;border-radius:50%;background:#1ACC73;flex-shrink:0}
+/* P1: INTENT CHIPS */
+.intent-row{display:flex;gap:6px;flex-wrap:wrap;padding:8px 16px 4px}
+.intent-chip{padding:5px 11px;border-radius:20px;border:1px solid #DDCEF2;background:#FAF5FF;font-size:11px;color:#6832BA;cursor:pointer;font-family:inherit;transition:all .12s;white-space:nowrap}
+.intent-chip:hover{background:#ECE3FA;border-color:#6832BA}
+/* P6: CONFIRM OVERLAY */
+.conf-overlay{position:fixed;inset:0;background:rgba(9,9,11,.45);z-index:400;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(2px);animation:fadeIn .15s}
+.conf-box{background:#fff;border-radius:12px;padding:24px;max-width:340px;width:90%;box-shadow:0 16px 48px rgba(9,9,11,.18)}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+/* P5: AI LABEL ON TABLE */
+.ai-tag{font-size:9px;font-weight:600;color:#6832BA;background:#ECE3FA;border-radius:3px;padding:1px 5px;margin-left:5px;vertical-align:middle;letter-spacing:.02em}
 </style>
 </head>
 <body>
@@ -265,17 +294,24 @@ textarea.inp{resize:vertical;min-height:72px}
     <input class="ai-inp" id="aiInput" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendAI()">
     <button class="ai-send" onclick="sendAI()"><svg width="13" height="13" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg></button>
   </div>
+  <div class="intent-row" id="intentChips">
+    <span style="font-size:9px;color:#8B96AA;font-weight:500;align-self:center;white-space:nowrap">Quick intent:</span>
+    <button class="intent-chip" onclick="aiSuggest('Summarise my follow-up queue for today')">My queue today</button>
+    <button class="intent-chip" onclick="aiSuggest('Which lead needs the most urgent attention?')">Most urgent lead</button>
+    <button class="intent-chip" onclick="aiSuggest('Give me tips to improve my call score')">Call tips</button>
+    <button class="intent-chip" onclick="aiSuggest('Show KSP coverage gaps for this week')">KSP gaps</button>
+  </div>
 </div>
 
 <script>
 /* ── DATA ── */
 const D={
   counsellors:[
-    {id:1,name:'Manohar Reddy',email:'manoharreddy@jagsom.edu.in',mcube:'8976958620',onboarding:'2024-12-01',status:'ACTIVE',score:62,calls:340,callTime:'11:53:56',fuMissed:12},
-    {id:2,name:'Chhavi Nigam',email:'chhavi.nigam@jagsom.edu.in',mcube:'6366568119',onboarding:'2024-12-01',status:'ACTIVE',score:78,calls:412,callTime:'14:22:10',fuMissed:5},
-    {id:3,name:'Aditya Vishwakarma',email:'aditya888@gmail.com',mcube:'9136682426',onboarding:'2024-12-01',status:'ACTIVE',score:45,calls:289,callTime:'09:21:44',fuMissed:22},
-    {id:4,name:'Priya Mehta',email:'priya.mehta@jagsom.edu.in',mcube:'9845123670',onboarding:'2025-01-15',status:'ACTIVE',score:83,calls:198,callTime:'07:45:12',fuMissed:3},
-    {id:5,name:'Rahul Sharma',email:'rahul.sharma@jagsom.edu.in',mcube:'7204284304',onboarding:'2025-01-15',status:'ACTIVE',score:38,calls:156,callTime:'06:30:00',fuMissed:28},
+    {id:1,name:'Manohar Reddy',email:'manoharreddy@jagsom.edu.in',mcube:'8976958620',onboarding:'2024-12-01',status:'ACTIVE',score:62,calls:340,callTime:'11:53:56',fuMissed:12,avgTalk:'2m 06s',speedToLead:'8m 12s',stages:{new:45,followUp:32,negotiation:18,payment:8,lost:27}},
+    {id:2,name:'Chhavi Nigam',email:'chhavi.nigam@jagsom.edu.in',mcube:'6366568119',onboarding:'2024-12-01',status:'ACTIVE',score:78,calls:412,callTime:'14:22:10',fuMissed:5,avgTalk:'2m 05s',speedToLead:'3m 44s',stages:{new:38,followUp:55,negotiation:22,payment:12,lost:15}},
+    {id:3,name:'Aditya Vishwakarma',email:'aditya888@gmail.com',mcube:'9136682426',onboarding:'2024-12-01',status:'ACTIVE',score:45,calls:289,callTime:'09:21:44',fuMissed:22,avgTalk:'1m 56s',speedToLead:'11m 20s',stages:{new:62,followUp:28,negotiation:14,payment:5,lost:30}},
+    {id:4,name:'Priya Mehta',email:'priya.mehta@jagsom.edu.in',mcube:'9845123670',onboarding:'2025-01-15',status:'ACTIVE',score:83,calls:198,callTime:'07:45:12',fuMissed:3,avgTalk:'2m 21s',speedToLead:'4m 55s',stages:{new:22,followUp:44,negotiation:28,payment:18,lost:6}},
+    {id:5,name:'Rahul Sharma',email:'rahul.sharma@jagsom.edu.in',mcube:'7204284304',onboarding:'2025-01-15',status:'ACTIVE',score:38,calls:156,callTime:'06:30:00',fuMissed:28,avgTalk:'2m 30s',speedToLead:'18m 32s',stages:{new:58,followUp:34,negotiation:11,payment:3,lost:50}},
   ],
   ksps:[
     {id:1,name:'Early Admission Discount',desc:'30% fee waiver before March 31st. Linked to CAT/GMAT above 80 percentile.',status:'ACTIVE'},
@@ -283,11 +319,11 @@ const D={
     {id:3,name:'Industry Mentorship',desc:'1:1 mentorship with C-suite executives from 50+ partner companies.',status:'INACTIVE'},
   ],
   leads:[
-    {id:1,name:'Sai Sanket',mobile:'8287479005',program:'MBA Finance',score:17,action:'CALL',contacted:'17 Apr, 11:07 AM',interest:'LOW_INTEREST',email:'sai.sanket@gmail.com',source:'Google Ads',created:'10 Apr, 2026',lastActive:'17 Apr, 2026',fuDate:'20 Apr, 2026 11:00 AM'},
-    {id:2,name:'Ananya Krishnan',mobile:'9816768011',program:'MBA Marketing',score:72,action:'CALL',contacted:'16 Apr, 3:30 PM',interest:'MODERATELY_INTERESTED',email:'ananya.k@gmail.com',source:'CollegeDunia',created:'08 Apr, 2026',lastActive:'16 Apr, 2026',fuDate:'19 Apr, 2026 3:00 PM'},
-    {id:3,name:'Vikram Nair',mobile:'9901234567',program:'PGDM',score:88,action:'WHATSAPP',contacted:'15 Apr, 10:00 AM',interest:'HIGHLY_INTERESTED',email:'vikram.nair@gmail.com',source:'Shiksha',created:'05 Apr, 2026',lastActive:'15 Apr, 2026',fuDate:'18 Apr, 2026 10:00 AM'},
-    {id:4,name:'Deepika Joshi',mobile:'8765432190',program:'MBA HR',score:45,action:'CALL',contacted:'14 Apr, 2:15 PM',interest:'UNDECIDED',email:'deepika.j@gmail.com',source:'Direct',created:'01 Apr, 2026',lastActive:'14 Apr, 2026',fuDate:'21 Apr, 2026 2:00 PM'},
-    {id:5,name:'Arjun Pillai',mobile:'9123456780',program:'MBA Operations',score:31,action:'CALL',contacted:'13 Apr, 9:45 AM',interest:'LOW_INTEREST',email:'arjun.p@gmail.com',source:'TEP',created:'28 Mar, 2026',lastActive:'13 Apr, 2026',fuDate:'22 Apr, 2026 9:00 AM'},
+    {id:1,name:'Sai Sanket',mobile:'8287479005',program:'MBA Finance',score:17,action:'CALL',contacted:'17 Apr, 11:07 AM',interest:'LOW_INTEREST',email:'sai.sanket@gmail.com',source:'Google Ads',stage:'New Lead',created:'10 Apr, 2026',lastActive:'17 Apr, 2026',fuDate:'20 Apr, 2026 11:00 AM'},
+    {id:2,name:'Ananya Krishnan',mobile:'9816768011',program:'MBA Marketing',score:72,action:'CALL',contacted:'16 Apr, 3:30 PM',interest:'MODERATELY_INTERESTED',email:'ananya.k@gmail.com',source:'CollegeDunia',stage:'Follow-Up',created:'08 Apr, 2026',lastActive:'16 Apr, 2026',fuDate:'19 Apr, 2026 3:00 PM'},
+    {id:3,name:'Vikram Nair',mobile:'9901234567',program:'PGDM',score:88,action:'WHATSAPP',contacted:'15 Apr, 10:00 AM',interest:'HIGHLY_INTERESTED',email:'vikram.nair@gmail.com',source:'Shiksha',stage:'Negotiation',created:'05 Apr, 2026',lastActive:'15 Apr, 2026',fuDate:'18 Apr, 2026 10:00 AM'},
+    {id:4,name:'Deepika Joshi',mobile:'8765432190',program:'MBA HR',score:45,action:'CALL',contacted:'14 Apr, 2:15 PM',interest:'UNDECIDED',email:'deepika.j@gmail.com',source:'Direct',stage:'New Lead',created:'01 Apr, 2026',lastActive:'14 Apr, 2026',fuDate:'21 Apr, 2026 2:00 PM'},
+    {id:5,name:'Arjun Pillai',mobile:'9123456780',program:'MBA Operations',score:31,action:'CALL',contacted:'13 Apr, 9:45 AM',interest:'LOW_INTEREST',email:'arjun.p@gmail.com',source:'TEP',stage:'New Lead',created:'28 Mar, 2026',lastActive:'13 Apr, 2026',fuDate:'22 Apr, 2026 9:00 AM'},
   ],
   calls:[
     {id:'c1',leadId:1,date:'17 Apr 2026',time:'11:07 AM',dur:'8m 42s',score:34,
@@ -330,6 +366,10 @@ const barC=p=>p>=71?'#1ACC73':p>=41?'#FCBC28':'#F04438';
 const ib=i=>{const m=IM[i]||{l:i,bg:'#EDEFF2',c:'#667085'};return`<span class="badge" style="background:${m.bg};color:${m.c}">${m.l}</span>`;};
 const sb=s=>`<span class="badge" style="background:${scBg(s)};color:${scC(s)}">${s}</span>`;
 const ab=a=>{const m={CALL:{bg:'#D1FADF',c:'#039855'},WHATSAPP:{bg:'#D1FAF0',c:'#027A48'},EMAIL:{bg:'#D4E4FC',c:'#0263EB'},OTHERS:{bg:'#EDEFF2',c:'#667085'}};const x=m[a]||{bg:'#EDEFF2',c:'#667085'};return`<span class="badge" style="background:${x.bg};color:${x.c}">${a}</span>`;};
+const srcb=s=>{const m={'Google Ads':{bg:'#D4E4FC',c:'#0263EB'},'Meta Ads':{bg:'#ECE3FA',c:'#532399'},CollegeDunia:{bg:'#FEF2C1',c:'#B54708'},Shiksha:{bg:'#D1FADF',c:'#039855'},Direct:{bg:'#EDEFF2',c:'#667085'},TEP:{bg:'#FFE4D6',c:'#B54708'},Referral:{bg:'#D1FAF0',c:'#027A48'}};const x=m[s]||{bg:'#EDEFF2',c:'#667085'};return`<span class="badge" style="background:${x.bg};color:${x.c};font-size:10px">${s}</span>`;};
+const stageb=s=>{const m={'New Lead':{bg:'#EDEFF2',c:'#667085'},'Follow-Up':{bg:'#D4E4FC',c:'#0263EB'},Negotiation:{bg:'#FEF2C1',c:'#B54708'},'Application Sent':{bg:'#ECE3FA',c:'#532399'},'Payment Complete':{bg:'#D1FADF',c:'#039855'},Lost:{bg:'#FEE4E2',c:'#D92D20'}};const x=m[s]||{bg:'#EDEFF2',c:'#667085'};return`<span class="badge" style="background:${x.bg};color:${x.c}">${s}</span>`;};
+const stlColor=s=>{const t=parseInt(s);return t<5?'#039855':t<15?'#B54708':'#D92D20';};
+const pipelineBar=c=>{const tot=c.stages.new+c.stages.followUp+c.stages.negotiation+c.stages.payment+c.stages.lost||1;const segs=[['new','#EDEFF2',c.stages.new],['followUp','#D4E4FC',c.stages.followUp],['negotiation','#FEF2C1',c.stages.negotiation],['payment','#D1FADF',c.stages.payment],['lost','#FEE4E2',c.stages.lost]];return`<div style="display:flex;flex-direction:column;gap:3px"><div style="display:flex;border-radius:4px;overflow:hidden;height:6px;width:100%;min-width:100px">${segs.map(([,bg,v])=>`<div style="width:${(v/tot*100).toFixed(1)}%;background:${bg};flex-shrink:0"></div>`).join('')}</div><div style="font-size:10px;color:#667085;white-space:nowrap">N:${c.stages.new} FU:${c.stages.followUp} Neg:${c.stages.negotiation} Pay:${c.stages.payment}</div></div>`;};
 const sp2=s=>{const a=s==='ACTIVE';return`<span class="sp2 ${a?'sa':'si'}"><span class="dot-i" style="background:${a?'#1ACC73':'#B1B8C4'}"></span>${s}</span>`;};
 const ini=n=>n.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
 const ctColor=t=>({CALL:'#039855',EMAIL:'#0263EB',WHATSAPP:'#027A48',SMS:'#B54708'})[t]||'#667085';
@@ -422,12 +462,59 @@ const AI_RESPONSES={
 
 function aiSuggest(text){
   document.getElementById('aiSuggestions').style.display='none';
+  document.getElementById('intentChips').style.display='none';
   addAIMsg(text,'user');
+  // P4: Show thinking state
+  const thinkDiv=document.createElement('div');
+  thinkDiv.className='ai-msg ai-msg-ai';
+  thinkDiv.innerHTML='<div class="ai-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>';
+  document.getElementById('aiMsgs').appendChild(thinkDiv);
+  document.getElementById('aiMsgs').scrollTop=document.getElementById('aiMsgs').scrollHeight;
   setTimeout(()=>{
     const key=text.toLowerCase();
-    const resp=Object.entries(AI_RESPONSES).find(([k])=>key.includes(k.slice(0,20)))?.[1]||'I\'m analysing your data. Give me a moment...';
-    addAIMsg(resp,'ai');
-  },800);
+    const entry=Object.entries(AI_RESPONSES).find(([k])=>key.includes(k.slice(0,20)));
+    const resp=entry?.[1]||'I\'m analysing your data. Give me a moment...';
+    // P2: Source citation
+    const cite={
+      'summarise my follow-up queue for today':'Based on 18 scheduled follow-ups · 5 leads · updated 2 min ago',
+      'which lead needs the most urgent attention':'Based on lead score, last contact date, and unresolved concerns · updated 2 min ago',
+      'give me tips to improve my call score':'Based on 8 calls this week · 2 categories below avg · updated 1 min ago',
+      'show ksp coverage gaps for this week':'Based on 8 calls this week · KSP pitch log · updated 1 min ago',
+    };
+    const citeText=cite[key.slice(0,50)]||'Based on your CRM data · updated just now';
+    thinkDiv.innerHTML=resp+`<div class="ai-cite"><svg width="10" height="10" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z" clip-rule="evenodd"/></svg>${citeText}</div>`;
+    document.getElementById('aiMsgs').scrollTop=document.getElementById('aiMsgs').scrollHeight;
+  },900);
+}
+
+/* P6: Ethics — confirm before intervening on AI-scheduled action */
+function showInterveneConfirm(){
+  const overlay=document.createElement('div');
+  overlay.className='conf-overlay';
+  overlay.id='confOverlay';
+  overlay.innerHTML=`<div class="conf-box">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+      <div style="width:28px;height:28px;background:#FEF2C1;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="13" height="13" fill="#B54708" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495ZM10 5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 5Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd"/></svg>
+      </div>
+      <span style="font-size:14px;font-weight:500;color:#2E3751">Intervene on AI-scheduled action?</span>
+    </div>
+    <p style="font-size:12px;color:#667085;line-height:1.6;margin-bottom:16px">This will cancel the AI-scheduled email to Sai Sanket. The AI had determined this was the optimal send time based on his activity pattern. Once cancelled, it won't be rescheduled automatically.</p>
+    <div style="display:flex;gap:8px">
+      <button onclick="document.getElementById('confOverlay').remove()" style="flex:1;padding:8px;border-radius:7px;border:1px solid #E2E4E8;background:#fff;font-size:12px;cursor:pointer;font-family:inherit;color:#667085">Cancel</button>
+      <button onclick="document.getElementById('confOverlay').remove();showToast('Automation cancelled. You can reschedule manually.')" style="flex:1;padding:8px;border-radius:7px;border:none;background:#D92D20;color:#fff;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit">Yes, Intervene</button>
+    </div>
+  </div>`;
+  document.body.appendChild(overlay);
+}
+
+/* P4: Toast feedback */
+function showToast(msg){
+  const t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#2E3751;color:#fff;padding:9px 16px;border-radius:8px;font-size:12px;z-index:500;box-shadow:0 4px 16px rgba(9,9,11,.2);animation:fadeIn .2s';
+  t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),3000);
 }
 
 function addAIMsg(text,role){
@@ -445,8 +532,17 @@ function sendAI(){
   if(!text)return;
   inp.value='';
   document.getElementById('aiSuggestions').style.display='none';
+  document.getElementById('intentChips').style.display='none';
   addAIMsg(text,'user');
-  setTimeout(()=>addAIMsg('I\'m working on that. In the live product, this will pull real-time data from your CRM.','ai'),700);
+  const thinkDiv=document.createElement('div');
+  thinkDiv.className='ai-msg ai-msg-ai';
+  thinkDiv.innerHTML='<div class="ai-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>';
+  document.getElementById('aiMsgs').appendChild(thinkDiv);
+  document.getElementById('aiMsgs').scrollTop=document.getElementById('aiMsgs').scrollHeight;
+  setTimeout(()=>{
+    thinkDiv.innerHTML='I\'m working on that. In the live product, this will pull real-time data from your CRM.<div class="ai-cite"><svg width="10" height="10" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z" clip-rule="evenodd"/></svg>Live data · updated just now</div>';
+    document.getElementById('aiMsgs').scrollTop=document.getElementById('aiMsgs').scrollHeight;
+  },700);
 }
 
 /* ── PANEL ── */
@@ -456,12 +552,12 @@ function closePanel(){document.getElementById('sp').classList.remove('open');S.s
 /* ── LEAD TABLE ── */
 function ltbl(leads,fn){
   return`<div class="tbl-wrap"><table>
-    <thead><tr><th>Lead Name</th><th>Mobile</th><th>Score</th><th>Program</th><th>Interest</th><th>Action</th><th>Last Contacted</th></tr></thead>
+    <thead><tr><th>Lead Name</th><th>Mobile</th><th>Score</th><th>Program</th><th>Source</th><th>Stage</th><th>Action</th></tr></thead>
     <tbody>${leads.map(l=>`
       <tr class="clickable ${S.selectedLead===l.id?'sel':''}" onclick="${fn||'openLeadPanel'}(${l.id})">
         <td class="td-name">${l.name}</td><td class="mono">${l.mobile}</td><td>${sb(l.score)}</td>
-        <td class="body">${l.program}</td><td>${ib(l.interest)}</td><td>${ab(l.action)}</td>
-        <td class="meta">${l.contacted}</td>
+        <td class="body">${l.program}</td><td>${srcb(l.source)}</td><td>${stageb(l.stage)}</td>
+        <td>${ab(l.action)}${l.score>=80?`<span class="ai-tag" title="AI suggested this based on lead score and last contact gap">AI</span>`:''}</td>
       </tr>`).join('')}
     </tbody>
   </table></div>`;
@@ -506,16 +602,11 @@ function pCAdmin(){return`<div class="page-inner">
       <div class="stat-bd">${[['Initiated','312','#039855'],['No Answer','398','#B54708'],['Busy','198','#D92D20']].map(([l,v,c])=>`<div class="bd-row"><span style="color:#667085">${l}</span><span style="font-weight:500;color:${c}">${v}</span></div>`).join('')}</div>
     </div>
   </div>
-  <div class="sg g3" style="margin-bottom:20px">
-    <div class="stat">
-      <div class="stat-lbl">Today's Follow-Ups</div>
-      <div style="display:flex;align-items:flex-end;justify-content:space-between">
-        <div class="stat-val">132</div>
-        <div class="stat-spark">${spark([80,95,110,88,120,132],'#6832BA')}</div>
-      </div>
-    </div>
+  <div class="sg g4" style="margin-bottom:20px">
+    <div class="stat"><div class="stat-lbl">Today's Follow-Ups</div><div style="display:flex;align-items:flex-end;justify-content:space-between"><div class="stat-val">132</div><div class="stat-spark">${spark([80,95,110,88,120,132],'#6832BA')}</div></div></div>
     <div class="stat"><div class="stat-lbl">Completed Today</div><div class="stat-val" style="color:#039855">28</div><div class="stat-sub">of 132 target</div></div>
-    <div class="stat"><div class="stat-lbl">Missed Follow-Ups</div><div class="stat-val" style="color:#D92D20">104</div><div class="stat-sub">action required</div></div>
+    <div class="stat" style="border-color:#fecaca;background:#fff9f9"><div class="stat-lbl" style="color:#D92D20">⚠ Missed Follow-Ups</div><div class="stat-val" style="color:#D92D20">104</div><div class="stat-sub" style="color:#D92D20;font-weight:500">action required</div></div>
+    <div class="stat" style="border-color:#fde68a"><div class="stat-lbl">Avg Speed to Lead</div><div class="stat-val" style="color:#B54708">9m 21s</div><div class="stat-sub" style="color:#B54708">team avg · target &lt;5m</div></div>
   </div>
 
   <div class="card">
@@ -541,10 +632,12 @@ function pCAdmin(){return`<div class="page-inner">
       </div>`;}).join('')}
     </div>
     <div class="tbl-wrap"><table>
-      <thead><tr><th>Counsellor</th><th>Total Calls</th><th>Avg Score</th><th>Total Call Time</th><th>Missed FU</th></tr></thead>
+      <thead><tr><th>Counsellor</th><th>Total Calls</th><th>Avg Score</th><th>Avg Talk Time</th><th>Speed to Lead</th><th>Pipeline</th><th>Missed FU</th></tr></thead>
       <tbody>${D.counsellors.map(c=>`<tr class="clickable" onclick="openCounsellorPanel(${c.id})">
         <td class="td-name">${c.name}</td><td>${c.calls}</td><td>${sb(c.score)}</td>
-        <td class="mono">${c.callTime}</td>
+        <td class="mono">${c.avgTalk}</td>
+        <td style="color:${stlColor(c.speedToLead)};font-weight:500;font-family:monospace;font-size:11px">${c.speedToLead}</td>
+        <td style="min-width:130px">${pipelineBar(c)}</td>
         <td style="color:${c.fuMissed>15?'#D92D20':c.fuMissed>8?'#B54708':'#039855'};font-weight:500">${String(c.fuMissed).padStart(2,'0')}</td>
       </tr>`).join('')}
       </tbody>
@@ -612,6 +705,22 @@ function pCDash(){
       <div class="card-title" style="margin:0">My Queue</div>
       <div style="display:flex;gap:5px">
         ${[['All','99'],['New Leads','02'],['Calls','05'],['Emails','17']].map(([l,n],i)=>`<button class="btn btn-sm ${i===0?'btn-purple':''}">${l} <span style="background:#EDEFF2;color:#667085;border-radius:3px;padding:1px 5px;font-size:9px">${n}</span></button>`).join('')}
+      </div>
+    </div>
+    <div class="ai-banner" id="aiBanner">
+      <div class="ai-banner-ic">
+        <svg width="13" height="13" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7H3a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2z"/><path d="M3 14v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/></svg>
+      </div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:9px;font-weight:600;color:#6832BA;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">⚡ AI Priority · Act now</div>
+        <div style="font-size:13px;font-weight:500;color:#2E3751;margin-bottom:3px">Call Vikram Nair — 3 days since last contact</div>
+        <div style="font-size:12px;color:#667085;margin-bottom:2px">Highly interested in PGDM · Score 88 · Fee concern unresolved from last call</div>
+        <button class="ai-why" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block';this.textContent=this.textContent.includes('↓')?'Why did AI flag this? ↑':'Why did AI flag this? ↓'">Why did AI flag this? ↓</button>
+        <div class="ai-why-body">Vikram hasn't been contacted in 3 days — the longest gap in your queue. His score is 88, the highest across all your leads. His last call on Apr 15 surfaced an unresolved fee concern. AI recommends a call today before he compares with other institutes. Best window: before 12pm based on his call history.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:7px;flex-shrink:0;margin-left:10px">
+        <button class="btn btn-primary btn-sm" onclick="openLeadPanel(3)" style="white-space:nowrap">Call Now</button>
+        <button class="ai-dismiss" onclick="document.getElementById('aiBanner').style.display='none'">Dismiss</button>
       </div>
     </div>
     ${ltbl(D.leads,'openLeadPanel')}
@@ -775,7 +884,7 @@ function lTabC(t,l,calls){
       <div class="comm-item" style="border-left:2px solid ${item.status==='scheduled'?'#6832BA':'#F04438'}">
         <div class="comm-hdr">
           <div style="font-size:11px;font-weight:500;color:${item.status==='scheduled'?'#6832BA':'#D92D20'}">${item.status==='scheduled'?'Scheduled for':'Cancelled on'}: ${item.date} ${item.time}</div>
-          ${item.status==='scheduled'?`<button class="btn btn-sm" style="color:#D92D20;border-color:#FEE4E2;background:#FFFBFA;font-size:10px">Intervene</button>`:''}
+          ${item.status==='scheduled'?`<button class="btn btn-sm" style="color:#D92D20;border-color:#FEE4E2;background:#FFFBFA;font-size:10px" onclick="showInterveneConfirm()">Intervene</button>`:''}
         </div>
         <div style="font-size:12px;font-weight:500;color:#2E3751;margin-bottom:2px">${item.type}: ${item.subject}</div>
         <div class="meta">To: ${item.to}</div>
@@ -884,6 +993,8 @@ function openCallPanel(id){
 function setCTab(t,btn,id){S.callTab=t;document.querySelectorAll('.sp-body .tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('cTabBody').innerHTML=cTabC(t,D.calls.find(c=>c.id===id));}
 function cTabC(t,call){
   if(t==='score')return`
+    <div class="ai-conf"><span class="ai-conf-dot"></span>AI analysed · 2 min ago · 8 criteria · High confidence · <a style="color:#6832BA;cursor:pointer;text-decoration:underline;text-decoration-style:dotted" onclick="this.closest('.ai-conf').nextElementSibling.style.display=this.closest('.ai-conf').nextElementSibling.style.display==='block'?'none':'block'">How was this scored?</a></div>
+    <div style="display:none;font-size:11px;color:#532399;background:#FAF5FF;border:1px solid #DDCEF2;border-radius:6px;padding:9px 11px;margin-bottom:10px;line-height:1.6">Scores are weighted by impact on conversion: Solution Alignment (20%) and Objection Handling (20%) carry the most weight. Each category is scored 0–5 by the AI after analysing the call transcript and comparing against top-performing calls in your institute.</div>
     <div class="sec-lbl">Category Scores</div>
     ${D.catMeta.map(({key,label,w})=>{const pct=(call.cats[key]/5)*100;const col=barC(pct);return`<div style="margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;margin-bottom:3px"><span class="body">${label}</span><span class="meta">${w}</span></div>
