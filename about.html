@@ -188,7 +188,7 @@
     stages:[
     { t:"Lead enters", s:"Every path a student arrives by",
       m:["lead-capture","integrations","partner-management","campaign-management"],
-      c:[{ t:"Self-hosted KOS forms", s:"plan", ph:"Phase 1",
+      c:[{ t:"Self-hosted KOS forms", s:"plan", ph:"Phase 4",
            x:"Your own form, embedded on your site, writing straight into Insights. Capture round-trips " +
              "through Meritto today." },
          { t:"TEP and partner uploads",
@@ -203,13 +203,13 @@
          { t:"Website chatbot",
            x:"The chat opens a temporary lead, made real the moment the student shares details, " +
              "conversation attached." },
-         { t:"Inbound and outbound calls", s:"plan", ph:"Phase 4",
+         { t:"Inbound and outbound calls", s:"plan", ph:"Phase 1",
            x:"A call registers the student as a lead. Today a call only attaches to a lead that already " +
              "exists, and is dropped if none matches." }],
       d:[
            "Six ways in, and one lead in one workspace after that.",
            "Forms, partner files, spreadsheets, WhatsApp, chatbot, calls.",
-           "Every route round-trips through Meritto today. Phase 1 ends that.",
+           "Every route round-trips through Meritto today. Phase 4 ends that.",
            "Two paths still to build: our own forms, and registering off a call."] },
 
     { t:"Assigned to a counsellor", s:"A rule engine, not a black box",
@@ -217,16 +217,16 @@
       c:[{ t:"Meritto allocates today",
            x:"The counsellor arrives on the webhook as sales_agent_email. Meritto's algorithm owns " +
              "allocation, and Insights simply records it." },
-         { t:"Rules on lead template fields", s:"plan", ph:"Phase 3",
+         { t:"Rules on lead template fields", s:"plan", ph:"Phase 2",
            x:"Route on any field the template captures: programme, city, intake or source. Your rules, " +
              "read in the open." },
-         { t:"Round robin first", s:"plan", ph:"Phase 3",
+         { t:"Round robin first", s:"plan", ph:"Phase 2",
            x:"Allocation leaves Meritto on the simplest rule that works, so the cutover is provable " +
              "before it is clever." },
-         { t:"Capacity and load balancing", s:"plan", ph:"Phase 3",
+         { t:"Capacity and load balancing", s:"plan", ph:"Phase 2",
            x:"Weigh how many live leads a counsellor already holds, so nobody is buried and nobody " +
              "sits idle." },
-         { t:"Weighted by conversion", s:"plan", ph:"Phase 7",
+         { t:"Weighted by conversion", s:"plan", ph:"Phase 6",
            x:"Later, route on who actually converts this kind of student, with trend analysis behind " +
              "the weighting." },
          { t:"Owner plus support counsellors",
@@ -252,7 +252,7 @@
          { t:"Waits on delivered and read",
            x:"The journey holds until the message is really delivered or read, then branches on what " +
              "happened." },
-         { t:"Automated calling", s:"plan", ph:"Phase 4",
+         { t:"Automated calling", s:"plan", ph:"Phase 3",
            x:"Calls placed by the platform on the institute number, alongside the WhatsApp touches." }],
       d:[
            "First contact happens before a counsellor ever opens the lead.",
@@ -277,26 +277,26 @@
          { t:"Draft, publish and version",
            x:"Journeys are versioned. Publishing a change never disturbs the leads already moving " +
              "through the old one." },
-         { t:"Beyond WhatsApp", s:"plan", ph:"Phase 5",
+         { t:"Beyond WhatsApp", s:"plan", ph:"Phase 3",
            x:"Email, SMS and call steps join WhatsApp, which is the last thing Meritto's automations " +
              "still do better." }],
       d:[
            "Admins draw the journeys. No developer, no release.",
            "The pitch is keyed to the programme the student actually wants.",
            "Sia works inside the journey, on the same number, not beside it.",
-           "Live today, but WhatsApp only. Email, SMS and calls are Phase 5."] },
+           "Live today, but WhatsApp only. Email, SMS and calls are Phase 3."] },
 
     { t:"Application form trigger", s:"Qualified leads get the form",
       m:["crm","lead-capture","integrations"],
-      c:[{ t:"Fires on a lead stage", s:"plan", ph:"Phase 6",
+      c:[{ t:"Fires on a lead stage", s:"plan", ph:"Phase 5",
            x:"Reaching the qualifying stage sends the application form. No counsellor chases and no list " +
              "is worked by hand." },
-         { t:"Form and fee to the student", s:"plan", ph:"Phase 6",
+         { t:"Form and fee to the student", s:"plan", ph:"Phase 5",
            x:"The student receives the application form and pays the application fee against it." },
-         { t:"Returns as an application", s:"plan", ph:"Phase 6",
+         { t:"Returns as an application", s:"plan", ph:"Phase 5",
            x:"The completed form comes back into KOS Core as an application record tied to the lead it " +
              "came from." },
-         { t:"Read in KOS Core", s:"plan", ph:"Phase 6",
+         { t:"Read in KOS Core", s:"plan", ph:"Phase 5",
            x:"Counsellors read applicant data in KOS Core, which is what removes the Meritto login from " +
              "their day." },
          { t:"Meritto runs the form itself",
@@ -351,13 +351,16 @@
 
     { t:"Works the lead", s:"Calls, WhatsApp and email",
       m:["crm","integrations","sales-management"],
-      c:[{ t:"WhatsApp on the institute number", s:"part",
+      c:[{ t:"Moves the lead through stages", s:"plan", ph:"Phase 1",
+           x:"The counsellor drives the lifecycle off what the student does. No endpoint exists here " +
+             "today; the stage arrives from Meritto." },
+         { t:"WhatsApp on the institute number", s:"part",
            x:"Counsellors WhatsApp students from Meritto today. The number and the sending are ours; " +
              "only automation and Sia use them." },
-         { t:"Click to call from Insights", s:"plan", ph:"Phase 4",
+         { t:"Click to call from Insights", s:"plan", ph:"Phase 1",
            x:"Counsellors dial from Meritto today. The call is logged back here and scored, but it " +
              "never starts here." },
-         { t:"Email a lead from Insights", s:"plan", ph:"Phase 4",
+         { t:"Email a lead from Insights", s:"plan", ph:"Phase 1",
            x:"Counsellors email students from Meritto today, so the thread lives outside the platform " +
              "they work in." },
          { t:"Shared chats across the team",
@@ -366,8 +369,8 @@
          { t:"Every touch on one timeline",
            x:"Calls, WhatsApp, email, chatbot, human and AI, in one chronological view of the student." }],
       d:[
-           "Counsellors already call, WhatsApp and email leads. They just do it in Meritto.",
-           "Phase 4 brings that inside, and takes away their daily reason to log into Meritto.",
+           "Counsellors already call, WhatsApp and email leads, and move stages. All in Meritto.",
+           "Phase 1 brings the lot inside, and takes away their daily reason to open Meritto.",
            "Shared chats, and one timeline across every channel.",
            "Sending is already ours; today only automation and Sia use it."] },
 
@@ -413,7 +416,7 @@
 
     { t:"Tracked to the campaign", s:"Attribution that survives",
       m:["attribution","lead-capture","crm"],
-      c:[{ t:"Own forms carry the UTMs", s:"plan", ph:"Phase 1",
+      c:[{ t:"Own forms carry the UTMs", s:"plan", ph:"Phase 4",
            x:"Once capture is ours the UTMs are recorded at source instead of being handed back to us by " +
              "Meritto." },
          { t:"First-touch source trail",
@@ -434,7 +437,7 @@
            x:"The campaign's leads enrol into its journey the moment they land, with no list handed over." },
          { t:"WhatsApp journeys live now",
            x:"Trigger, filter, split, send and wait all run in Insights today, on your own number." },
-         { t:"Email, SMS and calls", s:"plan", ph:"Phase 5",
+         { t:"Email, SMS and calls", s:"plan", ph:"Phase 3",
            x:"The remaining channels. This is the last thing Meritto's automation does that ours " +
              "does not." },
          { t:"Draft, publish and version",
@@ -630,51 +633,57 @@
 
   // Ordered by the sequence we pick each capability up, not by theme. Read top to bottom and you
   // are reading the decoupling in the order it happens. "now"/"after" are where a capability runs
-  // before and after the move; "st" is its build status today, taken from the code, not from intent.
+  // Ordered by the sequence we pick each capability up, not by theme and not by depth of change.
+  // Read this table top to bottom and you are reading the decoupling in the order it happens.
+  // "now"/"after" are where a capability runs before and after the move; "st" is its build status
+  // today, taken from the code, not from intent.
   var SEG = [
-    // Phase 1 — capture is the keystone; allocation, stage and the app trigger all queue behind it
-    { f:"Lead capture forms",        now:"Meritto",  after:"KOS Insights", st:"plan", ph:"1",
-      n:"No form builder or submit endpoint exists in Insights today." },
-    { f:"Lead ingestion",            now:"Meritto",  after:"KOS Insights", st:"plan", ph:"1",
-      n:"Every source calls Meritto's create API and waits for the lead to come back on a webhook." },
-    { f:"Deduplication",             now:"Meritto",  after:"KOS Insights", st:"plan", ph:"1",
-      n:"Duplicate email and mobile are caught by Meritto's API response, not by us." },
-    { f:"Chatbot lead creation",     now:"Both",     after:"KOS Insights", st:"part", ph:"1",
-      n:"The temporary lead and its promotion are ours; the promotion still needs a Meritto connector." },
-
-    // Phase 2 — a stage we own is only meaningful on a lead we captured
-    { f:"Lead stage and status",     now:"Both",     after:"KOS Insights", st:"part", ph:"2",
+    // Phase 0 - foundation; a counsellor cannot manage a stage the platform does not own
+    { f:"Lead stage and status",     now:"Both",     after:"KOS Insights", st:"part", ph:"0",
       n:"We hold stages and mappings, but the incoming stage is Meritto's lead_status." },
 
-    // Phase 3 — once capture is ours, the allocation decision has to be ours too
-    { f:"Counsellor allocation",     now:"Meritto",  after:"KOS Insights", st:"plan", ph:"3",
-      n:"The counsellor arrives as sales_agent_email on the webhook. No allocation rules exist here." },
-
-    // Phase 4 — the institute's number in the counsellor's hands
-    { f:"Counsellor-sent WhatsApp",  now:"Meritto",  after:"KOS Insights", st:"plan", ph:"4",
+    // Phase 1 - what a counsellor actually feels; needs only Phase 0
+    { f:"Counsellor-managed lead stages", now:"Meritto", after:"KOS Insights", st:"plan", ph:"1",
+      n:"There is no endpoint for a counsellor to change a lead's stage here. It arrives on Meritto's webhook." },
+    { f:"Counsellor-sent WhatsApp",  now:"Meritto",  after:"KOS Insights", st:"plan", ph:"1",
       n:"Counsellors WhatsApp students from Meritto today. The sending exists here, but only automation and Sia use it." },
-    { f:"Placing calls",             now:"Meritto",  after:"KOS Insights", st:"plan", ph:"4",
+    { f:"Placing calls",             now:"Meritto",  after:"KOS Insights", st:"plan", ph:"1",
       n:"Counsellors dial from Meritto. The call is logged back to us and scored, but it never starts here." },
-    { f:"Calls that register a lead", now:"Meritto", after:"KOS Insights", st:"plan", ph:"4",
+    { f:"Calls that register a lead", now:"Meritto", after:"KOS Insights", st:"plan", ph:"1",
       n:"A call from an unknown number registers the student in Meritto. Here it is dropped rather than opening a lead." },
-    { f:"Email to leads",            now:"Meritto",  after:"KOS Insights", st:"plan", ph:"4",
+    { f:"Email to leads",            now:"Meritto",  after:"KOS Insights", st:"plan", ph:"1",
       n:"Counsellors email students from Meritto. Insights has delivery webhooks and a test send, nothing outbound." },
 
-    // Phase 5 — needs Phase 4's channels underneath it
-    { f:"Campaign automation",       now:"Both",     after:"KOS Insights", st:"part", ph:"5",
+    // Phase 2 - needs only the lead and its fields, which are already ours
+    { f:"Counsellor allocation",     now:"Meritto",  after:"KOS Insights", st:"plan", ph:"2",
+      n:"The counsellor arrives as sales_agent_email on the webhook. No allocation rules exist here." },
+
+    // Phase 3 - the institute's headline win; waits only on Phase 1's channels
+    { f:"Campaign automation",       now:"Both",     after:"KOS Insights", st:"part", ph:"3",
       n:"Our engine runs triggers, filters, splits, waits and sends, but only over WhatsApp." },
 
-    // Phase 6 — Meritto keeps the form; we take the trigger and the read
-    { f:"Application form",          now:"Meritto",  after:"Meritto",      st:"live", ph:"6",
+
+    // Phase 4 - the deepest change, and the one nobody outside the team feels
+    { f:"Lead capture forms",        now:"Meritto",  after:"KOS Insights", st:"plan", ph:"4",
+      n:"No form builder or submit endpoint exists in Insights today." },
+    { f:"Lead ingestion",            now:"Meritto",  after:"KOS Insights", st:"plan", ph:"4",
+      n:"Every source calls Meritto's create API and waits for the lead to come back on a webhook." },
+    { f:"Deduplication",             now:"Meritto",  after:"KOS Insights", st:"plan", ph:"4",
+      n:"Duplicate email and mobile are caught by Meritto's API response, not by us." },
+    { f:"Chatbot lead creation",     now:"Both",     after:"KOS Insights", st:"part", ph:"4",
+      n:"The temporary lead and its promotion are ours; the promotion still needs a Meritto connector." },
+
+    // Phase 5 - Meritto keeps the form; we take the trigger and the read
+    { f:"Application form",          now:"Meritto",  after:"Meritto",      st:"live", ph:"5",
       n:"Kept deliberately. Meritto runs the form; Insights decides when it fires." },
-    { f:"Applicant data view",       now:"Meritto",  after:"KOS Core",     st:"plan", ph:"6",
+    { f:"Applicant data view",       now:"Meritto",  after:"KOS Core",     st:"plan", ph:"5",
       n:"The change that removes the Meritto login from a counsellor's day." },
 
-    // Phase 7 — last on purpose; it needs months of allocation data that is ours
-    { f:"Allocation by conversion",  now:"Neither",  after:"KOS Insights", st:"plan", ph:"7",
+    // Phase 6 - last on purpose; it needs months of allocation data that is ours
+    { f:"Allocation by conversion",  now:"Neither",  after:"KOS Insights", st:"plan", ph:"6",
       n:"Weighted and trend-based routing, once our own allocation has produced data to learn from." },
 
-    // Nothing to pick — already ours
+    // Nothing to pick - already ours
     { f:"WhatsApp to leads",         now:"KOS Insights", after:"KOS Insights", st:"live", ph:"-",
       n:"Text and template senders on your own number, used by automation and by Sia." },
     { f:"Call logging and scoring",  now:"KOS Insights", after:"KOS Insights", st:"live", ph:"-",
@@ -685,58 +694,71 @@
       n:"Campaigns, smart links, UTM mapping and ad-spend sync are already ours." }
   ];
 
-  // Proposed sequencing. Weeks are relative to kickoff and assume one team on this track;
-  // they are a shape to argue with, not a commitment.
+  // Proposed sequencing, ordered by value rather than by depth of change. Weeks are relative to
+  // Proposed sequencing, ordered by value rather than by depth of change. Phase 0 is the one
+  // exception: it is pure foundation, and nothing a counsellor does in Insights means much until
+  // the stage is ours. "build"/"test"/"rel" are relative positions on one team's track, not dates:
+  // they set the order and the overlap of the bars, and the durations are the team's to set.
   var PHASES = [
-    { n:"1", t:"Own the capture",        build:[0,6],   test:[6,9],   rel:9,
-      d:"Self-hosted forms and direct ingestion, with our own dedup. Run alongside Meritto and compare " +
-        "every lead before anything is switched off.",
-      k:["Form builder and embeddable form","Direct ingestion endpoint","Dedup on email and mobile",
-         "UTMs captured at source","Chatbot promotion without the Meritto connector"] },
-    { n:"2", t:"Own the lead stage",     build:[6,11],  test:[11,13], rel:13,
-      d:"Stage and status decided here rather than mapped in from Meritto's lead_status. Needs Phase 1, " +
-        "because a stage we own is only meaningful on a lead we captured.",
+    { n:"0", t:"Own the lead stage",     build:[0,4],   test:[4,6],   rel:6,
+      d:"The stage engine decides transitions here rather than mapping in Meritto's lead_status. It goes " +
+        "first because it is foundation, not because it is valuable: a counsellor cannot manage a stage " +
+        "the platform does not own, and the application trigger cannot fire on a stage we do not trust. " +
+        "Deliberately small.",
       k:["Stage engine owns transitions","Stop reading CRM lead_status","Backfill and reconcile history",
          "Funnel reporting reads our stage"] },
-    { n:"3", t:"Own the allocation",     build:[11,15], test:[15,17], rel:17,
-      d:"A rule engine over lead template fields. Round robin first, then capacity balancing. Shadow it " +
-        "against Meritto's choice before it takes over.",
+    { n:"1", t:"Counsellor workspace",   build:[6,13],  test:[13,15], rel:15,
+      d:"Counsellors run their whole day here: their queue, their leads, the stages they move them " +
+        "through, and the calls, WhatsApp and email they send, all on the institute's number. That is " +
+        "everything they open Meritto for today except the applicant view. The highest-value phase, and " +
+        "it needs only Phase 0 underneath it.",
+      k:["The daily queue on their own login","Counsellor moves leads through stages",
+         "Counsellor-facing WhatsApp send","Outbound email","Click to call","Call registers a new lead",
+         "Shared chats"] },
+    { n:"2", t:"Own the allocation",     build:[9,14],  test:[14,16], rel:16,
+      d:"A rule engine over lead template fields. Round robin first, then capacity balancing. It does " +
+        "not wait on capture: the lead and its fields are already in our database, so we simply stop " +
+        "reading Meritto's counsellor and decide for ourselves. Shadow it against Meritto's choice " +
+        "before it takes over.",
       k:["Rules on template fields","Round robin","Capacity and load balancing",
          "Shadow mode and diff against Meritto","Ignore sales_agent_email"] },
-    { n:"4", t:"Counsellor comms",       build:[15,21], test:[21,23], rel:23,
-      d:"Counsellors already do all of this, in Meritto. This phase moves it onto the institute's " +
-        "number inside Insights, where it is shared, logged and on the timeline, and lets an inbound " +
-        "call register a lead. With Phase 6 it is what finally gets counsellors out of Meritto.",
-      k:["Counsellor-facing WhatsApp send","Outbound email","Click to call","Call registers a new lead",
-         "Shared chats"] },
-    { n:"5", t:"Automation breadth",     build:[19,25], test:[25,27], rel:27,
-      d:"Email, SMS and call steps join WhatsApp. This is the phase that makes Meritto's automation " +
-        "redundant, and it needs Phase 4's channels underneath it.",
+    { n:"3", t:"Automation breadth",     build:[15,21], test:[21,23], rel:23,
+      d:"Email, SMS and call steps join WhatsApp. This is what makes Meritto's automations redundant, " +
+        "and it is the institute's headline win. It waits only on Phase 1, because a journey cannot " +
+        "send on a channel that does not exist yet.",
       k:["Email step","SMS step","Call step","Per-channel waits and events","Journey parity review"] },
-    { n:"6", t:"Application trigger",    build:[23,29], test:[29,31], rel:31,
+    { n:"4", t:"Own the capture",        build:[21,28], test:[28,31], rel:31,
+      d:"Self-hosted forms and direct ingestion, with our own dedup. The deepest change and the one " +
+        "nobody outside the team feels, which is why it sits here rather than first. Run alongside " +
+        "Meritto and compare every lead before anything is switched off.",
+      k:["Form builder and embeddable form","Direct ingestion endpoint","Dedup on email and mobile",
+         "UTMs captured at source","Chatbot promotion without the Meritto connector"] },
+    { n:"5", t:"Application trigger",    build:[31,37], test:[37,39], rel:39,
       d:"Our lead stage fires Meritto's application form; the completed application returns into KOS Core " +
-        "where counsellors read it. Meritto stays the form engine.",
+        "where counsellors read it. Meritto stays the form engine. Needs Phase 0's stage and Phase 4's " +
+        "capture underneath it, and with Phase 1 it is what finally gets counsellors out of Meritto.",
       k:["Stage-driven form trigger","Fee collection round trip","Application record in KOS Core",
          "Applicant viewer","No Meritto login for counsellors"] },
-    { n:"7", t:"Allocation v2",          build:[29,35], test:[35,37], rel:37,
+    { n:"6", t:"Allocation v2",          build:[33,39], test:[39,41], rel:41,
       d:"Weighted routing on who actually converts, with trend analysis. Deliberately last: it needs " +
-        "several months of allocation data that is ours.",
+        "several months of allocation data that is ours, which only starts accruing after Phase 2.",
       k:["Conversion weighting","Trend analysis","Per-programme routing","Rule simulator"] }
   ];
 
   function ganttSvg(){
-    var W=960, LBL=210, X0=LBL+16, WK=37, PXW=(W-X0-24)/WK, ROW=46, TOP=54, H=TOP+PHASES.length*ROW+34;
-    var s = "<svg viewBox='0 0 "+W+" "+H+"' role='img' aria-label='Proposed decoupling timeline by phase'>" +
+    var W=960, LBL=210, X0=LBL+16, WK=41, PXW=(W-X0-24)/WK, ROW=46, TOP=26, H=TOP+PHASES.length*ROW+30;
+    var s = "<svg viewBox='0 0 "+W+" "+H+"' role='img' " +
+            "aria-label='Proposed decoupling sequence by phase, showing order and overlap of build, test and release'>" +
             "<style>" +
               ".gl{font-size:11px;fill:#8A97A8}.gt{font-size:13px;font-weight:700;fill:#213343}" +
               ".gs{font-size:10.5px;fill:#516F90}.gk{font-size:10px;font-weight:700;fill:#fff}" +
               ".grid{stroke:#EAF0F6}" +
             "</style>";
-    // week grid, every 4 weeks
+    // Faint guides only. There is no time axis on purpose: the bars carry order and overlap,
+    // and the durations are the team's to set.
     for(var w=0; w<=WK; w+=4){
       var x = X0 + w*PXW;
-      s += "<line class='grid' x1='"+x+"' y1='"+(TOP-18)+"' x2='"+x+"' y2='"+(H-24)+"' stroke-width='1'/>" +
-           "<text class='gl' x='"+x+"' y='"+(TOP-24)+"' text-anchor='middle'>W"+w+"</text>";
+      s += "<line class='grid' x1='"+x+"' y1='"+(TOP-8)+"' x2='"+x+"' y2='"+(H-20)+"' stroke-width='1'/>";
     }
     PHASES.forEach(function(p, i){
       var y = TOP + i*ROW;
@@ -750,24 +772,30 @@
            "<rect x='"+tx+"' y='"+(y+2)+"' width='"+tw+"' height='20' rx='5' fill='#0091AE'/>" +
            "<text class='gk' x='"+(tx+7)+"' y='"+(y+16)+"'>TEST</text>" +
            "<path d='M "+rx+","+(y+2)+" l 7,10 l -7,10 l -7,-10 z' fill='#33475B'/>" +
-           "<text class='gl' x='"+(rx+12)+"' y='"+(y+16)+"'>Release W"+p.rel+"</text>";
+           "<text class='gl' x='"+(rx+12)+"' y='"+(y+16)+"'>Release</text>";
     });
     return s + "</svg>";
   }
 
   function decouplingBody(){
     var h = "<h1>Decoupling from Meritto</h1>" +
-            "<p class='lead'>A stage-by-stage plan to move lead capture, lead stage, counsellor " +
-            "allocation, counsellor comms and campaign automation into KOS Insights, and to leave " +
-            "Meritto doing the one job it should keep: running the application form.</p>" +
+            "<p class='lead'>A phase-by-phase plan to move the lead stage, the counsellor's whole " +
+            "working day, allocation, campaign automation and finally lead capture into KOS Insights, " +
+            "and to leave Meritto doing the one job it should keep: running the application form. " +
+            "Ordered by what is worth most, not by what is deepest.</p>" +
 
             "<h2>Where we stand today</h2>" +
             "<p>Insights sits on top of Meritto rather than beside it. Every lead, whatever route it " +
             "arrives by, is created by calling Meritto's API and comes back to us on a webhook. That " +
             "webhook also carries the counsellor, so Meritto decides allocation, and it carries the " +
-            "status we map onto our funnel, so Meritto anchors the stage. Capture is the keystone: " +
-            "allocation, stage ownership and the application trigger all depend on us owning the moment a " +
-            "lead is created, which is why Phase 1 is first and everything else queues behind it.</p>" +
+            "status we map onto our funnel, so Meritto anchors the stage. And counsellors spend their " +
+            "day in Meritto, because that is where they call, WhatsApp and email from.</p>" +
+
+            "<h2>Why this order</h2>" +
+            "<p class='fsub'>Sequenced by value, not by depth of change.</p>" +
+            "<p>The counsellor is the module in heaviest daily use across Meritto: stages, calls, " +
+            "WhatsApp, email. That surface decouples on its own, so it goes first, on the stage engine " +
+            "we own from Phase 0.</p>" +
             "<div class='callout'><strong>Already ours:</strong> WhatsApp sending on your own number, " +
             "call logging and scoring, lead scoring, campaigns, UTMs, ad-spend sync, and the automation " +
             "engine itself. The automation engine is the important one, it already runs triggers, " +
@@ -799,10 +827,11 @@
          "today, not from intent.</p>" +
 
          "<h2>What we will own</h2>" +
-         "<p>By the end of Phase 6, these are ours outright:</p><ul class='ticks'>";
-    ["Lead capture, through our own forms, with UTMs recorded at source",
+         "<p>By the end of Phase 5, these are ours outright:</p><ul class='ticks'>";
+    ["The lead stage, decided by our engine rather than mapped in",
+     "The counsellor's whole working day: their queue, their stages, their calls, WhatsApp and email",
+     "Lead capture, through our own forms, with UTMs recorded at source",
      "Lead ingestion and deduplication, with no round trip to Meritto",
-     "The lead stage, decided by our engine rather than mapped in",
      "Counsellor allocation, by rules you can read and change",
      "Calls, WhatsApp and email from the institute's own number",
      "Campaign automation across every channel, not just WhatsApp",
@@ -814,17 +843,18 @@
          "form engine.</div>" +
 
          "<h2>Timeline</h2>" +
-         "<p>Seven phases. Weeks are relative to kickoff and assume one team on this track, with build " +
-         "and test overlapping between neighbouring phases. Phase 2 waits on Phase 1 because a stage we " +
-         "own is only meaningful on a lead we captured. Phase 5 waits on Phase 4 because journeys cannot " +
-         "send on channels that do not exist yet. Phase 7 is last on purpose: routing by who converts " +
-         "needs months of allocation data that is ours.</p>" +
+         "<p class='fsub'>Seven phases and one team. Order and overlap, not dates.</p><ul>" +
+           "<li>Phase 1 waits on Phase 0: counsellors cannot manage a stage the platform does not own.</li>" +
+           "<li>Phase 2 waits on nothing, and runs alongside Phase 1.</li>" +
+           "<li>Phase 3 waits on Phase 1: a journey cannot send on a channel that does not exist yet.</li>" +
+           "<li>Phase 5 waits on Phase 0's stage and Phase 4's capture.</li>" +
+           "<li>Phase 6 is last on purpose: routing by who converts needs months of our own data.</li>" +
+         "</ul>" +
          "<div class='flowwrap'>"+ganttSvg()+"</div>" +
          "<p class='legend'><span class='lg'><i class='d-build'></i>Build</span>" +
            "<span class='lg'><i class='d-test'></i>Test</span>" +
            "<span class='lg'><i class='d-rel'></i>Release</span>" +
-           "<span class='lg-note'>A shape to argue with, not a commitment. Durations need the team's " +
-           "capacity against them.</span></p>" +
+           "<span class='lg-note'>Order and overlap only. Durations are the team's to set.</span></p>" +
 
          "<h2>The phases</h2>";
     PHASES.forEach(function(p){
@@ -834,25 +864,6 @@
       h += "</ul>";
     });
 
-    h += "<h2>How each phase is tested and released</h2>" +
-         "<p>Nothing here is a flag-day switch. Each phase earns its cutover the same way:</p>" +
-         "<ul>" +
-         "<li><strong>Dual run.</strong> The new path runs alongside Meritto and both write. Nothing is " +
-           "switched off while the two disagree.</li>" +
-         "<li><strong>Shadow and diff.</strong> Allocation is the clearest case: our engine picks a " +
-           "counsellor and records it without applying it, and we read the disagreement with Meritto " +
-           "until we can explain every one.</li>" +
-         "<li><strong>Pilot institute.</strong> One institute and one admission season first, chosen for " +
-           "volume you can eyeball, before the estate.</li>" +
-         "<li><strong>Reconcile before cutover.</strong> Lead counts, stage distribution and counsellor " +
-           "books compared old against new, with the gaps explained rather than averaged away.</li>" +
-         "<li><strong>Flagged, and reversible.</strong> Every phase lands behind a per-institute flag " +
-           "that can be turned back within a season without a deploy.</li>" +
-         "</ul>" +
-         "<div class='callout'><strong>The risk worth naming:</strong> Phase 1 changes who owns lead " +
-         "identity. While both systems can create leads, the same student can exist twice. Dual run must " +
-         "reconcile on email and mobile from day one, and the pilot institute exists to find that before " +
-         "the estate does.</div>";
     return h;
   }
 
