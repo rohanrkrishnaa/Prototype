@@ -1,8 +1,1845 @@
-<!DOCTYPE html>
-  <html>
-  <head><title>About</title></head>
-  <body>
-    <h1>About Page</h1>
-    <a href="index.html">Home</a>
-  </body>
-  </html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KOS Insights — Product Documentation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600;700&display=swap');
+  :root{
+    --orange:#FF7A59; --orange-dk:#E8613C; --teal:#0091AE;
+    --bg:#ffffff; --panel:#F5F8FA; --border:#DFE3EB;
+    --navy:#33475B; --ink:#213343; --muted:#516F90; --soft:#FFF3EF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Lexend Deca','Segoe UI',Arial,Helvetica,sans-serif;color:var(--navy);background:var(--bg);
+       font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:var(--teal);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* top bar */
+  header{height:60px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;padding:0 28px;
+         position:sticky;top:0;background:#fff;z-index:20}
+  header .mark{width:30px;height:30px;border-radius:8px;background:var(--orange);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px}
+  header .title{font-size:16px;font-weight:700;color:var(--ink)}
+  header .title span{color:var(--orange)}
+  header .spacer{flex:1}
+  header .hlabel{color:var(--muted);font-size:12.5px;font-weight:600}
+
+  /* doc layout */
+  .doc{display:grid;grid-template-columns:290px 1fr;min-height:calc(100vh - 60px)}
+
+  /* left nav */
+  nav.side{border-right:1px solid var(--border);background:var(--panel);padding:26px 0;position:sticky;top:60px;
+           height:calc(100vh - 60px);overflow-y:auto}
+  nav.side .grp{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);
+                padding:6px 28px;margin-top:10px}
+  nav.side ul{list-style:none}
+  nav.side a{display:block;padding:9px 28px;font-size:14.5px;color:var(--navy);font-weight:500;
+             border-left:3px solid transparent;cursor:pointer}
+  nav.side a:hover{background:#ECEFF3;text-decoration:none;color:var(--ink)}
+  nav.side a.active{color:var(--orange-dk);font-weight:700;background:var(--soft);border-left-color:var(--orange)}
+
+  /* article */
+  main{padding:44px 64px 96px;max-width:940px}
+  .crumbs{font-size:13px;color:var(--muted);margin-bottom:22px}
+  .crumbs a{font-weight:600}
+  .crumbs .sep{color:#C7CFD6;margin:0 8px}
+  article h1{font-size:34px;font-weight:700;letter-spacing:-.02em;line-height:1.12;color:var(--ink);margin-bottom:14px}
+  article .lead{font-size:18px;color:var(--navy);margin-bottom:28px;line-height:1.6}
+  article h2{font-size:23px;font-weight:700;letter-spacing:-.01em;color:var(--ink);margin:44px 0 6px;padding-top:26px;border-top:1px solid var(--border)}
+  article h2:first-of-type{border-top:none;padding-top:0}
+  article h3{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:24px 0 8px}
+  article p{margin:12px 0;color:var(--navy)}
+  article .fsub{color:var(--orange-dk);font-weight:600;font-size:15.5px;margin:2px 0 10px}
+  article ul{margin:12px 0 12px 4px;list-style:none}
+  article li{margin:9px 0;color:var(--navy);padding-left:24px;position:relative}
+  article li::before{content:"";position:absolute;left:2px;top:9px;width:8px;height:8px;border-radius:50%;background:var(--orange)}
+  .callout{margin:20px 0;padding:16px 18px;background:var(--soft);border-left:4px solid var(--orange);border-radius:8px;color:var(--ink);font-size:15px}
+  .callout strong{color:var(--orange-dk)}
+  .imgph{margin:20px 0 8px;aspect-ratio:16/6;border:1px dashed #C7D0DB;border-radius:12px;
+         background:repeating-linear-gradient(45deg,#F5F8FA,#F5F8FA 14px,#EAF0F6 14px,#EAF0F6 28px);
+         display:grid;place-items:center;color:#8A97A8;text-align:center}
+  .imgph .ico{font-size:26px}
+  .imgph .key{font-family:ui-monospace,Menlo,monospace;font-size:12px;margin-top:6px}
+  .imgph.has-img{aspect-ratio:auto;background:#fff;padding:0;overflow:hidden;border-style:solid}
+  .imgph.has-img img{width:100%;height:auto;display:block}
+  .muted-note{color:var(--muted);font-style:italic}
+  .article-foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:12.5px}
+
+  /* lifecycle flow diagram */
+  .flowwrap{margin:26px 0 10px;border:1px solid var(--border);border-radius:12px;background:#fff;overflow-x:auto}
+  .flowwrap svg{display:block;min-width:820px;width:100%;height:auto;font-family:'Lexend Deca','Segoe UI',Arial,sans-serif}
+  .flow-cap{color:var(--muted);font-size:12.5px;margin:0 0 8px}
+  /* chip explanation popover, anchored to the chip that opened it */
+  .flowbox{position:relative}
+  .chippop{position:absolute;z-index:5;display:none;width:390px;max-width:calc(100% - 16px);
+           padding:16px 18px;background:#fff;border:1px solid var(--border);border-left:4px solid var(--teal);
+           border-radius:10px;box-shadow:0 10px 30px rgba(33,51,67,.18)}
+  .chippop.on{display:block}
+  .chipdet-k{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .chipdet-t{font-size:16px;font-weight:700;color:var(--ink);margin:2px 0 6px;padding-right:20px}
+  .chippop p{margin:0;color:var(--navy);font-size:14.5px}
+  .chippop-x{position:absolute;top:10px;right:12px;border:none;background:none;cursor:pointer;
+             font:inherit;font-size:20px;line-height:1;color:#8A97A8;padding:2px 4px}
+  .chippop-x:hover{color:var(--orange-dk)}
+  .chipdet-s{margin-top:10px;display:inline-block;font-size:10.5px;font-weight:700;text-transform:uppercase;
+             letter-spacing:.05em;padding:3px 9px;border-radius:20px}
+  .chipdet-s.live{background:#FFEDE7;color:var(--orange-dk)}
+  .chipdet-s.part{background:#E4F4F8;color:var(--teal)}
+  .chipdet-s.plan{background:#EEF1F5;color:var(--muted);border:1px dashed #C0CAD6}
+
+  /* status legend under a diagram */
+  .legend{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin:0 0 6px;font-size:12px;color:var(--muted)}
+  .legend .lg{display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:9px;height:9px;border-radius:50%;display:inline-block;border:1px solid var(--orange)}
+  .legend .d-live{background:var(--orange)}
+  .legend .d-part{background:var(--teal);border-color:var(--teal)}
+  .legend .d-plan{background:#fff}
+  .legend .d-build{background:var(--orange);border-radius:2px}
+  .legend .d-test{background:var(--teal);border-color:var(--teal);border-radius:2px}
+  .legend .d-rel{background:var(--navy);border-color:var(--navy);border-radius:2px;transform:rotate(45deg)}
+  .legend .lg-note{font-style:italic}
+
+  /* segregation table */
+  .tblwrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;margin:18px 0 6px}
+  table.seg{border-collapse:collapse;width:100%;min-width:660px;font-size:13.5px}
+  table.seg th{background:var(--panel);text-align:left;padding:11px 14px;font-size:11px;font-weight:700;
+               text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:1px solid var(--border)}
+  table.seg td{padding:11px 14px;border-bottom:1px solid #EDF1F5;vertical-align:top;color:var(--navy)}
+  table.seg tr:last-child td{border-bottom:none}
+  table.seg td strong{color:var(--ink)}
+  .segn{display:block;color:var(--muted);font-size:12px;margin-top:3px;line-height:1.5}
+  .own,.st{display:inline-block;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap}
+  .o-meritto{background:#EEF1F5;color:var(--muted)}
+  .o-kosinsights,.o-take{background:#FFEDE7;color:var(--orange-dk)}
+  .o-koscore{background:#FFEDE7;color:var(--orange-dk)}
+  .o-both{background:#E4F4F8;color:var(--teal)}
+  .o-neither{background:#fff;color:var(--muted);border:1px dashed #C0CAD6}
+  .o-keep{background:#EEF1F5;color:var(--muted);border:1px solid #DFE3EB}
+  .s-live{background:#FFEDE7;color:var(--orange-dk)}
+  .s-part{background:#E4F4F8;color:var(--teal)}
+  .s-plan{background:#fff;color:var(--muted);border:1px dashed #C0CAD6}
+  table.seg tr.seggrp td{background:var(--soft);color:var(--orange-dk);font-weight:700;font-size:11px;
+                         text-transform:uppercase;letter-spacing:.06em;padding:8px 14px;
+                         border-bottom:1px solid #F3D9D0}
+
+  ul.ticks li::before{content:"";position:absolute;left:0;top:6px;width:14px;height:8px;border-radius:0;
+                      border-left:2.5px solid var(--orange);border-bottom:2.5px solid var(--orange);
+                      transform:rotate(-45deg);background:none}
+  ul.ticks li{padding-left:26px}
+  .wherep{margin:8px 0 26px;font-size:14px}
+  .wherek{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+          color:var(--muted);margin-right:10px}
+  .wherep a{font-weight:600;cursor:pointer}
+  .wherep .sep{color:#C7CFD6}
+
+  /* feature accordion */
+  .sec-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:36px 0 14px}
+  .facc-list{display:flex;flex-direction:column;gap:12px}
+  .facc{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;transition:box-shadow .15s}
+  .facc.open{box-shadow:0 4px 16px rgba(33,51,67,.08)}
+  .facc-head{width:100%;background:none;border:none;font:inherit;color:inherit;text-align:left;cursor:pointer;
+             padding:18px 20px;display:flex;gap:14px;align-items:center}
+  .facc-head:hover{background:var(--panel)}
+  .facc-t{flex:1;min-width:0}
+  .facc-n{display:block;font-size:16.5px;font-weight:700;color:var(--ink)}
+  .facc-o{display:block;color:var(--navy);font-size:14.5px;margin-top:2px}
+  .facc-c{color:var(--orange);font-size:24px;line-height:1;transition:transform .2s;flex:none}
+  .facc.open .facc-c{transform:rotate(90deg)}
+  .facc-b{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 20px}
+  .facc.open .facc-b{max-height:1600px;padding:2px 20px 22px}
+  .facc-b h3{margin-top:20px}
+  .facc-b .imgph{margin-top:4px}
+
+  @media (max-width:840px){
+    .doc{grid-template-columns:1fr}
+    nav.side{position:static;height:auto;border-right:none;border-bottom:1px solid var(--border)}
+    main{padding:30px 24px 70px}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="mark">Ki</div>
+    <div class="title">KOS <span>Insights</span></div>
+    <div class="spacer"></div>
+    <div class="hlabel">Product Documentation</div>
+  </header>
+
+  <div class="doc">
+    <nav class="side" id="side"></nav>
+    <main><div id="article"></div></main>
+  </div>
+
+<script>
+  // ---------------------------------------------------------------------------------------------
+  // The major lifecycles. Each drives one diagram and its walkthrough, so a stage is edited once.
+  //   m = modules the stage runs on   c = the points inside it   d = the walkthrough paragraph
+  // A point carries a status: undefined = live today, "part" = partly built, "plan" = to be built.
+  // Statuses are set from what the code actually does, not from what we intend it to do.
+  // ---------------------------------------------------------------------------------------------
+  var FLOWS = {};
+
+  FLOWS.lead = {
+    name:"Lead Lifecycle",
+    lede:"From the moment a student first reaches you to the moment they pay an application fee.",
+    stages:[
+    { t:"Lead enters", s:"Every path a student arrives by",
+      m:["lead-capture","integrations","partner-management","campaign-management"],
+      c:[{ t:"Self-hosted KOS forms", s:"plan", ph:"Phase 1",
+           x:"Your own form, embedded on your site, writing straight into Insights. Capture round-trips " +
+             "through Meritto today." },
+         { t:"TEP and partner uploads",
+           x:"A partner's file lands as leads stamped with that agent, so the claim and the cost per " +
+             "admission stay provable." },
+         { t:"Own database uploads",
+           x:"Fair and seminar spreadsheets. Every row becomes a lead in the background, and the file " +
+             "returns marked row by row." },
+         { t:"Inbound WhatsApp",
+           x:"An unknown number opens a lead on the spot, filed under the current season and tagged " +
+             "direct WhatsApp." },
+         { t:"Website chatbot",
+           x:"The chat opens a temporary lead, made real the moment the student shares details, " +
+             "conversation attached." },
+         { t:"Inbound and outbound calls", s:"plan", ph:"Phase 4",
+           x:"A call registers the student as a lead. Today a call only attaches to a lead that already " +
+             "exists, and is dropped if none matches." }],
+      d:[
+           "Six ways in, and one lead in one workspace after that.",
+           "Forms, partner files, spreadsheets, WhatsApp, chatbot, calls.",
+           "Every route round-trips through Meritto today. Phase 1 ends that.",
+           "Two paths still to build: our own forms, and registering off a call."] },
+
+    { t:"Assigned to a counsellor", s:"A rule engine, not a black box",
+      m:["crm","sales-management","user-role-management"],
+      c:[{ t:"Meritto allocates today",
+           x:"The counsellor arrives on the webhook as sales_agent_email. Meritto's algorithm owns " +
+             "allocation, and Insights simply records it." },
+         { t:"Rules on lead template fields", s:"plan", ph:"Phase 3",
+           x:"Route on any field the template captures: programme, city, intake or source. Your rules, " +
+             "read in the open." },
+         { t:"Round robin first", s:"plan", ph:"Phase 3",
+           x:"Allocation leaves Meritto on the simplest rule that works, so the cutover is provable " +
+             "before it is clever." },
+         { t:"Capacity and load balancing", s:"plan", ph:"Phase 3",
+           x:"Weigh how many live leads a counsellor already holds, so nobody is buried and nobody " +
+             "sits idle." },
+         { t:"Weighted by conversion", s:"plan", ph:"Phase 7",
+           x:"Later, route on who actually converts this kind of student, with trend analysis behind " +
+             "the weighting." },
+         { t:"Owner plus support counsellors",
+           x:"A lead carries one owner and any number of support counsellors. Notes and history travel " +
+             "with it on reassignment." }],
+      d:[
+           "An owner within seconds, and the lifecycle runs on that counsellor.",
+           "Meritto picks the counsellor today and hands it over on a webhook.",
+           "Ours in two steps: template rules, round robin and capacity first.",
+           "Weighting by who actually converts comes later, once the data is ours."] },
+
+    { t:"Automated nurturing starts", s:"The first touches need no counsellor",
+      m:["marketing-automation","ai-nurturing","crm"],
+      c:[{ t:"Enrolled the moment it lands",
+           x:"A new or changed lead is picked up off the database stream and enrolled into every journey " +
+             "it qualifies for." },
+         { t:"WhatsApp on your own number",
+           x:"Templates go out on the institute's business number as soon as the lead qualifies, with no " +
+             "counsellor involved." },
+         { t:"Fills in what is missing",
+           x:"Where programme or intake is blank, nurturing asks the student and writes the answer back " +
+             "onto the lead." },
+         { t:"Waits on delivered and read",
+           x:"The journey holds until the message is really delivered or read, then branches on what " +
+             "happened." },
+         { t:"Automated calling", s:"plan", ph:"Phase 4",
+           x:"Calls placed by the platform on the institute number, alongside the WhatsApp touches." }],
+      d:[
+           "First contact happens before a counsellor ever opens the lead.",
+           "Journeys fill in what capture missed: programme, intake.",
+           "WhatsApp carries this today, on your own business number.",
+           "The journey waits for a real read before deciding what to send next."] },
+
+    { t:"Automation and AI sales", s:"Admin-built journeys that sell",
+      m:["marketing-automation","ai-nurturing","campaign-management"],
+      c:[{ t:"Journeys drawn by admins",
+           x:"An admin lays out the trigger, the filters, the splits and the sends on a canvas. No " +
+             "developer and no release." },
+         { t:"Sells against the programme",
+           x:"What the student is told is keyed to the programme they want, so the pitch fits the course " +
+             "and not the crowd." },
+         { t:"The AI number works the lead",
+           x:"Sia handles the conversation inside the journey on the same number, rather than beside it " +
+             "in a separate tool." },
+         { t:"Handover to a counsellor",
+           x:"A warm lead is handed to its counsellor with a brief, so the first human call never starts " +
+             "cold." },
+         { t:"Draft, publish and version",
+           x:"Journeys are versioned. Publishing a change never disturbs the leads already moving " +
+             "through the old one." },
+         { t:"Beyond WhatsApp", s:"plan", ph:"Phase 5",
+           x:"Email, SMS and call steps join WhatsApp, which is the last thing Meritto's automations " +
+             "still do better." }],
+      d:[
+           "Admins draw the journeys. No developer, no release.",
+           "The pitch is keyed to the programme the student actually wants.",
+           "Sia works inside the journey, on the same number, not beside it.",
+           "Live today, but WhatsApp only. Email, SMS and calls are Phase 5."] },
+
+    { t:"Application form trigger", s:"Qualified leads get the form",
+      m:["crm","lead-capture","integrations"],
+      c:[{ t:"Fires on a lead stage", s:"plan", ph:"Phase 6",
+           x:"Reaching the qualifying stage sends the application form. No counsellor chases and no list " +
+             "is worked by hand." },
+         { t:"Form and fee to the student", s:"plan", ph:"Phase 6",
+           x:"The student receives the application form and pays the application fee against it." },
+         { t:"Returns as an application", s:"plan", ph:"Phase 6",
+           x:"The completed form comes back into KOS Core as an application record tied to the lead it " +
+             "came from." },
+         { t:"Read in KOS Core", s:"plan", ph:"Phase 6",
+           x:"Counsellors read applicant data in KOS Core, which is what removes the Meritto login from " +
+             "their day." },
+         { t:"Meritto runs the form itself",
+           x:"Meritto keeps the application form and its lifecycle. Insights decides when it fires; " +
+             "Meritto executes." }],
+      d:[
+           "The qualifying stage sends the form. Nobody chases a list.",
+           "The student pays, and the application returns into KOS Core.",
+           "Counsellors read applicants in KOS Core, not in Meritto.",
+           "Meritto keeps the form engine. Insights decides when it fires."] }
+  ]};
+
+  FLOWS.counsellor = {
+    name:"Counsellor and Admin Lifecycle",
+    lede:"From an account being created to an admin watching the whole team's numbers.",
+    stages:[
+    { t:"Counsellor is created", s:"An account, a login, a scope",
+      m:["user-role-management","sales-management"],
+      c:[{ t:"Created on Insights with a login",
+           x:"A counsellor is set up in Insights and gets their own login. No shared accounts and no " +
+             "borrowed credentials." },
+         { t:"Scoped to their institutes",
+           x:"Multi-institute groups scope a counsellor to the institutes they actually work, under one " +
+             "account." },
+         { t:"Role shapes the sidebar", s:"part",
+           x:"A role decides what a user sees in the navigation. It does not yet gate the APIs behind " +
+             "it, so treat it as presentation, not enforcement." },
+         { t:"Bulk counsellor upload",
+           x:"Counsellors and their lead assignments can be loaded from a file rather than clicked in " +
+             "one by one." }],
+      d:[
+           "An account and a login of their own. No shared credentials.",
+           "Scoped to the institutes they actually work.",
+           "Loaded in bulk from a file when a team arrives at once.",
+           "Roles shape the sidebar, not the API. Presentation, not enforcement."] },
+
+    { t:"Logs in to a prepared day", s:"The queue is ready before they are",
+      m:["sales-management","ai-nurturing","crm"],
+      c:[{ t:"An AI-built daily queue",
+           x:"The day opens as a worked list rather than a database. Who to call, in what order, and why." },
+         { t:"Ordered by score and intent",
+           x:"The hottest students rise on their own, with the reasons behind the score there to read." },
+         { t:"Missed follow-ups flagged",
+           x:"Anything slipping is surfaced rather than silently ageing at the bottom of a list." },
+         { t:"A battle card per lead",
+           x:"Suggested next step, talking points and what was said last time, before the call connects." }],
+      d:[
+           "The day opens as a worked list, not as a database.",
+           "Ordered by score, with the reasons there to read.",
+           "Missed follow-ups surface instead of ageing quietly.",
+           "A battle card per student, before the call connects."] },
+
+    { t:"Works the lead", s:"Calls, WhatsApp and email",
+      m:["crm","integrations","sales-management"],
+      c:[{ t:"WhatsApp on the institute number", s:"part",
+           x:"Counsellors WhatsApp students from Meritto today. The number and the sending are ours; " +
+             "only automation and Sia use them." },
+         { t:"Click to call from Insights", s:"plan", ph:"Phase 4",
+           x:"Counsellors dial from Meritto today. The call is logged back here and scored, but it " +
+             "never starts here." },
+         { t:"Email a lead from Insights", s:"plan", ph:"Phase 4",
+           x:"Counsellors email students from Meritto today, so the thread lives outside the platform " +
+             "they work in." },
+         { t:"Shared chats across the team",
+           x:"A conversation belongs to the institute, not to one counsellor's handset, so cover is " +
+             "possible." },
+         { t:"Every touch on one timeline",
+           x:"Calls, WhatsApp, email, chatbot, human and AI, in one chronological view of the student." }],
+      d:[
+           "Counsellors already call, WhatsApp and email leads. They just do it in Meritto.",
+           "Phase 4 brings that inside, and takes away their daily reason to log into Meritto.",
+           "Shared chats, and one timeline across every channel.",
+           "Sending is already ours; today only automation and Sia use it."] },
+
+    { t:"Admin tracks the team", s:"Activity, quality and outcomes",
+      m:["sales-management","ai-analytics","user-role-management"],
+      c:[{ t:"Counsellor performance dashboard",
+           x:"Activity and outcomes per counsellor, side by side, without anyone assembling a sheet." },
+         { t:"Call quality scores",
+           x:"Calls are transcribed and scored, so quality is read from what was said, not from a tally " +
+             "of dials." },
+         { t:"Productivity and engagement reports",
+           x:"What the team did, and what it moved. Exportable when someone upstairs asks." },
+         { t:"Reassign in bulk",
+           x:"When staffing or priorities shift, books move in bulk and the history travels with them." }],
+      d:[
+           "See the team without having to ask the team.",
+           "Call quality read from the transcript, not from a tally of dials.",
+           "Activity measured against outcomes, and exportable.",
+           "Books move in bulk, and the history travels with them."] }
+  ]};
+
+  FLOWS.campaign = {
+    name:"Campaign Lifecycle",
+    lede:"From a campaign being built to knowing what it cost you per admission.",
+    stages:[
+    { t:"Campaign is created", s:"Built, budgeted and tracked",
+      m:["campaign-management","attribution"],
+      c:[{ t:"Campaign creation and management",
+           x:"Build the campaign, hold its budget, and keep spend against it in the same place as its " +
+             "results." },
+         { t:"Smart tracking links",
+           x:"Links that carry the campaign with them, so a click is still attributable when the student " +
+             "converts weeks later." },
+         { t:"UTM mapping",
+           x:"Your UTM scheme mapped once, so source, medium and campaign mean the same thing in every " +
+             "report." },
+         { t:"Landing pages",
+           x:"The page behind the ad, held alongside the campaign that pays for it." }],
+      d:[
+           "Budget, spend and results held in one place.",
+           "Tracking links that survive all the way to the enrolment.",
+           "A UTM scheme that means one thing in every report."] },
+
+    { t:"Tracked to the campaign", s:"Attribution that survives",
+      m:["attribution","lead-capture","crm"],
+      c:[{ t:"Own forms carry the UTMs", s:"plan", ph:"Phase 1",
+           x:"Once capture is ours the UTMs are recorded at source instead of being handed back to us by " +
+             "Meritto." },
+         { t:"First-touch source trail",
+           x:"The first thing that brought a student in is kept, however many touches follow it." },
+         { t:"Ad spend synced automatically",
+           x:"Google and Meta spend pulled in on its own, so cost sits next to outcome without a monthly " +
+             "export." },
+         { t:"Campaign lead rules",
+           x:"What a campaign does with the leads it produces, decided on the campaign itself." }],
+      d:[
+           "The first touch is kept, however many follow it.",
+           "Google and Meta spend arrives on its own, with no monthly export.",
+           "Once our own forms capture, UTMs are recorded at source."] },
+
+    { t:"Automation drives traction", s:"The feature we are taking back",
+      m:["marketing-automation","ai-nurturing"],
+      c:[{ t:"A journey per campaign",
+           x:"The campaign's leads enrol into its journey the moment they land, with no list handed over." },
+         { t:"WhatsApp journeys live now",
+           x:"Trigger, filter, split, send and wait all run in Insights today, on your own number." },
+         { t:"Email, SMS and calls", s:"plan", ph:"Phase 5",
+           x:"The remaining channels. This is the last thing Meritto's automation does that ours " +
+             "does not." },
+         { t:"Draft, publish and version",
+           x:"Change a live journey without disturbing the students already moving through it." }],
+      d:[
+           "The headline of the decoupling: automation comes in-house.",
+           "The engine is already here, already running WhatsApp on your number.",
+           "What is left is breadth: email, SMS and calls as journey steps.",
+           "Publish a change without disturbing the leads mid-flight."] },
+
+    { t:"Measured", s:"What it cost, and what it returned",
+      m:["ai-analytics","attribution","campaign-management"],
+      c:[{ t:"True cost per lead and admission",
+           x:"Spend divided by what it actually produced, down to an admission rather than an enquiry." },
+         { t:"Channel and campaign performance",
+           x:"Campaigns and channels side by side on the same definition, so the comparison is fair." },
+         { t:"Funnel and conversion analytics",
+           x:"Where students dropped, at which stage, for which campaign." },
+         { t:"Ask your data in plain language",
+           x:"A question in English instead of a report request and a three-day wait." }],
+      d:[
+           "Cost per admission, not cost per click.",
+           "Spend, funnel and outcome all on one definition.",
+           "Ask it in plain language instead of filing a report request."] }
+  ]};
+
+  // Short pill labels for the diagrams; the walkthroughs use each module's full name.
+  var MODSHORT = {
+    "lead-capture":"Lead Capture", "crm":"CRM", "campaign-management":"Campaigns",
+    "marketing-automation":"Automation", "sales-management":"Sales", "ai-nurturing":"AI Nurturing",
+    "ai-analytics":"Analytics", "attribution":"Attribution", "partner-management":"Partners",
+    "integrations":"Integrations", "user-role-management":"Users and Roles"
+  };
+  var STATUS = {
+    live: { k:"Live today",   dot:"#FF7A59", fill:"#FF7A59" },
+    part: { k:"Partly built", dot:"#0091AE", fill:"#0091AE" },
+    plan: { k:"To build",     dot:"#fff",    fill:"none" }
+  };
+
+  function modName(id){
+    var m = MODULES.filter(function(x){ return x.id===id; })[0];
+    return m ? m.name : id;
+  }
+  function modLink(id){ return "<a onclick=\"go('"+id+"')\">"+modName(id)+"</a>"; }
+  function stat(item){ return item.s === "plan" ? STATUS.plan : item.s === "part" ? STATUS.part : STATUS.live; }
+
+  function flowSvg(key){
+    var F = FLOWS[key], BX=70, BW=810, CW=278, CH=34, GY=10, PAD=18, GAP=34, RAIL=35, MODH=30;
+    var COL=[300,592], W=960, y=30;
+
+    F.stages.forEach(function(b){
+      var rows = Math.ceil(b.c.length/2);
+      b._y = y;
+      b._h = PAD*2 + rows*CH + (rows-1)*GY + MODH;
+      b._cy = y + (b._h - MODH)/2;
+      y += b._h + GAP;
+    });
+    var H = y - GAP + 30;
+
+    var s = "<svg id='lc-"+key+"' viewBox='0 0 "+W+" "+H+"' role='img' aria-label='"+F.name+" diagram'>" +
+            "<defs>" +
+              "<marker id='arw-"+key+"' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto-start-reverse'>" +
+                "<path d='M0,0 L10,5 L0,10 z' fill='#FF7A59'/></marker>" +
+            "</defs>" +
+            "<style>" +
+              ".fb{fill:#F5F8FA;stroke:#DFE3EB}.fc{fill:#fff;stroke:#DFE3EB}" +
+              ".fcp{stroke-dasharray:4 3}" +
+              ".ft{font-size:14.5px;font-weight:700;fill:#213343}.fs{font-size:11.5px;fill:#516F90}" +
+              ".fct{font-size:12px;fill:#33475B}.fn{font-size:13px;font-weight:700;fill:#fff}" +
+              ".fmk{font-size:10.5px;font-weight:600;fill:#8A97A8;letter-spacing:.04em}" +
+              ".fq{cursor:pointer}.fq:hover .fqr,.fq:focus .fqr{fill:#FFF3EF;stroke:#FF7A59}" +
+              ".fqc{font-size:15px;font-weight:700;fill:#FF7A59}" +
+              ".fqr.sel{fill:#FFF3EF;stroke:#FF7A59;stroke-width:1.5}" +
+              ".fp rect{fill:#EAF6F9;stroke:#B8DDE6}.fp text{font-size:11px;font-weight:600;fill:#0091AE}" +
+              ".fp{cursor:pointer}.fp:hover rect{fill:#D6EDF3}" +
+            "</style>";
+
+    F.stages.forEach(function(b, idx){
+      s += "<rect id='band-"+key+"-"+idx+"' class='fb' x='"+BX+"' y='"+b._y+"' width='"+BW+"' height='"+b._h+"' rx='10'/>" +
+           "<rect x='"+BX+"' y='"+(b._y+10)+"' width='4' height='"+(b._h-20)+"' rx='2' fill='#FF7A59'/>" +
+           "<text class='ft' x='90' y='"+(b._cy-2)+"'>"+b.t+"</text>" +
+           "<text class='fs' x='90' y='"+(b._cy+16)+"'>"+b.s+"</text>";
+
+      b.c.forEach(function(item, j){
+        var cx = COL[j%2], cy = b._y + PAD + Math.floor(j/2)*(CH+GY), st = stat(item);
+        s += "<g class='fq' role='button' tabindex='0' onclick='showChip(\""+key+"\","+idx+","+j+")'>" +
+               "<title>"+item.t+" &ndash; "+st.k+"</title>" +
+               "<rect id='chip-"+key+"-"+idx+"-"+j+"' class='fc fqr"+(item.s==="plan"?" fcp":"")+"' " +
+                 "x='"+cx+"' y='"+cy+"' width='"+CW+"' height='"+CH+"' rx='8'/>" +
+               "<circle cx='"+(cx+14)+"' cy='"+(cy+CH/2)+"' r='3.5' fill='"+st.dot+"' stroke='#FF7A59'/>" +
+               "<text class='fct' x='"+(cx+26)+"' y='"+(cy+CH/2+4)+"'>"+item.t+"</text>" +
+               "<text class='fqc' x='"+(cx+CW-14)+"' y='"+(cy+CH/2+5)+"' text-anchor='middle'>&#8250;</text>" +
+             "</g>";
+      });
+
+      var py = b._y + b._h - PAD - 14, px = 352;
+      s += "<text class='fmk' x='300' y='"+(py+4)+"'>IN PLAY</text>";
+      b.m.forEach(function(id){
+        var label = MODSHORT[id] || id, pw = Math.round(label.length*6.1) + 22;
+        s += "<a class='fp' href='#"+id+"'><title>Open "+modName(id)+"</title>" +
+               "<rect x='"+px+"' y='"+(py-11)+"' width='"+pw+"' height='22' rx='11'/>" +
+               "<text x='"+(px+pw/2)+"' y='"+(py+4)+"' text-anchor='middle'>"+label+"</text></a>";
+        px += pw + 8;
+      });
+
+      s += "<circle cx='"+RAIL+"' cy='"+b._cy+"' r='15' fill='#FF7A59'/>" +
+           "<text class='fn' x='"+RAIL+"' y='"+(b._cy+5)+"' text-anchor='middle'>"+(idx+1)+"</text>";
+      if(idx < F.stages.length-1){
+        s += "<line x1='"+RAIL+"' y1='"+(b._cy+15)+"' x2='"+RAIL+"' y2='"+(F.stages[idx+1]._cy-15)+"' " +
+             "stroke='#FF7A59' stroke-width='2' marker-end='url(#arw-"+key+")'/>";
+      }
+    });
+    return s + "</svg>";
+  }
+
+  function closeChip(){
+    document.querySelectorAll(".chippop").forEach(function(p){ p.classList.remove("on"); });
+    document.querySelectorAll("rect.fqr.sel").forEach(function(r){ r.classList.remove("sel"); });
+  }
+
+  // Opens a point's detail beside the stage that holds it. The diagrams are taller than a screen,
+  // so the explanation has to come to the point rather than sit at the bottom of the diagram.
+  function showChip(key, si, ci){
+    var item = FLOWS[key].stages[si].c[ci];
+    if(!item || !item.x){ return; }
+    closeChip();
+
+    var rect = document.getElementById("chip-"+key+"-"+si+"-"+ci);
+    if(rect){ rect.classList.add("sel"); }
+
+    var st = stat(item), tag = st.k + (item.ph ? " &middot; " + item.ph : "");
+    var pop = document.getElementById("pop-"+key);
+    pop.innerHTML = "<button class='chippop-x' onclick='closeChip()' aria-label='Close'>&times;</button>" +
+                    "<div class='chipdet-k'>"+FLOWS[key].stages[si].t+"</div>" +
+                    "<div class='chipdet-t'>"+item.t+"</div><p>"+item.x+"</p>" +
+                    "<div class='chipdet-s "+(item.s||"live")+"'>"+tag+"</div>";
+    pop.classList.add("on");
+
+    // anchor under the whole band, so every point in the stage stays clickable while this is open
+    var box = document.getElementById("box-"+key).getBoundingClientRect();
+    var band = document.getElementById("band-"+key+"-"+si).getBoundingClientRect();
+    var cr = rect.getBoundingClientRect();
+    pop.style.left = Math.min(Math.max(cr.left - box.left, 8), box.width - pop.offsetWidth - 8) + "px";
+    pop.style.top  = (band.bottom - box.top + 8) + "px";
+  }
+
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape"){ closeChip(); } });
+
+  function flowBlock(key){
+    var F = FLOWS[key];
+    var h = "<h2 id='"+key+"'>"+F.name+"</h2><p>"+F.lede+"</p>" +
+            "<div class='flowbox' id='box-"+key+"'>" +
+              "<div class='flowwrap'>"+flowSvg(key)+"</div>" +
+              "<div class='chippop' id='pop-"+key+"'></div>" +
+            "</div>" +
+            "<p class='legend'>" +
+              "<span class='lg'><i class='d-live'></i>Live today</span>" +
+              "<span class='lg'><i class='d-part'></i>Partly built</span>" +
+              "<span class='lg'><i class='d-plan'></i>To build</span>" +
+              "<span class='lg-note'>Select any point to read it. Module pills open that section.</span>" +
+            "</p>";
+    F.stages.forEach(function(b, idx){
+      h += "<h3>Stage "+(idx+1)+"</h3><p class='fsub'>"+b.t+"</p><ul>" +
+           b.d.map(function(pt){ return "<li>"+pt+"</li>"; }).join("") + "</ul>" +
+           "<p class='wherep'><span class='wherek'>Where it happens</span>" +
+           b.m.map(modLink).join("<span class='sep'> &middot; </span>")+"</p>";
+    });
+    return h;
+  }
+
+  function overviewBody(){
+    return "<h1>KOS Insights Product Documentation</h1>" +
+           "<p class='lead'>KOS Insights is an all-in-one admissions and marketing platform for education " +
+           "institutes. Three lifecycles run the platform: the student's, the counsellor's, and the " +
+           "campaign's. Every module in this documentation sits inside one of them.</p>" +
+           "<div class='callout'><strong>Reading this page:</strong> each diagram is a lifecycle end to " +
+           "end. Select any point to read what it does and whether it is live, partly built or still to " +
+           "build. The plan for the pieces still to build is in " +
+           "<a onclick=\"go('decoupling')\">Decoupling from Meritto</a>.</div>" +
+           flowBlock("lead") + flowBlock("counsellor") + flowBlock("campaign") +
+           "<h2>Running underneath all of it</h2>" +
+           "<p>Two modules do not sit at a single stage, because they hold up every one of them. " +
+           modLink("integrations")+" connects the channels the lifecycles run on, your forms, WhatsApp, " +
+           "telephony, chatbot, ad platforms and CRM, and keeps them healthy. " +
+           modLink("user-role-management")+" decides who on your team sees and does what, across roles " +
+           "and across institutes.</p>" +
+           "<h2>Using this documentation</h2>" +
+           "<p>Use the navigation on the left to open a section. Each section describes what the " +
+           "capability does, how it helps your team, and the features it includes.</p>";
+  }
+
+  var OVERVIEW = { id:"", name:"Overview", body:overviewBody };
+
+  // Ordered by the sequence we pick each capability up, not by theme. Read top to bottom and you
+  // are reading the decoupling in the order it happens. "now"/"after" are where a capability runs
+  // before and after the move; "st" is its build status today, taken from the code, not from intent.
+  var SEG = [
+    // Phase 1 — capture is the keystone; allocation, stage and the app trigger all queue behind it
+    { f:"Lead capture forms",        now:"Meritto",  after:"KOS Insights", st:"plan", ph:"1",
+      n:"No form builder or submit endpoint exists in Insights today." },
+    { f:"Lead ingestion",            now:"Meritto",  after:"KOS Insights", st:"plan", ph:"1",
+      n:"Every source calls Meritto's create API and waits for the lead to come back on a webhook." },
+    { f:"Deduplication",             now:"Meritto",  after:"KOS Insights", st:"plan", ph:"1",
+      n:"Duplicate email and mobile are caught by Meritto's API response, not by us." },
+    { f:"Chatbot lead creation",     now:"Both",     after:"KOS Insights", st:"part", ph:"1",
+      n:"The temporary lead and its promotion are ours; the promotion still needs a Meritto connector." },
+
+    // Phase 2 — a stage we own is only meaningful on a lead we captured
+    { f:"Lead stage and status",     now:"Both",     after:"KOS Insights", st:"part", ph:"2",
+      n:"We hold stages and mappings, but the incoming stage is Meritto's lead_status." },
+
+    // Phase 3 — once capture is ours, the allocation decision has to be ours too
+    { f:"Counsellor allocation",     now:"Meritto",  after:"KOS Insights", st:"plan", ph:"3",
+      n:"The counsellor arrives as sales_agent_email on the webhook. No allocation rules exist here." },
+
+    // Phase 4 — the institute's number in the counsellor's hands
+    { f:"Counsellor-sent WhatsApp",  now:"Meritto",  after:"KOS Insights", st:"plan", ph:"4",
+      n:"Counsellors WhatsApp students from Meritto today. The sending exists here, but only automation and Sia use it." },
+    { f:"Placing calls",             now:"Meritto",  after:"KOS Insights", st:"plan", ph:"4",
+      n:"Counsellors dial from Meritto. The call is logged back to us and scored, but it never starts here." },
+    { f:"Calls that register a lead", now:"Meritto", after:"KOS Insights", st:"plan", ph:"4",
+      n:"A call from an unknown number registers the student in Meritto. Here it is dropped rather than opening a lead." },
+    { f:"Email to leads",            now:"Meritto",  after:"KOS Insights", st:"plan", ph:"4",
+      n:"Counsellors email students from Meritto. Insights has delivery webhooks and a test send, nothing outbound." },
+
+    // Phase 5 — needs Phase 4's channels underneath it
+    { f:"Campaign automation",       now:"Both",     after:"KOS Insights", st:"part", ph:"5",
+      n:"Our engine runs triggers, filters, splits, waits and sends, but only over WhatsApp." },
+
+    // Phase 6 — Meritto keeps the form; we take the trigger and the read
+    { f:"Application form",          now:"Meritto",  after:"Meritto",      st:"live", ph:"6",
+      n:"Kept deliberately. Meritto runs the form; Insights decides when it fires." },
+    { f:"Applicant data view",       now:"Meritto",  after:"KOS Core",     st:"plan", ph:"6",
+      n:"The change that removes the Meritto login from a counsellor's day." },
+
+    // Phase 7 — last on purpose; it needs months of allocation data that is ours
+    { f:"Allocation by conversion",  now:"Neither",  after:"KOS Insights", st:"plan", ph:"7",
+      n:"Weighted and trend-based routing, once our own allocation has produced data to learn from." },
+
+    // Nothing to pick — already ours
+    { f:"WhatsApp to leads",         now:"KOS Insights", after:"KOS Insights", st:"live", ph:"-",
+      n:"Text and template senders on your own number, used by automation and by Sia." },
+    { f:"Call logging and scoring",  now:"KOS Insights", after:"KOS Insights", st:"live", ph:"-",
+      n:"Call webhooks attach to the lead, and calls are transcribed and scored." },
+    { f:"Lead scoring",              now:"KOS Insights", after:"KOS Insights", st:"live", ph:"-",
+      n:"Score and score reasons are held on the lead here." },
+    { f:"Campaigns, UTMs, spend",    now:"KOS Insights", after:"KOS Insights", st:"live", ph:"-",
+      n:"Campaigns, smart links, UTM mapping and ad-spend sync are already ours." }
+  ];
+
+  // Proposed sequencing. Weeks are relative to kickoff and assume one team on this track;
+  // they are a shape to argue with, not a commitment.
+  var PHASES = [
+    { n:"1", t:"Own the capture",        build:[0,6],   test:[6,9],   rel:9,
+      d:"Self-hosted forms and direct ingestion, with our own dedup. Run alongside Meritto and compare " +
+        "every lead before anything is switched off.",
+      k:["Form builder and embeddable form","Direct ingestion endpoint","Dedup on email and mobile",
+         "UTMs captured at source","Chatbot promotion without the Meritto connector"] },
+    { n:"2", t:"Own the lead stage",     build:[6,11],  test:[11,13], rel:13,
+      d:"Stage and status decided here rather than mapped in from Meritto's lead_status. Needs Phase 1, " +
+        "because a stage we own is only meaningful on a lead we captured.",
+      k:["Stage engine owns transitions","Stop reading CRM lead_status","Backfill and reconcile history",
+         "Funnel reporting reads our stage"] },
+    { n:"3", t:"Own the allocation",     build:[11,15], test:[15,17], rel:17,
+      d:"A rule engine over lead template fields. Round robin first, then capacity balancing. Shadow it " +
+        "against Meritto's choice before it takes over.",
+      k:["Rules on template fields","Round robin","Capacity and load balancing",
+         "Shadow mode and diff against Meritto","Ignore sales_agent_email"] },
+    { n:"4", t:"Counsellor comms",       build:[15,21], test:[21,23], rel:23,
+      d:"Counsellors already do all of this, in Meritto. This phase moves it onto the institute's " +
+        "number inside Insights, where it is shared, logged and on the timeline, and lets an inbound " +
+        "call register a lead. With Phase 6 it is what finally gets counsellors out of Meritto.",
+      k:["Counsellor-facing WhatsApp send","Outbound email","Click to call","Call registers a new lead",
+         "Shared chats"] },
+    { n:"5", t:"Automation breadth",     build:[19,25], test:[25,27], rel:27,
+      d:"Email, SMS and call steps join WhatsApp. This is the phase that makes Meritto's automation " +
+        "redundant, and it needs Phase 4's channels underneath it.",
+      k:["Email step","SMS step","Call step","Per-channel waits and events","Journey parity review"] },
+    { n:"6", t:"Application trigger",    build:[23,29], test:[29,31], rel:31,
+      d:"Our lead stage fires Meritto's application form; the completed application returns into KOS Core " +
+        "where counsellors read it. Meritto stays the form engine.",
+      k:["Stage-driven form trigger","Fee collection round trip","Application record in KOS Core",
+         "Applicant viewer","No Meritto login for counsellors"] },
+    { n:"7", t:"Allocation v2",          build:[29,35], test:[35,37], rel:37,
+      d:"Weighted routing on who actually converts, with trend analysis. Deliberately last: it needs " +
+        "several months of allocation data that is ours.",
+      k:["Conversion weighting","Trend analysis","Per-programme routing","Rule simulator"] }
+  ];
+
+  function ganttSvg(){
+    var W=960, LBL=210, X0=LBL+16, WK=37, PXW=(W-X0-24)/WK, ROW=46, TOP=54, H=TOP+PHASES.length*ROW+34;
+    var s = "<svg viewBox='0 0 "+W+" "+H+"' role='img' aria-label='Proposed decoupling timeline by phase'>" +
+            "<style>" +
+              ".gl{font-size:11px;fill:#8A97A8}.gt{font-size:13px;font-weight:700;fill:#213343}" +
+              ".gs{font-size:10.5px;fill:#516F90}.gk{font-size:10px;font-weight:700;fill:#fff}" +
+              ".grid{stroke:#EAF0F6}" +
+            "</style>";
+    // week grid, every 4 weeks
+    for(var w=0; w<=WK; w+=4){
+      var x = X0 + w*PXW;
+      s += "<line class='grid' x1='"+x+"' y1='"+(TOP-18)+"' x2='"+x+"' y2='"+(H-24)+"' stroke-width='1'/>" +
+           "<text class='gl' x='"+x+"' y='"+(TOP-24)+"' text-anchor='middle'>W"+w+"</text>";
+    }
+    PHASES.forEach(function(p, i){
+      var y = TOP + i*ROW;
+      s += "<text class='gt' x='0' y='"+(y+12)+"'>Phase "+p.n+"</text>" +
+           "<text class='gs' x='0' y='"+(y+27)+"'>"+p.t+"</text>";
+      var bx = X0 + p.build[0]*PXW, bw = (p.build[1]-p.build[0])*PXW;
+      var tx = X0 + p.test[0]*PXW,  tw = (p.test[1]-p.test[0])*PXW;
+      var rx = X0 + p.rel*PXW;
+      s += "<rect x='"+bx+"' y='"+(y+2)+"' width='"+bw+"' height='20' rx='5' fill='#FF7A59'/>" +
+           "<text class='gk' x='"+(bx+8)+"' y='"+(y+16)+"'>BUILD</text>" +
+           "<rect x='"+tx+"' y='"+(y+2)+"' width='"+tw+"' height='20' rx='5' fill='#0091AE'/>" +
+           "<text class='gk' x='"+(tx+7)+"' y='"+(y+16)+"'>TEST</text>" +
+           "<path d='M "+rx+","+(y+2)+" l 7,10 l -7,10 l -7,-10 z' fill='#33475B'/>" +
+           "<text class='gl' x='"+(rx+12)+"' y='"+(y+16)+"'>Release W"+p.rel+"</text>";
+    });
+    return s + "</svg>";
+  }
+
+  function decouplingBody(){
+    var h = "<h1>Decoupling from Meritto</h1>" +
+            "<p class='lead'>A stage-by-stage plan to move lead capture, lead stage, counsellor " +
+            "allocation, counsellor comms and campaign automation into KOS Insights, and to leave " +
+            "Meritto doing the one job it should keep: running the application form.</p>" +
+
+            "<h2>Where we stand today</h2>" +
+            "<p>Insights sits on top of Meritto rather than beside it. Every lead, whatever route it " +
+            "arrives by, is created by calling Meritto's API and comes back to us on a webhook. That " +
+            "webhook also carries the counsellor, so Meritto decides allocation, and it carries the " +
+            "status we map onto our funnel, so Meritto anchors the stage. Capture is the keystone: " +
+            "allocation, stage ownership and the application trigger all depend on us owning the moment a " +
+            "lead is created, which is why Phase 1 is first and everything else queues behind it.</p>" +
+            "<div class='callout'><strong>Already ours:</strong> WhatsApp sending on your own number, " +
+            "call logging and scoring, lead scoring, campaigns, UTMs, ad-spend sync, and the automation " +
+            "engine itself. The automation engine is the important one, it already runs triggers, " +
+            "filters, splits, waits and sends. It only speaks WhatsApp.</div>" +
+
+            "<h2>What runs where</h2>" +
+            "<p>Every capability, in the order we pick it up. Read this table top to bottom and you are " +
+            "reading the decoupling in the order it happens.</p>" +
+            "<div class='tblwrap'><table class='seg'><thead><tr>" +
+              "<th>Capability</th><th>Today</th><th>After</th><th>Status now</th>" +
+            "</tr></thead><tbody>";
+    var grp = null;
+    SEG.forEach(function(r){
+      if(r.ph !== grp){
+        grp = r.ph;
+        var ph = PHASES.filter(function(x){ return x.n === grp; })[0];
+        h += "<tr class='seggrp'><td colspan='4'>" +
+             (ph ? "Phase "+ph.n+" &middot; "+ph.t : "Already ours &middot; nothing to pick") +
+             "</td></tr>";
+      }
+      var cls = r.after === "Meritto" ? "keep" : "take";
+      h += "<tr><td><strong>"+r.f+"</strong><span class='segn'>"+r.n+"</span></td>" +
+           "<td><span class='own o-"+r.now.toLowerCase().replace(/ /g,"")+"'>"+r.now+"</span></td>" +
+           "<td><span class='own o-"+cls+"'>"+r.after+"</span></td>" +
+           "<td><span class='st s-"+r.st+"'>"+STATUS[r.st].k+"</span></td></tr>";
+    });
+    h += "</tbody></table></div>" +
+         "<p class='flow-cap'>Ordered by when we take it. Status is read from the code as it stands " +
+         "today, not from intent.</p>" +
+
+         "<h2>What we will own</h2>" +
+         "<p>By the end of Phase 6, these are ours outright:</p><ul class='ticks'>";
+    ["Lead capture, through our own forms, with UTMs recorded at source",
+     "Lead ingestion and deduplication, with no round trip to Meritto",
+     "The lead stage, decided by our engine rather than mapped in",
+     "Counsellor allocation, by rules you can read and change",
+     "Calls, WhatsApp and email from the institute's own number",
+     "Campaign automation across every channel, not just WhatsApp",
+     "Applicant data, read in KOS Core, with no Meritto login for counsellors"
+    ].forEach(function(t){ h += "<li>"+t+"</li>"; });
+    h += "</ul>" +
+         "<div class='callout'><strong>Deliberately not ours:</strong> the application form itself. " +
+         "Meritto keeps running it, driven by our lead stage. We take the trigger and the read, not the " +
+         "form engine.</div>" +
+
+         "<h2>Timeline</h2>" +
+         "<p>Seven phases. Weeks are relative to kickoff and assume one team on this track, with build " +
+         "and test overlapping between neighbouring phases. Phase 2 waits on Phase 1 because a stage we " +
+         "own is only meaningful on a lead we captured. Phase 5 waits on Phase 4 because journeys cannot " +
+         "send on channels that do not exist yet. Phase 7 is last on purpose: routing by who converts " +
+         "needs months of allocation data that is ours.</p>" +
+         "<div class='flowwrap'>"+ganttSvg()+"</div>" +
+         "<p class='legend'><span class='lg'><i class='d-build'></i>Build</span>" +
+           "<span class='lg'><i class='d-test'></i>Test</span>" +
+           "<span class='lg'><i class='d-rel'></i>Release</span>" +
+           "<span class='lg-note'>A shape to argue with, not a commitment. Durations need the team's " +
+           "capacity against them.</span></p>" +
+
+         "<h2>The phases</h2>";
+    PHASES.forEach(function(p){
+      h += "<h3>Phase "+p.n+"</h3>" +
+           "<p class='fsub'>"+p.t+"</p><p>"+p.d+"</p><ul>";
+      p.k.forEach(function(k){ h += "<li>"+k+"</li>"; });
+      h += "</ul>";
+    });
+
+    h += "<h2>How each phase is tested and released</h2>" +
+         "<p>Nothing here is a flag-day switch. Each phase earns its cutover the same way:</p>" +
+         "<ul>" +
+         "<li><strong>Dual run.</strong> The new path runs alongside Meritto and both write. Nothing is " +
+           "switched off while the two disagree.</li>" +
+         "<li><strong>Shadow and diff.</strong> Allocation is the clearest case: our engine picks a " +
+           "counsellor and records it without applying it, and we read the disagreement with Meritto " +
+           "until we can explain every one.</li>" +
+         "<li><strong>Pilot institute.</strong> One institute and one admission season first, chosen for " +
+           "volume you can eyeball, before the estate.</li>" +
+         "<li><strong>Reconcile before cutover.</strong> Lead counts, stage distribution and counsellor " +
+           "books compared old against new, with the gaps explained rather than averaged away.</li>" +
+         "<li><strong>Flagged, and reversible.</strong> Every phase lands behind a per-institute flag " +
+           "that can be turned back within a season without a deploy.</li>" +
+         "</ul>" +
+         "<div class='callout'><strong>The risk worth naming:</strong> Phase 1 changes who owns lead " +
+         "identity. While both systems can create leads, the same student can exist twice. Dual run must " +
+         "reconcile on email and mobile from day one, and the pilot institute exists to find that before " +
+         "the estate does.</div>";
+    return h;
+  }
+
+  var PAGES = { "decoupling": { name:"Decoupling from Meritto", body:decouplingBody } };
+
+  var MODULES = [
+    { id:"lead-capture",        name:"Lead Capture",
+      desc:"Capture verified leads through embeddable forms, a student portal, documents and payments, all in one place.",
+      features:[
+        { n:"Lead Capture Forms", img:true,
+          crisp:"Build forms, drop them on your website, and start capturing verified leads.",
+          intro:"Create the forms that bring prospects into KOS Insights and place them wherever your audience is. Design each form to collect exactly what you need, drop it straight onto your website, and start capturing enquiries that are verified from the first submission.",
+          points:[
+            "Build dynamic forms with your own fields, no developer needed.",
+            "Drop a form onto any web page with a simple embed.",
+            "Verify every lead's email and phone at the point of capture.",
+            "Every submission lands in KOS Insights ready to work."],
+          outcome:"You capture clean, genuine leads the moment they show interest, with no manual setup." },
+        { n:"Student Portal", img:true,
+          crisp:"Give every prospect a personal space to track and complete their journey.",
+          intro:"A dedicated portal where prospective students can pick up where they left off, complete their application, upload what is needed and stay informed, without emailing your team at every step.",
+          points:[
+            "Prospects log in to view and continue their application.",
+            "Complete pending steps and see what is left to do.",
+            "Check status and next steps at any time.",
+            "Cuts down the back-and-forth with your admissions team."],
+          outcome:"Prospects move themselves through the journey, freeing your team for the conversations that matter." },
+        { n:"Document Management", img:true,
+          crisp:"Collect, store and track every applicant document in one place.",
+          intro:"Manage all the paperwork an admission needs without chasing email attachments. Applicants submit documents against their profile, and your team reviews, tracks and verifies them centrally.",
+          points:[
+            "Collect the required documents from each applicant.",
+            "Every file is tied to the right lead or application.",
+            "Track what has been submitted and what is still pending.",
+            "Review and verify without digging through inboxes."],
+          outcome:"No lost attachments and no missing paperwork when it is decision time." },
+        { n:"Payment Management", img:true,
+          crisp:"Collect application and registration fees, and track every payment.",
+          intro:"Handle the money side of admissions inside the same system. Collect fees from applicants, record every transaction against their profile, and always know who has paid.",
+          points:[
+            "Collect application or registration fees from prospects.",
+            "Every payment is recorded against the lead or application.",
+            "See paid and pending status at a glance.",
+            "Paid enquiries clearly stand out as serious intent."],
+          outcome:"Fee collection and admissions data stay in sync, with a clear view of who has committed." },
+        { n:"Stage-wise Analytics", img:true,
+          crisp:"See how many leads you capture and where they are in the journey.",
+          intro:"Understand your capture performance at a glance. Stage-wise analytics show how many leads come in and how they progress, so you can spot where prospects drop off and act early.",
+          points:[
+            "See lead volumes at each stage of capture.",
+            "Track how prospects move from enquiry onward.",
+            "Spot drop-off points before they cost you admissions.",
+            "Compare performance across forms, sources and time."],
+          outcome:"You always know how capture is performing and where to improve." }
+      ] },
+    { id:"crm",                 name:"Lead Management (CRM)",
+      desc:"The workspace your counsellors live in, every enquiry and opportunity managed, scored and moved through your admissions journey.",
+      features:[
+        { n:"AI Lead Nurturing", img:true,
+          crisp:"Sia keeps every enquiry warm, around the clock.",
+          intro:"Your AI agent follows up with prospects at the right time and on the right channel, and adapts to how each student responds, so no enquiry is left waiting.",
+          points:[
+            "Automatic follow-up over WhatsApp, email, SMS or call.",
+            "Timing driven by each prospect's own activity.",
+            "Conversations that remember what came before.",
+            "Works evenings, weekends and peak intake season."],
+          outcome:"Every enquiry gets a timely response, even when your team is at capacity." },
+        { n:"AI-Assisted Follow-ups & Missed-Task Flags", img:true,
+          crisp:"Give counsellors an AI-prepared follow-up list, and flag anything slipping.",
+          intro:"Each counsellor gets a prioritised daily follow-up queue with AI-suggested next steps, and the system flags prospects whose follow-up has been missed, so nothing goes cold during a busy intake.",
+          points:[
+            "A prioritised follow-up queue for every counsellor.",
+            "AI suggests the next step and talking points.",
+            "Missed or overdue follow-ups are flagged automatically.",
+            "Nothing slips through when volumes spike."],
+          outcome:"Counsellors always know who to contact next, and no prospect is forgotten." },
+        { n:"AI Handover to Counsellor", img:true,
+          crisp:"AI warms the enquiry, then hands it over with a full brief.",
+          intro:"When a prospect is ready for a human, Sia passes them to the right counsellor with a ready-made brief, so the conversation starts with complete context.",
+          points:[
+            "Review, approve or step into any AI conversation.",
+            "Handover brief with follow-up notes and earlier call summaries.",
+            "Next steps and any concerns raised are highlighted."],
+          outcome:"Counsellors never start a call cold, and prospects feel looked after." },
+        { n:"Lead Scoring & Score Breakdown", img:true,
+          crisp:"Every prospect scored, with the reasons laid bare.",
+          intro:"KOS Insights scores each lead by how engaged and interested they are, and shows exactly what shaped that score, so counsellors trust the ranking and work the hottest students first.",
+          points:[
+            "A live score and interest level for every lead.",
+            "The hottest prospects rise to the top automatically.",
+            "See every action that moved a score up or down.",
+            "Understand the ranking, not just the number."],
+          outcome:"Counsellors spend their time on the students most likely to enrol." },
+        { n:"Rule-Based Counsellor Allocation", img:true,
+          crisp:"Route every enquiry to the right counsellor automatically, by your rules.",
+          intro:"Decide how enquiries should be shared across your counselling team and let the system do the routing. Set rules by source, programme, location or workload, and reassign in bulk whenever your team changes.",
+          points:[
+            "Allocate incoming leads to counsellors by rules you define.",
+            "Balance workload so no counsellor is overloaded or idle.",
+            "Reassign leads in bulk when priorities or staffing shift.",
+            "Every prospect always has a clear owner."],
+          outcome:"Enquiries reach the right counsellor in seconds, not after a manual hand-out." },
+        { n:"Unified Communication Timeline", img:true,
+          crisp:"Every conversation with a prospect, across every channel, on one timeline.",
+          intro:"WhatsApp, email, SMS, calls and chatbot chats all come together in a single timeline for each prospect, so whoever picks up the conversation sees the whole story.",
+          points:[
+            "All channels in one chronological view.",
+            "Human and AI conversations together.",
+            "Full context before any call or reply."],
+          outcome:"No switching tools, and no asking a colleague what was already said." },
+        { n:"Lead Activity Signals", img:true,
+          crisp:"Know the moment a prospect engages, and act on it.",
+          intro:"KOS Insights captures the small signals that show intent, like an email opened or a link clicked, and turns them into triggers for your team or your AI agent.",
+          points:[
+            "See opens, clicks, deliveries and missed calls.",
+            "Use signals to trigger the next follow-up automatically.",
+            "Alert a counsellor when a prospect is warming up."],
+          outcome:"Your team reaches out exactly when interest is highest." },
+        { n:"Advanced, Quick & Saved Filters", img:true,
+          crisp:"Slice your pipeline any way you need, and save the views you use daily.",
+          intro:"Build precise segments from any combination of criteria, apply frequent filters in a click, and save the views your team returns to every day.",
+          points:[
+            "Layer conditions across any field, standard or custom.",
+            "One-click quick filters for common cuts.",
+            "Save filter views and reuse them instantly.",
+            "Turn any segment into a working list and act on it."],
+          outcome:"Your counsellors always work from the exact list they need, in seconds." },
+        { n:"Unified Leads & Opportunities Workspace", img:true,
+          crisp:"Every prospective student and opportunity in one place your counsellors live in.",
+          intro:"The home screen for your admissions team. Every enquiry and every opportunity sits in one searchable workspace, with details, stage, owning counsellor and latest activity in view, so anyone can pick up a prospect and know exactly where things stand.",
+          points:[
+            "Leads and opportunities together, side by side.",
+            "Search the whole database instantly.",
+            "See stage, counsellor, source and last activity at a glance.",
+            "Open any prospect's full profile in a click."],
+          outcome:"Your team starts every day from one clear, current view of the whole pipeline." },
+        { n:"Dynamic Admissions Lifecycle & Stages", img:true,
+          crisp:"Model your exact admissions journey, from enquiry to enrolment.",
+          intro:"Set up the stages your team really uses, for both leads and opportunities, and track every prospect's movement through them. Reset the funnel cleanly at the start of each intake.",
+          points:[
+            "Define your own lead and opportunity stages.",
+            "Every stage change is recorded with its date.",
+            "Map informal labels like Hot, Warm or Callback onto clean stages.",
+            "Reset funnels for a new admission season."],
+          outcome:"You always know where each prospect is in the journey, and how they got there." },
+        { n:"Web Activity Tracking", img:true,
+          crisp:"See what a prospect is exploring on your website.",
+          intro:"Understand which programmes and pages a prospect is looking at, so counsellors can have a relevant, informed conversation from the first call.",
+          points:[
+            "Track a prospect's activity on your site.",
+            "Tie web behaviour to their lead profile.",
+            "Spot the programme a prospect is most interested in."],
+          outcome:"Counsellors open the conversation already knowing what the student cares about." },
+        { n:"Lead Buckets (Inclusion & Exclusion)", img:true,
+          crisp:"Group prospects and control exactly who AI and automation may contact.",
+          intro:"Organise leads into buckets, and set exclusion buckets for prospects who should be left alone. This gives you precise control over which students your automations and AI agent are allowed to work.",
+          points:[
+            "Group leads into buckets for targeted action.",
+            "Use exclusion buckets to protect certain prospects from outreach.",
+            "Point automations and the AI agent at the right groups."],
+          outcome:"Outreach stays targeted and controlled, never blanket." },
+        { n:"Custom Lead Fields", img:true,
+          crisp:"Capture the details your institute cares about, not a fixed template.",
+          intro:"Every institute asks prospective students different things. Add the fields your admissions process needs, from course of interest to intake year, and they flow through the whole system.",
+          points:[
+            "Add your own fields on top of the standard ones.",
+            "Use them in forms, filters, scoring and reports.",
+            "Keep data consistent across counsellors and campaigns."],
+          outcome:"Your CRM mirrors how your institute actually runs admissions." },
+        { n:"Notes", img:true,
+          crisp:"Keep every counsellor's context on the prospect's record.",
+          intro:"Counsellors can leave notes on any prospect, so context stays with the record and travels with the lead if it is reassigned.",
+          points:[
+            "Add free-text notes to any lead or opportunity.",
+            "Context stays on the record, not in someone's head.",
+            "Notes carry over on reassignment."],
+          outcome:"Whoever works the prospect next has the full picture." }
+      ] },
+    { id:"campaign-management", name:"Campaign Management",
+      desc:"Plan, launch and measure every campaign, with budget, spend and results in one place.",
+      features:[
+        { n:"Campaign Performance & ROI", img:true,
+          crisp:"See exactly what every campaign produces, from enquiry to enrolment.",
+          intro:"Track each campaign's results in one view: how many enquiries it brought in, how far they progressed, and what it cost, so you always know which campaigns are worth repeating.",
+          points:[
+            "Leads and conversions tracked per campaign.",
+            "Cost measured against real results, not just clicks.",
+            "Compare campaigns across channels and seasons.",
+            "Spot your best and weakest performers early."],
+          outcome:"You put budget behind the campaigns that actually fill seats." },
+        { n:"Budget & Ad-Spend Tracking", img:true,
+          crisp:"Set a budget per campaign and track spend, including ad spend, automatically.",
+          intro:"Give every campaign a budget and keep spend in view. Advertising spend from your connected ad accounts syncs in on its own, and any other costs can be uploaded, so your cost-per-enquiry always reflects reality.",
+          points:[
+            "Set a budget for each campaign.",
+            "Ad spend syncs in automatically from connected accounts.",
+            "Upload other costs to complete the picture.",
+            "Always know cost per enquiry and cost per admission."],
+          outcome:"Finance and marketing share one trustworthy view of where the money goes." },
+        { n:"Smart Tracking Links", img:true,
+          crisp:"Share trackable links and QR codes that tie every click back to the campaign.",
+          intro:"Generate a smart link or QR code for any campaign and drop it into ads, emails, posters or WhatsApp. Every click is captured and attributed, so you know which placements really work.",
+          points:[
+            "Create trackable short links per campaign.",
+            "Generate QR codes for print and on-ground use.",
+            "Every click is captured and attributed.",
+            "See which links and placements drive enquiries."],
+          outcome:"Even offline and print placements become measurable." },
+        { n:"UTM Mapping", img:true,
+          crisp:"Map campaigns to UTM sets so attribution just works.",
+          intro:"Link each campaign to its UTM parameters once, and every lead that arrives with those tags is attributed automatically, with no manual tagging by your team.",
+          points:[
+            "Map UTM sets to the right campaign.",
+            "Incoming leads attribute themselves automatically.",
+            "Catch unmapped UTMs before the data gets messy."],
+          outcome:"Clean, automatic source attribution across every campaign." },
+        { n:"Outreach Events & Calendar", img:true,
+          crisp:"Plan on-ground events and keep the whole team on one calendar.",
+          intro:"Organise fairs, open days, school visits and seminars against your admission season, track them on a shared calendar, and attach the documents each event needs.",
+          points:[
+            "Plan events across teams, institutes and seasons.",
+            "See everything on one outreach calendar.",
+            "Attach documents to each event.",
+            "Tie event enquiries back to the campaign."],
+          outcome:"Field outreach stays organised, and its enquiries stay attributed." },
+        { n:"Agent Campaigns", img:true,
+          crisp:"Run campaigns through partner agents and track what they deliver.",
+          intro:"Give partner agents their own campaigns and see the leads each one brings in, so external lead sourcing stays accountable.",
+          points:[
+            "Assign campaigns to partner agents.",
+            "Track the enquiries each agent delivers.",
+            "Keep agent-sourced leads clearly attributed."],
+          outcome:"Your partner channel is measurable, not a black box." },
+        { n:"Landing Pages", img:true,
+          crisp:"Build landing pages and attach them straight to a campaign.",
+          intro:"Create landing pages for your campaigns and connect them, so every visit and enquiry is captured against the right campaign.",
+          points:[
+            "Build landing pages for your campaigns.",
+            "Attach a page to its campaign in a click.",
+            "Capture enquiries directly against the campaign."],
+          outcome:"Campaign traffic converts and attributes cleanly, with no loose ends." },
+        { n:"Campaign Lead Rules", img:true,
+          crisp:"Set rules that tag and route the leads a campaign brings in.",
+          intro:"Define rules for each campaign so incoming enquiries are automatically classified and sent down the right path, with bulk upload when you are configuring many at once.",
+          points:[
+            "Qualify and tag leads from a campaign automatically.",
+            "Route enquiries to the right funnel or team.",
+            "Bulk-upload rules when setting up at scale."],
+          outcome:"Every campaign lead is handled correctly from the first second." },
+        { n:"Campaign Creation & Management", img:true,
+          crisp:"Build and manage every campaign from one place.",
+          intro:"Create a campaign with its name, description, channel, dates and budget, tie it to an admission season, and manage it through its whole life, all from one screen.",
+          points:[
+            "Create, edit and retire campaigns easily.",
+            "Set channel, dates, budget and season.",
+            "Everything about a campaign on one record."],
+          outcome:"Launching and managing a campaign takes minutes, not a spreadsheet." },
+        { n:"Channels", img:true,
+          crisp:"Organise campaigns by the channels you run.",
+          intro:"Group your campaigns under clean, consistent channels, so performance is comparable across everything you do.",
+          points:[
+            "Define the channels your institute uses.",
+            "Group campaigns under the right channel.",
+            "Compare performance across channels."],
+          outcome:"Cross-channel comparison is apples to apples." }
+      ] },
+    { id:"marketing-automation",name:"Marketing Automation",
+      desc:"Design automated, multi-channel nurture journeys that run themselves, and prove what they achieve.",
+      features:[
+        { n:"Visual Journey Builder", img:true,
+          crisp:"Design automated nurture journeys on a drag-and-connect canvas, no code.",
+          intro:"Build the journey a prospect should experience, visually. Drop in steps to message, wait, branch or filter, connect them on a canvas, and the journey runs itself. What you draw is exactly what your prospects get.",
+          points:[
+            "Build flows from message, wait, branch and filter steps.",
+            "Connect steps visually on a canvas.",
+            "See the whole journey at a glance.",
+            "No developer or scripting needed."],
+          outcome:"Your team designs sophisticated nurture flows in an afternoon, not a sprint." },
+        { n:"Multi-Channel Messaging", img:true,
+          crisp:"Reach prospects on the channel they actually respond to.",
+          intro:"Send from within a journey across the channels your prospects use, WhatsApp, email and SMS, so every message lands where it will be seen.",
+          points:[
+            "Message over WhatsApp, email and SMS from one journey.",
+            "Pick the right channel for each step.",
+            "Keep the conversation consistent across channels."],
+          outcome:"Higher open and response rates, because you meet prospects where they are." },
+        { n:"Trigger-Based Enrollment", img:true,
+          crisp:"Journeys start themselves the moment a prospect qualifies.",
+          intro:"Set what kicks off a journey, a new enquiry arriving or a key field changing, and prospects are enrolled automatically. Nobody has to remember to start the nurture.",
+          points:[
+            "Trigger on a new lead or a field update.",
+            "Prospects enrol into the journey automatically.",
+            "The right nurture starts the instant it should."],
+          outcome:"Every qualifying prospect gets nurtured, with zero manual effort." },
+        { n:"Smart Waits", img:true,
+          crisp:"Pause a journey until the right time, or until the prospect acts.",
+          intro:"Add waits that feel human. Hold for a set delay, from 30 minutes to a week, or wait until a message is actually delivered or read before the next step fires.",
+          points:[
+            "Time delays from 30 minutes to a week, or a custom gap.",
+            "Wait until a message is delivered or read.",
+            "Steps fire on the prospect's behaviour, not a rigid clock."],
+          outcome:"Follow-ups arrive at the natural moment, never too soon or too late." },
+        { n:"Branching & Conditions", img:true,
+          crisp:"Send the right message to the right prospect, automatically.",
+          intro:"Split and filter a journey on any lead attribute, so prospects take different paths based on who they are and what they have done.",
+          points:[
+            "Branch journeys with split steps.",
+            "Filter on lead attributes (equals, contains, before/after and more).",
+            "Give each prospect a path that fits them."],
+          outcome:"One journey handles many prospect types, each getting a relevant experience." },
+        { n:"Message Personalization", img:true,
+          crisp:"Every message reads like it was written for that one prospect.",
+          intro:"Drop lead details into your messages, name, course of interest, stage and more, so automated outreach still feels personal.",
+          points:[
+            "Insert lead attributes as tokens in any message.",
+            "Personalise by course, stage or activity.",
+            "Automation that never feels like a blast."],
+          outcome:"Prospects get messages that feel one-to-one, at scale." },
+        { n:"Journey Analytics with Numbers", img:true,
+          crisp:"See exactly how each journey is performing, step by step.",
+          intro:"Every journey comes with the numbers: how many prospects entered, where they are, and how many completed, so you can see what is working and fix what is not.",
+          points:[
+            "Funnel view of each journey with counts at every step.",
+            "See how many prospects sit at each step right now.",
+            "Track entries, completions and exits.",
+            "A full event log behind every journey."],
+          outcome:"You optimise journeys on evidence, not hunches." },
+        { n:"Reusable Journey Templates", img:true,
+          crisp:"Save a journey once and reuse it across intakes and programmes.",
+          intro:"Turn a journey that works into a template, so your team can launch proven nurture flows again and again without rebuilding from scratch.",
+          points:[
+            "Save any journey as a reusable template.",
+            "Launch new journeys from a template in minutes.",
+            "Keep nurture consistent across programmes and seasons."],
+          outcome:"Your best-performing journeys become repeatable, not one-offs." },
+        { n:"Per-Lead Journey View", img:true,
+          crisp:"See the exact path any prospect has taken through a journey.",
+          intro:"Open any prospect and see every step they have been through, what was sent, what they did, and where they are now.",
+          points:[
+            "View a prospect's full journey history.",
+            "See what was sent and how they responded.",
+            "Know exactly where each prospect stands."],
+          outcome:"Counsellors always have the full automation context before they reach out." },
+        { n:"Enrollment Tracking", img:true,
+          crisp:"Know who is in which journey, and where.",
+          intro:"Track every prospect enrolled in a journey and their status, active, completed, exited or failed, across all your automations.",
+          points:[
+            "See all prospects enrolled in a journey.",
+            "Track active, completed and exited prospects.",
+            "Spot journeys that are stalling."],
+          outcome:"You always know the live state of every nurture programme." },
+        { n:"Draft, Publish & Versioning", img:true,
+          crisp:"Build and refine safely, publish when ready.",
+          intro:"Work on a journey in draft, publish it live when it is ready, and archive old versions, so you can iterate without disrupting prospects mid-flow.",
+          points:[
+            "Edit journeys in draft before going live.",
+            "Publish when ready, archive when done.",
+            "Versioned, so changes are safe and traceable."],
+          outcome:"Teams improve journeys confidently, without breaking what is running." }
+      ] },
+    { id:"sales-management",    name:"Sales Management",
+      desc:"The counsellor's cockpit, an AI-assisted queue, live performance, call tracking and clean allocation, so every enquiry gets worked.",
+      features:[
+        { n:"AI-Assisted Follow-up & Battle Card", img:true,
+          crisp:"Every counsellor gets AI-prepared next steps and a ready call brief.",
+          intro:"Before a counsellor picks up a prospect, the AI has already prepared the ground. It suggests the next step and hands over a battle card, the follow-up notes plus a summary of earlier calls, so the conversation starts warm and informed.",
+          points:[
+            "AI suggests the next best step for each prospect.",
+            "A battle-card brief with follow-up notes and prior-call summary.",
+            "Next steps and any concerns raised are highlighted.",
+            "Counsellors never open a conversation cold."],
+          outcome:"Counsellors spend their energy talking to students, not preparing to." },
+        { n:"Counsellor Performance Dashboard", img:true,
+          crisp:"See how every counsellor, and the whole team, is performing, live.",
+          intro:"A dashboard for counsellors and their managers. Each counsellor sees their own numbers, and admins get a team-wide view to compare counsellors and spot who needs support.",
+          points:[
+            "Individual dashboard for each counsellor.",
+            "Team-wide admin view to compare counsellors.",
+            "Filter by counsellor, season and more.",
+            "Performance visible at a glance, with no reports to pull."],
+          outcome:"Managers coach on evidence, and counsellors always know where they stand." },
+        { n:"My Queue", img:true,
+          crisp:"Each counsellor's prioritised list of who to work next.",
+          intro:"My Queue tells every counsellor exactly who to contact next and why, ordered by priority, so the most important prospects never wait.",
+          points:[
+            "A prioritised daily follow-up list per counsellor.",
+            "The hottest and most overdue prospects surface first.",
+            "Nothing gets lost during a busy intake."],
+          outcome:"Counsellors work the right prospects in the right order, every day." },
+        { n:"Call Tracking & Quality", img:true,
+          crisp:"Track every call, and score its quality for coaching.",
+          intro:"See inbound and outbound call activity for every counsellor in a call table, and use call scores to understand quality, not just volume, so coaching is based on what actually happened on the call.",
+          points:[
+            "Inbound and outbound call counts per counsellor.",
+            "A counsellor call table with the detail.",
+            "Call-quality scores to guide coaching.",
+            "Accountability without listening to every recording."],
+          outcome:"Managers lift call quality across the team, not just call counts." },
+        { n:"Sales Productivity Reports", img:true,
+          crisp:"Measure what each counsellor actually gets done.",
+          intro:"Productivity reports show the activity and output of each counsellor, so you can see effort and results side by side.",
+          points:[
+            "Per-counsellor productivity metrics.",
+            "Activity and output in one place.",
+            "Compare across the team and over time."],
+          outcome:"You see who is delivering and who needs help, clearly." },
+        { n:"Lead Engagement Reports", img:true,
+          crisp:"See how engaged each counsellor's prospects really are.",
+          intro:"Engagement reports show how much real interaction counsellors are driving with their prospects, so effort turns into engaged, moving leads.",
+          points:[
+            "Engagement levels across a counsellor's prospects.",
+            "Spot leads going quiet before they are lost.",
+            "Tie counsellor effort to prospect engagement."],
+          outcome:"Engagement, not just activity, becomes visible and manageable." },
+        { n:"Lead Allocation & Bulk Assignment", img:true,
+          crisp:"Distribute leads to counsellors by round-robin, programme or your own rules.",
+          intro:"Decide how enquiries are shared across your counselling team. Allocate automatically by round-robin, weight it by each counsellor's current workload, route by programme, or build custom rules on any lead field, and assign in bulk whenever you need to.",
+          points:[
+            "Round-robin for even, automatic distribution.",
+            "Load-balanced round-robin that respects each counsellor's current workload.",
+            "Programme-wise routing.",
+            "Custom rules based on any lead field.",
+            "Bulk-assign via CSV upload, with an error report."],
+          outcome:"Every enquiry reaches the right counsellor by the logic your team trusts." },
+        { n:"Counsellor Management", img:true,
+          crisp:"Add, organise and manage your counselling team.",
+          intro:"Set up your counsellors, invite them by email, keep their profiles and key details current, and deactivate access when someone leaves.",
+          points:[
+            "Create counsellors or invite them by email.",
+            "Maintain counsellor profiles and key details.",
+            "Deactivate access instantly when the team changes."],
+          outcome:"Your counselling team stays organised and access stays controlled." }
+      ] },
+    { id:"ai-nurturing",        name:"AI Lead Nurturing",
+      desc:"Sia, your AI agent, engages every prospect across channels, in any language, 24/7, on a controlled flow you stay in charge of.",
+      features:[
+        { n:"Controlled AI Flow, Not Random", img:true,
+          crisp:"Sia follows a controlled, guided flow you define, never a random chatbot.",
+          intro:"The biggest risk with AI is unpredictability. Sia does not improvise, she works within a controlled conversation flow you set, so every prospect gets an on-brand, on-message experience you can trust, with guardrails on who she contacts and what she says.",
+          points:[
+            "Conversations follow a guided flow, not open-ended generation.",
+            "Guardrails control who Sia contacts and how.",
+            "On-brand, compliant messaging every time.",
+            "Predictable behaviour you can put in front of prospects."],
+          outcome:"You get AI at scale without the risk of an AI going off-script." },
+        { n:"Multi-Channel Engagement", img:true,
+          crisp:"Sia engages prospects on WhatsApp, email and SMS.",
+          intro:"Reach prospects where they actually are. Sia converses across WhatsApp, email and SMS, and keeps the thread consistent across them.",
+          points:[
+            "WhatsApp, email and SMS conversations.",
+            "One continuous conversation across channels.",
+            "The right channel for each prospect and moment."],
+          outcome:"Prospects hear from you on the channel they actually respond to." },
+        { n:"AI Calling", img:true,
+          crisp:"Sia can call prospects, not just message them.",
+          intro:"Beyond text, Sia reaches out by voice, calling prospects to follow up and re-engage, so no channel is left to chance.",
+          points:[
+            "AI-driven calls to prospects.",
+            "Follow up and re-engage by voice.",
+            "Calls captured alongside every other interaction."],
+          outcome:"Voice outreach happens at scale, without tying up your counsellors." },
+        { n:"24/7 Always-On Engagement", img:true,
+          crisp:"Sia works around the clock, including nights, weekends and peak season.",
+          intro:"Enquiries arrive at all hours. Sia responds and follows up 24/7, so prospects never wait for office hours and no enquiry cools off overnight.",
+          points:[
+            "Responds and follows up at any time of day.",
+            "Covers nights, weekends and peak intake.",
+            "No enquiry waits for a counsellor to clock in."],
+          outcome:"Every prospect gets a timely response, always." },
+        { n:"Multilingual Conversations", img:true,
+          crisp:"Sia converses with prospects in their own language.",
+          intro:"Speak to every prospect in the language they are comfortable with, so language is never a barrier to engagement.",
+          points:[
+            "Converse in multiple languages.",
+            "Meet prospects in their preferred language.",
+            "Wider reach across regions."],
+          outcome:"Language stops being a barrier to enrolment." },
+        { n:"Contextual & Personalized Messaging", img:true,
+          crisp:"Every message reflects the prospect's programme, stage and history.",
+          intro:"Sia pulls live context, the prospect's programme of interest, funnel stage and prior interactions, so each message is relevant and personal, not generic.",
+          points:[
+            "Live context from the prospect's record.",
+            "Aware of programme, stage and prior interactions.",
+            "Personalised to each prospect."],
+          outcome:"Prospects get conversations that feel one-to-one." },
+        { n:"Knowledge-Grounded Answers", img:true,
+          crisp:"Sia answers questions from your own FAQ and programme knowledge.",
+          intro:"Sia responds to prospect questions using your institute's FAQ and programme information, so answers are accurate and on-message, not made up.",
+          points:[
+            "Answers from your FAQ and programme knowledge.",
+            "Accurate, institute-specific responses.",
+            "No guessing, no misinformation."],
+          outcome:"Prospects get correct answers instantly, at any hour." },
+        { n:"Key Selling Points (KSP)", img:true,
+          crisp:"Sia pitches using the selling points you give her.",
+          intro:"Feed Sia your programmes' key selling points and she weaves them into conversations, so every prospect hears why your institute is the right choice.",
+          points:[
+            "Configure selling points per programme.",
+            "Sia works them into conversations naturally.",
+            "Consistent, persuasive messaging."],
+          outcome:"Your strongest arguments reach every prospect, every time." },
+        { n:"Human-in-the-Loop Control", img:true,
+          crisp:"Review, approve, edit or take over any AI action.",
+          intro:"You stay in charge. See what Sia plans to send, approve or edit it, reschedule it, or step in and take over the conversation whenever you choose.",
+          points:[
+            "Review and approve messages before they send.",
+            "Edit or reschedule any planned action.",
+            "Intervene and take over a conversation any time."],
+          outcome:"AI does the work, but your team is always in control." },
+        { n:"Scheduled & Chained Follow-ups", img:true,
+          crisp:"Sia plans the next best message, at the right time.",
+          intro:"Sia schedules follow-ups based on how a prospect responds, chaining one step to the next, so nurturing continues in a natural rhythm without manual effort.",
+          points:[
+            "Next-best message scheduled automatically.",
+            "Steps chained based on prospect behaviour.",
+            "A natural follow-up rhythm, hands-free."],
+          outcome:"Follow-up never stops, and never feels robotic." },
+        { n:"Auto WhatsApp Template Requests", img:true,
+          crisp:"When Sia needs a new WhatsApp template, she requests one automatically.",
+          intro:"WhatsApp requires approved templates. When Sia needs a message type she does not have, she raises a request for a new WhatsApp template, so outreach is never blocked for long.",
+          points:[
+            "Sia flags when a new WhatsApp template is needed.",
+            "Requests are raised automatically.",
+            "Outreach keeps moving within WhatsApp's rules."],
+          outcome:"WhatsApp compliance never becomes a bottleneck." },
+        { n:"Auto CRM Updates", img:true,
+          crisp:"Sia keeps lead records current as she learns.",
+          intro:"As Sia converses, she updates lead fields automatically, so your CRM stays accurate without anyone typing.",
+          points:[
+            "Lead fields updated from conversations.",
+            "CRM stays clean and current.",
+            "Counsellors inherit accurate records."],
+          outcome:"Your data updates itself as prospects engage." },
+        { n:"AI Handover to Counsellor", img:true,
+          crisp:"High-intent prospects are handed to a counsellor with full context.",
+          intro:"When a prospect is ready for a human, Sia flags them and hands over with a brief, so the counsellor picks up warm.",
+          points:[
+            "High-intent leads flagged for follow-up.",
+            "Handover brief with conversation context.",
+            "Counsellors pick up exactly where Sia left off."],
+          outcome:"The human touch arrives at exactly the right moment." },
+        { n:"Live Monitoring & Metrics", img:true,
+          crisp:"See what Sia is doing, live, and what she is achieving.",
+          intro:"Watch Sia's active conversations and track her impact, leads created, engaged, messages sent and fields updated, all in one place.",
+          points:[
+            "Monitor active AI conversations live.",
+            "Track leads created, engaged and messaged.",
+            "See Sia's impact at a glance."],
+          outcome:"You always know what your AI agent is doing and delivering." }
+      ] },
+    { id:"ai-analytics",        name:"AI Analytics & Insights",
+      desc:"Every source of data, combined, and open to a simple question. Ask anything, uncover insights you would miss, and build dashboards your teams can share.",
+      features:[
+        { n:"Ask-Your-Data Intelligence", img:true,
+          crisp:"Ask questions in plain language and get answers from all your data, instantly.",
+          intro:"The Query Dashboard turns analytics into a conversation. Ask anything about your admissions in plain language, even @mention a specific lead, opportunity or counsellor, and get an instant, data-backed answer, with no report to build and no analyst to wait for.",
+          points:[
+            "Ask in natural language, get an instant answer.",
+            "@mention a specific lead, opportunity or counsellor in your question.",
+            "Answers drawn live from your combined data.",
+            "Rate answers to make them sharper over time."],
+          outcome:"Anyone on your team gets answers in seconds, not a report request stuck in a queue." },
+        { n:"Unified Insights from Every Source", img:true,
+          crisp:"Lead, spend, call and activity data combined into one powerful view.",
+          intro:"The real power is in the fusion. KOS Insights brings your leads, opportunities, ad spend, calls and activity into a single model, so you can see the connections, and the insights, that live between systems and normally get missed.",
+          points:[
+            "One model across leads, opportunities, spend, calls and counsellors.",
+            "Slice by campaign, channel, season, stage, programme, counsellor and more.",
+            "Measure conversion, cost-per-admission, funnel velocity and call performance together.",
+            "Live funnels, marketing performance, spend and lead aging out of the box."],
+          outcome:"You see the whole picture, from spend to enrolment, in one place." },
+        { n:"Dashboards, Prebuilt and Custom", img:true,
+          crisp:"A live command-centre out of the box, plus dashboards you build and share.",
+          intro:"Start on day one with a ready-made command-centre dashboard, funnels, marketing performance, spend and conversion in one live view. Then build your own dashboards from any metric, save personal and team views, and share them across roles.",
+          points:[
+            "Prebuilt command-centre dashboard, live from day one.",
+            "Build custom dashboards from any metric and dimension.",
+            "Save personal and team views, with sensible defaults.",
+            "Share dashboards across roles and teams."],
+          outcome:"Every team gets the view it needs, prebuilt or their own, from one set of numbers." },
+        { n:"Report Builder & Exports", img:true,
+          crisp:"Pull ad-hoc, exportable reports from your combined data, no analyst required.",
+          intro:"Where dashboards are for monitoring, the report builder is for pulling exact numbers. Pick what to measure, leads, opportunities, spend, calls or counsellors, slice it by campaign, channel, season, stage, programme or counsellor, and export the table for leadership or finance.",
+          points:[
+            "Measures across leads, opportunities, spend, calls and counsellors.",
+            "Slice by campaign, channel, season, stage, programme, counsellor and date.",
+            "Automatic ratios: conversion, cost-per-admission and more.",
+            "Export the report for leadership and finance."],
+          outcome:"Any data pull becomes a ready report in seconds, without a data team." },
+        { n:"Funnel & Conversion Analytics", img:true,
+          crisp:"See how prospects convert, and where they stall.",
+          intro:"Track lead and opportunity funnels stage by stage, with conversion rates, funnel velocity and rate trends, so you can see not just where prospects are, but how fast they are moving.",
+          points:[
+            "Lead and opportunity funnels, stage by stage.",
+            "Conversion rates at every step.",
+            "Funnel velocity and rate trends over time.",
+            "Spot bottlenecks before they cost admissions."],
+          outcome:"You fix the leaks in your funnel while there is still time." },
+        { n:"Marketing & Spend Analytics", img:true,
+          crisp:"See what every rupee of marketing actually produces.",
+          intro:"Bring spend and results together, marketing performance by channel, cost per lead and per admission, and expenses by channel, so ROI is always in view.",
+          points:[
+            "Marketing performance by channel and campaign.",
+            "Cost per lead and cost per admission.",
+            "Expenses broken down by channel.",
+            "Spend and outcomes side by side."],
+          outcome:"You put budget where it genuinely drives enrolments." },
+        { n:"Call Intelligence (Elliot)", img:true,
+          crisp:"Turn counselling calls into searchable, scored insight.",
+          intro:"Elliot transcribes counselling calls, scores them against your rules and summarises what happened, so call quality becomes measurable data, not guesswork.",
+          points:[
+            "Automatic transcription of counselling calls.",
+            "Rule-based call scoring for quality.",
+            "Call summaries surfaced as insight.",
+            "Coach the team on what actually gets said."],
+          outcome:"Call quality becomes something you can see and improve." },
+        { n:"Lead Aging & Trend Insights", img:true,
+          crisp:"Catch cooling leads and slowing funnels early.",
+          intro:"Aging and trend views surface leads that have gone quiet and funnels that are slowing, so you can intervene before the season slips away.",
+          points:[
+            "See leads aging past healthy limits.",
+            "Track how key rates are trending over time.",
+            "Get early warning on slowing funnels."],
+          outcome:"Problems surface while you can still act on them." },
+        { n:"Real-Time, Always-Current Data", img:true,
+          crisp:"Every number is live, with no overnight refresh.",
+          intro:"Data flows in continuously, so dashboards and answers reflect what is happening right now, not yesterday's snapshot.",
+          points:[
+            "Continuously updated data across the platform.",
+            "Dashboards and answers reflect the live state.",
+            "No waiting for nightly report runs."],
+          outcome:"Decisions are based on what is true right now." },
+        { n:"Answer Feedback & Learning", img:true,
+          crisp:"Rate AI answers so they keep getting sharper.",
+          intro:"When you ask your data a question, you can rate the answer, so the system learns what good looks like for your institute over time.",
+          points:[
+            "Thumbs up or down on any AI answer.",
+            "Feedback tunes future answers.",
+            "The assistant improves with use."],
+          outcome:"Your data assistant gets smarter the more your team uses it." }
+      ] },
+    { id:"attribution",         name:"Marketing Attribution (Meta & Google Ads)",
+      desc:"Connect your ad platforms, sync spend automatically, and see the true cost of every lead and admission by channel.",
+      features:[
+        { n:"True Cost per Lead & Admission", img:true,
+          crisp:"Know what a lead, and an admission, actually costs you.",
+          intro:"Attribution is only useful if it reaches the bottom line. KOS Insights ties ad spend to real outcomes, so you see your true cost per lead and cost per admission, not just cost per click.",
+          points:[
+            "Cost per lead by campaign and channel.",
+            "Cost per admission, all the way down the funnel.",
+            "Spend measured against enrolments, not clicks.",
+            "Compare efficiency across channels and seasons."],
+          outcome:"You spend where it produces admissions, not just traffic." },
+        { n:"Channel & Campaign Performance", img:true,
+          crisp:"See which channels and campaigns actually bring in students.",
+          intro:"Compare every channel and campaign on the metrics that matter, spend, leads, conversion and cost, so you can double down on what works and cut what does not.",
+          points:[
+            "Performance by channel and by campaign.",
+            "Spend and results side by side.",
+            "Conversion and cost compared across sources.",
+            "Spot winners and wasted spend early."],
+          outcome:"Your marketing mix is decided by evidence, not gut feel." },
+        { n:"Automated Ad-Spend Sync", img:true,
+          crisp:"Ad spend flows in automatically, with no manual entry.",
+          intro:"KOS Insights pulls spend, impressions, clicks and conversions straight from your ad accounts on a schedule, so your cost numbers are always current and trustworthy.",
+          points:[
+            "Spend, impressions, clicks and conversions synced automatically.",
+            "Scheduled syncs keep numbers up to date.",
+            "Sync status and last-sync always visible.",
+            "No spreadsheets, no manual cost entry."],
+          outcome:"Your cost numbers reflect reality, without anyone updating them." },
+        { n:"Campaign-to-Ad Mapping (Digital Ad Hub)", img:true,
+          crisp:"Map each ad campaign to its funnel so every lead attributes correctly.",
+          intro:"In the Digital Ad Hub you link each Google or Meta ad campaign to its KOS campaign, so every lead and every rupee lands against the right source automatically.",
+          points:[
+            "Map Google and Meta ad campaigns to KOS campaigns.",
+            "Leads and spend attribute to the correct source.",
+            "Set it up once, and attribution stays correct.",
+            "One place to manage all your ad mappings."],
+          outcome:"Attribution is configured once and stays accurate from day one." },
+        { n:"First-Touch Source Trail", img:true,
+          crisp:"Every lead carries a complete record of where it came from.",
+          intro:"From the very first interaction, each lead keeps a full origin trail, the campaign, channel and source that brought them in, so attribution is never guesswork.",
+          points:[
+            "Origin captured from first touch.",
+            "Campaign, channel and source on every lead.",
+            "The trail travels with the lead through the funnel."],
+          outcome:"You can always trace an admission back to what created it." },
+        { n:"UTM Attribution", img:true,
+          crisp:"UTM tags captured and attributed automatically.",
+          intro:"Every lead that arrives with UTM parameters is attributed automatically, source, medium and campaign, with no manual tagging by your team.",
+          points:[
+            "Capture source, medium and campaign UTMs.",
+            "Attribute automatically on arrival.",
+            "Works across web forms and ad links."],
+          outcome:"Clean UTM attribution with zero manual effort." },
+        { n:"Google & Meta Ad Connectors", img:true,
+          crisp:"Connect your Google and Meta ad accounts in a few clicks.",
+          intro:"Link your ad accounts and import their campaigns, so KOS Insights can pull spend and attribute leads without any engineering.",
+          points:[
+            "Connect Google and Meta ad accounts.",
+            "Import ad campaigns automatically.",
+            "No engineering effort to set up."],
+          outcome:"Your ad platforms are wired in and ready to attribute, fast." }
+      ] },
+    { id:"partner-management",  name:"Agent & Partner Management",
+      desc:"Run your partner-agent network with full accountability, fair lead disputes, clean attribution and performance you can measure.",
+      features:[
+        { n:"Lead Ownership Disputes", img:true,
+          crisp:"Settle who owns a lead when two agents claim it, fairly and on record.",
+          intro:"When more than one agent claims the same prospect, KOS Insights turns it into a clear, evidence-backed dispute instead of an argument. Agents submit their claim with supporting documents, and your team resolves it with a full history of what happened.",
+          points:[
+            "Raise a dispute when agents claim the same lead.",
+            "Agents attach evidence documents to their claim.",
+            "Resolve with a clear status: accepted, rejected or undisputed.",
+            "Transfer the lead to the right agent, with full history kept."],
+          outcome:"Agent lead conflicts are settled fairly, with a record everyone can trust." },
+        { n:"Agent-Sourced Lead Tracking", img:true,
+          crisp:"See exactly what every agent delivers, with duplicates handled.",
+          intro:"Track the leads each partner agent brings in, and keep the data clean when the same prospect comes through more than one agent, so credit stays accurate.",
+          points:[
+            "See every lead an agent has delivered.",
+            "Non-primary and duplicate leads are flagged.",
+            "Credit stays accurate across agents.",
+            "No inflated numbers from repeated submissions."],
+          outcome:"You know the true contribution of every agent, not the padded one." },
+        { n:"Agent Performance & Cost Reports", img:true,
+          crisp:"Measure each agent on the leads they deliver and what they cost.",
+          intro:"Compare your partner agents on the leads they source, how well those leads convert, and what each agent costs, so you invest in the partners that actually deliver admissions.",
+          points:[
+            "Leads delivered per agent.",
+            "Conversion of each agent's leads, down to admission.",
+            "Cost and spend per agent.",
+            "Compare agents side by side."],
+          outcome:"You back the agents that produce admissions, and cut the ones that do not." },
+        { n:"Agent Campaigns", img:true,
+          crisp:"Give agents their own campaigns and track what each brings in.",
+          intro:"Run campaigns through your partner agents and attribute the leads each campaign delivers, so agent-sourced activity is as measurable as everything else.",
+          points:[
+            "Assign campaigns to partner agents.",
+            "Track leads delivered per agent campaign.",
+            "Keep agent activity attributed and accountable."],
+          outcome:"Your partner channel is measurable, not a black box." },
+        { n:"Agent Onboarding & Management", img:true,
+          crisp:"Onboard and manage your whole partner-agent network in one place.",
+          intro:"Add partner agents with their contact details, keep their records current, and deactivate access when a partnership ends, all from one place.",
+          points:[
+            "Add agents with contact and organisation details.",
+            "Edit and keep agent records current.",
+            "Activate or deactivate agents as partnerships change."],
+          outcome:"Your agent network stays organised as it grows." },
+        { n:"Contractual Documents", img:true,
+          crisp:"Keep every agent's agreements and paperwork on file.",
+          intro:"Store each agent's contracts and agreements against their record, so the paperwork behind every partnership is always to hand.",
+          points:[
+            "Upload agreements and contracts per agent.",
+            "Everything tied to the right agent record.",
+            "Retrieve partnership paperwork any time."],
+          outcome:"Agent agreements are organised and never lost." }
+      ] },
+    { id:"integrations",        name:"Integrations",
+      desc:"Connect the tools your institute already runs, and let leads, spend and conversations flow into one place automatically.",
+      features:[
+        { n:"One-Click Connectors", img:true,
+          crisp:"Connect the tools your institute already uses, no engineering needed.",
+          intro:"KOS Insights plugs into your existing stack out of the box. Connect Google and Meta ads, WhatsApp, SMS, email, telephony, your CRM and a website chatbot, so leads, spend and conversations flow into one place automatically.",
+          points:[
+            "Google Ads, Meta, WhatsApp, SMS, email, telephony, CRM and chatbot.",
+            "Guided setup with clear requirements for each connector.",
+            "Data flows in the moment you switch one on.",
+            "No developer effort to get connected."],
+          outcome:"Your whole stack feeds one system, without an integration project." },
+        { n:"Automatic Lead Ingestion", img:true,
+          crisp:"Leads flow in from every source the instant they arrive.",
+          intro:"Whether an enquiry comes from an ad form, your website, a chatbot or your CRM, it lands in KOS Insights in real time through webhooks and connectors, ready to work.",
+          points:[
+            "Real-time ingestion from ads, web, chatbot and CRM.",
+            "Every lead captured against its true source.",
+            "No manual export or import."],
+          outcome:"No enquiry is ever missed or delayed on its way in." },
+        { n:"Messaging Connectors", img:true,
+          crisp:"Send WhatsApp, SMS and email from one platform.",
+          intro:"Connect WhatsApp (Meta), SMS (Kaleyra) and email (Amazon SES) so your team and your AI agent can reach prospects on every text channel from inside KOS Insights.",
+          points:[
+            "WhatsApp Business, SMS and email connectors.",
+            "Used by both counsellors and the AI agent.",
+            "One consistent conversation across channels."],
+          outcome:"Every text channel your prospects use, in one place." },
+        { n:"Cloud Telephony", img:true,
+          crisp:"Call prospects and capture every call, through cloud telephony.",
+          intro:"Connect MCube cloud telephony so calls are placed and captured inside the platform, with call activity tied to each lead.",
+          points:[
+            "Click-to-call from a lead's record.",
+            "Inbound and outbound calls captured automatically.",
+            "Call activity tied to the right lead."],
+          outcome:"Calling is part of the record, not a separate silo." },
+        { n:"Website Chatbot", img:true,
+          crisp:"Turn website visitors into leads with a connected chatbot.",
+          intro:"Drop a chatbot onto your website to engage visitors, answer questions and capture them as leads, with conversations flowing straight into KOS Insights.",
+          points:[
+            "Embed a chatbot on your site with a simple script.",
+            "Engage and capture visitors as leads.",
+            "Conversations land against the lead record."],
+          outcome:"Your website starts converting visitors, around the clock." },
+        { n:"Ad & Analytics Connectors", img:true,
+          crisp:"Connect Google and Meta ads, and GA4 analytics.",
+          intro:"Link your ad platforms and web analytics so ad leads, spend and website behaviour all feed into KOS Insights and its attribution.",
+          points:[
+            "Google and Meta ad accounts and lead forms.",
+            "Ad spend and performance synced in.",
+            "GA4 web analytics connected."],
+          outcome:"Your advertising and web data join the same picture." },
+        { n:"CRM Sync (Meritto)", img:true,
+          crisp:"Sync leads and opportunities with Meritto CRM.",
+          intro:"Connect Meritto CRM to sync leads, fields and opportunities, so KOS Insights works alongside the CRM you already run.",
+          points:[
+            "Connect and test your Meritto CRM.",
+            "Map fields and sync leads and opportunities.",
+            "Webhook-driven, kept in step automatically."],
+          outcome:"KOS Insights fits into your existing CRM setup, not around it." },
+        { n:"Unified Communication Logs", img:true,
+          crisp:"Every message across every channel, in one log, with retry.",
+          intro:"All outbound and inbound messages, WhatsApp, SMS and email, land in a single communication log, and anything that fails to send can be retried in a click.",
+          points:[
+            "One log across all messaging connectors.",
+            "See delivery status for every message.",
+            "Retry failed sends without leaving the platform."],
+          outcome:"You never lose track of what was sent, or what failed." },
+        { n:"Secure Setup & Connection Health", img:true,
+          crisp:"Guided setup, encrypted credentials, and live connection status.",
+          intro:"Each connector has a guided setup with clear requirements, credentials are stored encrypted, and you can see the live health of every connection.",
+          points:[
+            "Step-by-step setup with per-connector requirements.",
+            "Credentials stored encrypted.",
+            "Live connection state so you catch issues early."],
+          outcome:"Integrations stay secure, and you know the moment one needs attention." }
+      ] },
+    { id:"user-role-management",name:"User & Role Management",
+      desc:"Give every user the right access, by role and by institute, with secure sign-in and clean onboarding.",
+      features:[
+        { n:"Role-Based Access", img:true,
+          crisp:"Give every user the right view for their job, by role.",
+          intro:"KOS Insights ships with roles for every part of your admissions operation, account admin, institute admin, counsellor, counsellor admin, agent, agent admin and outreach, so each user opens straight into the areas and data that fit their job.",
+          points:[
+            "Ready-made roles for admins, counsellors, agents and outreach teams.",
+            "Each role sees the areas relevant to their work.",
+            "Users start in the right place, without clutter.",
+            "Assign the right role in a couple of clicks."],
+          outcome:"Everyone works in a focused view built for their role." },
+        { n:"User Management", img:true,
+          crisp:"Add, invite and manage every user from one place.",
+          intro:"Invite team members by email, keep their details current, and activate or deactivate access instantly as your team changes.",
+          points:[
+            "Invite users by email.",
+            "Edit user details and roles.",
+            "Activate or deactivate access instantly.",
+            "See your full user list at a glance."],
+          outcome:"Onboarding and offboarding a team member takes seconds." },
+        { n:"Configurable Permissions", img:true,
+          crisp:"Control what each role can access, down to specific areas.",
+          intro:"Beyond the default roles, admins can configure what each role is allowed to reach, restricting areas and entities so sensitive data stays with the right people.",
+          points:[
+            "Set permissions per role.",
+            "Restrict access to specific areas or entities.",
+            "Apply restrictions in bulk.",
+            "Keep sensitive student data scoped appropriately."],
+          outcome:"Access matches responsibility, not a one-size-fits-all login." },
+        { n:"Multi-Role & Multi-Institute Access", img:true,
+          crisp:"One user, multiple roles and institutes, with a quick role switch.",
+          intro:"A single user can hold different roles across institutes and accounts, and switch the role they are operating in, so people who wear multiple hats do not need multiple logins.",
+          points:[
+            "Assign multiple roles and institutes to one user.",
+            "Switch the active role in a click.",
+            "Access scoped per institute and account.",
+            "No duplicate accounts for multi-role staff."],
+          outcome:"People who work across roles or institutes stay on one login." },
+        { n:"Secure Login & SSO", img:true,
+          crisp:"Secure sign-in with password reset and Microsoft SSO.",
+          intro:"Users sign in securely, reset forgotten passwords themselves, and organisations can enable Microsoft single sign-on for one-click, centrally managed access.",
+          points:[
+            "Secure login with self-service password reset.",
+            "Microsoft single sign-on (SSO).",
+            "Session management built in."],
+          outcome:"Access is secure and easy, whether by password or SSO." },
+        { n:"Institute & Account Management", img:true,
+          crisp:"Manage your institutes and accounts, with users scoped to each.",
+          intro:"Set up and manage the institutes under your account, including aliases and FAQs, and scope users to the institutes they belong to, ideal for groups running multiple institutes.",
+          points:[
+            "Manage institutes under one account.",
+            "Configure institute aliases and FAQs.",
+            "Scope users to their institutes.",
+            "Run multiple institutes from one platform."],
+          outcome:"Multi-institute groups stay organised under one roof." }
+      ] }
+  ];
+
+  // build left nav
+  var side = document.getElementById("side");
+  var navHtml = '<ul><li><a data-id="" onclick="go(\'\')">Overview</a></li></ul>' +
+                '<div class="grp">Lifecycles</div><ul>';
+  Object.keys(FLOWS).forEach(function(k){
+    navHtml += '<li><a data-id="" onclick="goFlow(\''+k+'\')">'+FLOWS[k].name+'</a></li>';
+  });
+  navHtml += '</ul><div class="grp">Plans</div><ul>' +
+             '<li><a data-id="decoupling" onclick="go(\'decoupling\')">Decoupling from Meritto</a></li>' +
+             '</ul><div class="grp">Modules</div><ul>';
+  MODULES.forEach(function(m){
+    navHtml += '<li><a data-id="'+m.id+'" onclick="go(\''+m.id+'\')">'+m.name+'</a></li>';
+  });
+  navHtml += '</ul>';
+  side.innerHTML = navHtml;
+
+  function slugify(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""); }
+  function imgph(key){
+    return '<div class="imgph"><div><div class="ico">&#128444;</div>' +
+           '<div class="key">&lt;!-- IMG: '+key+' --&gt;</div></div></div>';
+  }
+
+  function renderModule(m){
+    var h = "<h1>"+m.name+"</h1><p class='lead'>"+m.desc+"</p>";
+    h += imgph(m.id);
+    if(m.features && m.features.length){
+      h += "<div class='sec-label'>Features</div><div class='facc-list'>";
+      m.features.forEach(function(f){
+        var body = "";
+        if(f.img)   body += imgph(m.id+"-"+slugify(f.n));
+        if(f.intro) body += "<p>"+f.intro+"</p>";
+        if(f.points && f.points.length){
+          body += "<h3>Key capabilities</h3><ul>";
+          f.points.forEach(function(pt){ body += "<li>"+pt+"</li>"; });
+          body += "</ul>";
+        }
+        if(f.outcome) body += "<div class='callout'><strong>Why it matters:</strong> "+f.outcome+"</div>";
+        h += "<div class='facc'>" +
+               "<button class='facc-head' onclick='toggleFacc(this)'>" +
+                 "<span class='facc-t'><span class='facc-n'>"+f.n+"</span>" +
+                 "<span class='facc-o'>"+f.crisp+"</span></span>" +
+                 "<span class='facc-c'>&rsaquo;</span>" +
+               "</button>" +
+               "<div class='facc-b'>"+body+"</div>" +
+             "</div>";
+      });
+      h += "</div>";
+    } else {
+      h += "<p class='muted-note'>Detailed documentation for this section is in progress.</p>";
+    }
+    return h;
+  }
+
+  function toggleFacc(btn){ btn.parentNode.classList.toggle("open"); }
+
+  function go(id){ location.hash = id ? id : ""; render(); }
+
+  // The lifecycles live on the Overview; jump to the one asked for rather than to a page of its own.
+  function goFlow(key){
+    if(location.hash.replace("#","") !== ""){ location.hash = ""; render(); }
+    var el = document.getElementById(key);
+    if(el){ el.scrollIntoView({behavior:"smooth", block:"start"}); }
+  }
+
+  function render(){
+    var id = location.hash.replace("#","");
+    var m = MODULES.filter(function(x){ return x.id===id; })[0];
+    var page = PAGES[id];
+    var crumbs, body;
+    if(m){
+      crumbs = "<a onclick=\"go('')\">Documentation</a><span class='sep'>&rsaquo;</span>" + m.name;
+      body = renderModule(m);
+    } else if(page){
+      crumbs = "<a onclick=\"go('')\">Documentation</a><span class='sep'>&rsaquo;</span>" + page.name;
+      body = page.body();
+    } else {
+      crumbs = "Documentation";
+      body = OVERVIEW.body();
+    }
+    document.getElementById("article").innerHTML =
+      "<div class='crumbs'>"+crumbs+"</div><article>"+body+"</article>" +
+      "<div class='article-foot'>© 2026 KOS Insights · Product Documentation · Internal &amp; sales enablement use</div>";
+    // active nav state
+    document.querySelectorAll("nav.side a").forEach(function(a){
+      a.classList.toggle("active", a.getAttribute("data-id") === id);
+    });
+    window.scrollTo(0,0);
+  }
+
+  window.addEventListener("hashchange", render);
+  render();
+</script>
+</body>
+</html>
